@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
+import Dash from '../views/Dash'
 
 
 Vue.use(VueRouter)
@@ -16,7 +17,26 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    component: Home
+    component: Home,
+    children:[
+      {
+        path: "",
+        name: "home",
+        component: Dash,
+        meta: {
+          auth: true
+        }
+      },
+      {
+        path:"mydata",
+        name:"maydata",
+        component: () => import('../views/Mydata.vue'),
+        meta: {
+          auth: true
+        }
+      }
+
+    ]
   },
   {
     path: '/about',
