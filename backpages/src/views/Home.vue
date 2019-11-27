@@ -40,12 +40,12 @@
                   </el-submenu>
                 <el-menu-item index="driver">司机管理</el-menu-item>            
               </el-submenu>
-              <el-submenu index="content">
+              <el-submenu index="contents">
                 <template slot="title">
                   <i class="el-icon-s-order"></i>
                   <span>内容管理</span>
                 </template>
-                <el-menu-item index="content">汽车品牌</el-menu-item>  
+                <el-menu-item class="suojin" index="contents">汽车品牌</el-menu-item>  
                   <el-submenu index="5-2">
                   <template slot="title">门店管理</template>
                   <el-menu-item index="door">4s店管理</el-menu-item>
@@ -166,6 +166,10 @@ export default {
     text-align: center;
     line-height: 60px;
   }
+}
+
+.suojin{
+  text-indent: 25px;
 }
 
 

@@ -58,9 +58,9 @@ const routes = [
         }
       },
       {
-        path: '/content',   // 内容管理  汽车品牌
-        name: 'content',
-        component: () => import('../views/Content.vue'),
+        path: '/contents',   // 内容管理  汽车品牌
+        name: 'contents',
+        component: () => import('../views/Contents.vue'),
         meta: {
           auth: true
         }
