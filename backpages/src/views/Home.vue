@@ -13,7 +13,8 @@
           <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" 
               @close="handleClose" background-color="#545c64" text-color="#fff"
               active-text-color="#ffd04b" router>
-              <el-menu-item index="home" >
+              <!-- <el-menu-item index="home" @click='changA' v-model="isactive" :class="{'is-active':isactive=='about'}"> -->
+              <el-menu-item index="home">
                 <i class="el-icon-menu"></i>
                 <span slot="title">主页</span>
               </el-menu-item>
@@ -113,8 +114,14 @@ export default {
   name: 'home',
   data(){
     return {
-      url:''
+      url:'',
+      // isactive:'home'
     }
+  },
+  watch:{
+    // isactive:function(newValue){
+    //   console.log('改变：'+newValue);
+    // }
   },
   components: {
   },
@@ -124,7 +131,14 @@ export default {
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath);
-    }
+    },
+    // changA(){
+    //   this.isactive = this.$route.name;
+    // }
+  },
+  created(){
+    // this.isactive = this.$route.name;
+    // console.log(this.isactive );
   }
 }
 </script>
