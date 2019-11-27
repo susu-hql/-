@@ -9,10 +9,7 @@
       <el-container>
         <!-- 中左，侧导航 -->
         <el-aside width="200px">
-            <!-- <li><router-link to="/home">主页</router-link></li>
-            <li><router-link to="/banner">Banner管理</router-link></li>
-            <li><router-link to="/home">新增</router-link></li> -->
-          
+           
           <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" 
               @close="handleClose" background-color="#545c64" text-color="#fff"
               active-text-color="#ffd04b" router>
@@ -28,7 +25,7 @@
                 <i class="el-icon-s-claim"></i>
                 <span slot="title">订单管理</span>
               </el-menu-item>
-              <el-submenu index="client">
+              <el-submenu index="">
                 <template slot="title">
                   <i class="el-icon-user-solid"></i>
                   <span>客户管理</span>
@@ -114,6 +111,11 @@
 
 export default {
   name: 'home',
+  data(){
+    return {
+      url:''
+    }
+  },
   components: {
   },
   methods: {
@@ -153,9 +155,13 @@ export default {
       overflow-y: scroll;
       margin-right: -17px;
 
-      .erji{
-        background: white;
+     
+      .el-menu-item.is-active {
+          color: #409EFF!important;
+          font-size: 20px;
+          transition: .1s all linear;
       }
+
     }
 
 
