@@ -3,13 +3,13 @@
     <div class="nav">
         <p>登录</p>
     </div>
+    <p>Welcome</p>
     <form class="login-form">
       <div class="form-group">
         <input type="text" placeholder="请输入手机号" v-model="username">
       </div>
       <div class="form-group">
-        <input type="text" placeholder="请输入验证码" v-model="userpass">
-        <button type="button" class="huoqu">获取验证码</button>
+        <input type="text" placeholder="请输入密码" v-model="userpass">
       </div>
       <div class="form-group">
         <input type="button" value="登录" @click="getLogin">
@@ -66,6 +66,11 @@ export default {
   *{
     margin: 0;
     padding: 0;
+    text-align: center
+  }
+  body{
+    background-image: linear-gradient(to bottom right,lightblue , skyblue);
+    height: 1334px;
   }
   .huoqu{
     position: absolute;
@@ -77,29 +82,31 @@ export default {
     border-radius: 9px
   }
   .login-form {
-    margin-top: 200px;
+    margin-top: 100px;
 
     .form-group {
-      margin-bottom: 40px;
+      margin-bottom: 60px;
       position: relative;
 
       input[type=text]{
         padding: 5px 3px;
         width: 500px;
         height: 40px;
-        border-radius: 9px;
+        border-radius:30px;
         box-shadow: none;
         border: 1px solid black;
         outline: none;
         color: black;
         font-size: 14px;
+        text-align: left;
+        text-indent: 40px
       }
 
       input[type=button] {
         padding: 5px 3px;
         width: 500px;
         height: 50px;
-        border-radius: 9px;
+        border-radius: 30px;
         background: white;
         box-shadow: none;
         color: black;
