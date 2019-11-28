@@ -10,11 +10,11 @@
         <!-- 中左，侧导航 -->
         <el-aside width="200px">
            
-          <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" 
+          <el-menu :default-active="currentUrl" class="el-menu-vertical-demo" @open="handleOpen" 
               @close="handleClose" background-color="#545c64" text-color="#fff"
-              active-text-color="#ffd04b" router>
+              active-text-color="#ffd04b" router >
               <!-- <el-menu-item index="home" @click='changA' v-model="isactive" :class="{'is-active':isactive=='about'}"> -->
-              <el-menu-item index="home">
+              <el-menu-item index="home" >
                 <i class="el-icon-menu"></i>
                 <span slot="title">主页</span>
               </el-menu-item>
@@ -26,7 +26,7 @@
                 <i class="el-icon-s-claim"></i>
                 <span slot="title">订单管理</span>
               </el-menu-item>
-              <el-submenu index="">
+              <el-submenu index="5">
                 <template slot="title">
                   <i class="el-icon-user-solid"></i>
                   <span>客户管理</span>
@@ -92,10 +92,12 @@
 
         <!-- 中右 -->
         <el-main>   
-          <!-- 允许哪些可以被缓存  -->
-          <keep-alive include="">
-            <router-view></router-view>
-          </keep-alive>
+          <div class="main-content">
+            <!-- 允许哪些可以被缓存  -->
+            <keep-alive include="">
+              <router-view></router-view>
+            </keep-alive>
+          </div>
         </el-main>
       </el-container>
 
@@ -115,7 +117,7 @@ export default {
   data(){
     return {
       url:'',
-      // isactive:'home'
+      currentUrl:''
     }
   },
   watch:{
@@ -131,14 +133,13 @@ export default {
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath);
-    },
-    // changA(){
-    //   this.isactive = this.$route.name;
-    // }
+    }
   },
   created(){
-    // this.isactive = this.$route.name;
-    // console.log(this.isactive );
+    this.currentUrl = this.$route.name;
+    if(this.currentUrl == 'about'){
+      this.currentUrl = 'home'
+    }
   }
 }
 </script>
@@ -160,8 +161,8 @@ export default {
   .el-aside {
     background-color: @themSecColor;
     text-align: center;
-    height: 86vh;
     overflow: hidden;
+    height: 86vh;
 
     .el-menu{
       height: 100%; 
@@ -185,6 +186,16 @@ export default {
     color: black;
     text-align: center;
     line-height: 60px;
+    height: 86vh;
+    overflow: hidden;
+
+    .main-content{
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      margin-right: -17px;
+
+    }
   }
 }
 
