@@ -146,8 +146,7 @@ export default {
 
 <style lang="less" scoped>
 @import '../assets/style/base.less';
-.home{
-}
+
 .home-box{
   width: 100%;
   color: white;
