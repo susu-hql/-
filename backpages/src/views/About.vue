@@ -53,6 +53,9 @@ export default {
 </script>
 
 <style>
+  h1 {
+    text-align: left;
+  }
   .about {
     width: 1000px;
     height: auto;
