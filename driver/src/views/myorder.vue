@@ -4,16 +4,19 @@
             <ul>
                 <li @click="goback">&lt;返回</li>
             </ul>
-            
+
             <p>全部订单</p>
         </div>
-        <hr>
     </div>
 </template>
 
 <script>
 export default {
-    
+    methods:{
+        goback(){
+            this.$router.replace('/login')
+        }
+    }
 }
 </script>
 
@@ -46,10 +49,5 @@ export default {
     }
     ul li a:hover{
         cursor: pointer;
-    }
-    hr{
-        height: 10px;
-        color: #d7d7d7;
-        background: #d7d7d7;
     }
 </style>
