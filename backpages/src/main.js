@@ -8,6 +8,10 @@ import http from './utils/http'
 import { Button, Icon ,Container ,Header,Aside,Main,Footer,Menu,MenuItem,MenuItemGroup} from 'element-ui';
 import { Submenu,Input,Checkbox,Pagination} from 'element-ui';
 
+import Echarts from 'echarts'
+
+Vue.prototype.echarts = Echarts
+
 Vue.use(vueAxios, http)
 Vue.use( Button)
 Vue.use(Icon)

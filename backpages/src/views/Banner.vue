@@ -14,31 +14,46 @@
         </tr>
         <tr>
           <td>1</td>
-          <td>2</td>
-          <td>3</td>
-          <td>4</td>
-          <td>5</td>
-          <td class="table-icon"><i class="el-icon-edit"></i>
-              <i class="el-icon-view"></i>         
-              <i class="el-icon-delete"></i>         
+          <td> <img src="" alt=""></td>
+          <td><a href="javascript:;"><span>banner对应的标题</span></a></td>
+          <td>1000</td>
+          <td>time</td>
+          <td class="table-icon">
+              <el-button type="primary" icon="el-icon-edit" circle title="编辑"></el-button>
+              <el-button type="success" icon="el-icon-view" circle title="可见性" background="green"></el-button>
+              <el-button type="danger" icon="el-icon-delete" circle title="删除"></el-button>        
           </td>
         </tr>
-        
-      <div class="block">
-  <span class="demonstration">页数较少时的效果</span>
-  <el-pagination
-    layout="prev, pager, next"
-    :total="50">
-  </el-pagination>
-</div>
-<div class="block">
-  <span class="demonstration">大于 7 页时的效果</span>
-  <el-pagination
-    layout="prev, pager, next"
-    :total="1000">
-  </el-pagination>
-</div>
+        <tr>
+          <td>2</td>
+          <td> <img src="" alt=""></td>
+          <td><a href="javascript:;"><span>banner对应的标题</span></a></td>
+          <td>1000</td>
+          <td>time</td>
+          <td class="table-icon">
+              <el-button type="primary" icon="el-icon-edit" circle title="编辑"></el-button>
+              <el-button type="success" icon="el-icon-view" circle title="可见性"></el-button>
+              <el-button type="danger" icon="el-icon-delete" circle title="删除"></el-button>                      
+          </td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td> <img src="" alt=""></td>
+          <td><a href="javascript:;"><span>banner对应的标题</span></a></td>
+          <td>1000</td>
+          <td>time</td>
+          <td class="table-icon">
+              <el-button type="primary" icon="el-icon-edit" circle title="编辑"></el-button>
+              <el-button type="success" icon="el-icon-view" circle title="可见性"></el-button>
+              <el-button type="danger" icon="el-icon-delete" circle title="删除"></el-button>       
+          </td>
+        </tr>
       </table>
+      <div class="block">
+        <span class="demonstration"></span>
+        <el-pagination layout="prev, pager, next"  :total="50" page-size="5" hide-on-single-page="true" pager-count="5">
+        </el-pagination>
+      </div>
     
   </div>
 </template>
@@ -71,7 +86,7 @@ export default {
   }
   .table {
     width: 100%;
-    height: 400px;
+    height: 350px;
     border: 1px solid black;
   }
   .table-icon i{
@@ -81,5 +96,8 @@ export default {
     width: 80px;
     height: 40px;
   }
-  
+  .block {
+    margin-top: 10px;
+    
+  }
 </style>
