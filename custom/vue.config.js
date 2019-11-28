@@ -4,7 +4,7 @@ module.exports = {
             postcss: {
                 plugins: [
                     require('postcss-pxtorem')({
-                        rootValue: 75,
+                        rootValue: 37.5,
                         propList: ['*'] //决定哪些属性自动转化
                     })
                 ]
