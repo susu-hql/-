@@ -15,7 +15,11 @@ export default {
     components: {
      Inindex
   },
-    methords:{}
+ 
+
+    methords:{
+     
+    }
 
 
 }

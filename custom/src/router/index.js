@@ -3,9 +3,9 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import InsuerHome from '../views/InsureHome.vue'
+import Insuretype from '../views/Insuretype.vue'
 import InsuerInput from '../views/InsuerInput.vue'
-
-
+import GetInsurePrice from '../views/GetInsurePrice.vue'
 
 Vue.use(VueRouter)
 
@@ -41,6 +41,21 @@ const routes = [
     component: InsuerInput
 
   },
+  {
+    path: '/Insuretype',
+    name: 'insuretype',
+    component:Insuretype
+    
+
+  },
+  {
+    path: '/getprice',
+    name: 'GetInsurePrice',
+    component:GetInsurePrice
+
+  }
+  
+  
 ]
 
 const router = new VueRouter({
