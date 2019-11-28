@@ -27,6 +27,7 @@ export default {
     login:function(){
       console.log('登录');
       console.log(this.remeber);
+      location.replace('/home');
     }
   }
 }
