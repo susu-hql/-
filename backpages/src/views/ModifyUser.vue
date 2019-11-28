@@ -1,13 +1,13 @@
 <template>
-  <div class="addUser">
-    <h1>添加用户</h1>
+  <div class="modifyuser">
+    <h1>修改用户</h1>
     <div class="addUser-body">
 
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <table>
           <tr>
-            <td> 
-                <!-- 输入框  -->
+            <td>
+                <!-- 输入框  --> 
                 <el-form-item label="联系人：" prop="name">        
                   <el-input v-model="ruleForm.name"></el-input>
                 </el-form-item>
@@ -99,7 +99,7 @@
 <script>
 
 export default {
-  name:'adduser',
+  name:'modifyuser',
   data() {
       // 电话号码验证
       var Telpat = /^1(3|4|5|6|7|8|9)\d{9}$/ ;
@@ -213,10 +213,10 @@ export default {
     submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            // alert('submit!');
-            // 对象
+            // 对象  ============ 保存--异步：向数据库修改 =======================
             console.log(this.ruleForm);
-            this.ruleForm = {
+            // alert('修改成功');
+              this.ruleForm = {
                 name: '',
                 insurance: '',
                 insuranDate: '',
@@ -228,9 +228,8 @@ export default {
                 engineNumber:'',
                 insuranName:''
               }
-              //  ============ 保存--异步：向数据库添加 =======================
           } else {
-            // console.log('error submit!!');
+            
             return false;
           }
         });
@@ -240,12 +239,16 @@ export default {
         this.$refs[formName].resetFields();
         location.assign('/client');
       }
+  },
+  created(){
+    // 获取到 了 用户id  ===============================然后渲染   直接给ruleForm赋值
+    console.log(this.$route.query.userid);
   }
 }
 </script>
 
 <style lang="less" scoped>
-.addUser{
+.modifyuser{
 
   h1{
     text-align: left;
