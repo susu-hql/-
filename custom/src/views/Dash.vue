@@ -1,18 +1,15 @@
 <template>
   <div>
-    <van-nav-bar
-  title="首页"
-  left-text="返回"
-  left-arrow
-  @click-left="onClickLeft"
-  class="header"
-/>
+    <van-nav-bar title="首页" left-text="返回" left-arrow @click-left="onClickLeft" class="header" />
     <div class="banner">
       <van-swipe @change="onChange" :autoplay="3000" indicator-color="blank">
         <van-swipe-item v-for="(image, index) in images" :key="index">
           <img :src="image" alt="123" />
         </van-swipe-item>
       </van-swipe>
+    </div>
+    <div class="yewu">
+      <van-button color="linear-gradient(to right, #4bb0ff, #6149f6)">渐变色按钮</van-button>
     </div>
   </div>
 </template>
@@ -34,16 +31,15 @@ export default {
       this.current = index;
     },
     onClickLeft() {
-      console.log("4545")
+      console.log("4545");
     }
   }
 };
 </script>
 <style lang="less" scoped>
-@import '../assets/css/base.less';
-.banner{
-  margin-top: 20px;
+@import "../assets/css/base.less";
+.banner {
+  margin-top: 30px;
 }
-
 </style>>
 

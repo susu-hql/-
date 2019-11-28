@@ -47,7 +47,7 @@ export default {
     color: rgb(255, 255, 255);
     height: 50px;
     background-color: #63ADDE;
-    line-height: 10px;
+    line-height: 20px;
   }
  
 }
