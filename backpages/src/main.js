@@ -6,7 +6,10 @@ import './assets/style/resize.css'
 import vueAxios from 'vue-axios'
 import http from './utils/http'
 import { Button, Icon ,Container ,Header,Aside,Main,Footer,Menu,MenuItem,MenuItemGroup} from 'element-ui';
-import { Submenu } from 'element-ui';
+import { Submenu ,Pagination} from 'element-ui';
+
+
+
 
 Vue.use(vueAxios, http)
 Vue.use( Button)
@@ -20,6 +23,7 @@ Vue.use(Menu)
 Vue.use(MenuItem)
 Vue.use(MenuItemGroup)
 Vue.use(Submenu)
+Vue.use(Pagination)
 
 Vue.config.productionTip = false
 
