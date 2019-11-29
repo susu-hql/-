@@ -12,7 +12,9 @@ import { Dialog } from 'vant';
 import { Toast } from 'vant';
 
 import { Tab, Tabs } from 'vant';
+import { Step, Steps } from 'vant';
 
+Vue.use(Step).use(Steps);
 Vue.use(Tab).use(Tabs);
 Vue.use(Toast);
 Vue.use(Dialog);

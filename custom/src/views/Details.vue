@@ -7,11 +7,14 @@
       @click-left="$router.back(-1)"
       class="header"
     />
-    <div >
-      <van-tabs >
-  <van-tab  title="订单状态" is-link to="/details" ></van-tab>
-  <van-tab  title="订单详情" is-link to="/details/progress" ></van-tab>
-</van-tabs>
+    <div>
+
+
+
+      <van-tabs>
+        <van-tab title="订单详情" is-link to="/details"></van-tab>
+        <van-tab title="订单状态" is-link to="/details/progress"></van-tab>
+      </van-tabs>
     </div>
     <div>
       <router-view></router-view>
@@ -21,9 +24,8 @@
 
 <script>
 export default {
-
   methods: {
-     onClick(name, title) {
+    onClick(name, title) {
       this.$toast(title);
     }
   }
@@ -32,8 +34,8 @@ export default {
 
 <style lang="less" >
 @import "../assets/css/base.less";
-.van-tabs__line{
-  background-color: #63ADDE; 
+.van-tabs__line {
+  background-color: #63adde;
 }
 </style>>
 
