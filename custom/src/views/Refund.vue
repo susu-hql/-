@@ -13,11 +13,7 @@
           v-model="message"
           rows="5"
           autosize
-<<<<<<< HEAD
-          
-=======
            
->>>>>>> dc1455788b3c4b507aad8ab2448a0eab4ba866bb
           type="textarea"
           maxlength="200"
           placeholder="请输入退款理由"

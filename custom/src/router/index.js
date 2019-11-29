@@ -7,6 +7,7 @@ import Insuretype from '../views/Insuretype.vue'
 import InsuerInput from '../views/InsuerInput.vue'
 import GetInsurePrice from '../views/GetInsurePrice.vue'
 import Dash from '../views/Dash'
+import Detail from '../views/Detail'
 
 
 Vue.use(VueRouter)
@@ -115,8 +116,8 @@ const routes = [
     },
     children: [{
       path: "",//我的资料
-      name: "details",
-     
+      name: "details", 
+      component: Detail,  
       meta: {
         auth: true,
         requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的

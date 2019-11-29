@@ -22,10 +22,6 @@
     我的资料
   </van-tabbar-item>
 </van-tabbar>
-
-
-
-
   </div>
 </template>
 

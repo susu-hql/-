@@ -155,5 +155,10 @@ export default {
   right: 10px;
   bottom: 12px;
 }
+p{
+  padding-left: 0;
+  font-size: 14px;
+  margin-top: 2px;
+}
 </style>>
 
