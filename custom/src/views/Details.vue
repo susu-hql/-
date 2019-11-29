@@ -8,9 +8,6 @@
       class="header"
     />
     <div>
-
-
-
       <van-tabs>
         <van-tab title="订单详情" is-link to="/details"></van-tab>
         <van-tab title="订单状态" is-link to="/details/progress"></van-tab>
@@ -21,11 +18,6 @@
     </div>
   </div>
 </template>
-<<<<<<< HEAD
-
-=======
- 
->>>>>>> dc1455788b3c4b507aad8ab2448a0eab4ba866bb
 <script>
 export default {
   methods: {
@@ -41,5 +33,14 @@ export default {
 .van-tabs__line {
   background-color: #63adde;
 }
+.van-tabs{
+.van-ellipsis{
+  display: inline-block;
+  color: #000;
+  text-align: center;
+  font-size: 18px
+}
+}
+
 </style>>
 

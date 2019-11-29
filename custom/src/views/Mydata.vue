@@ -48,4 +48,8 @@ export default {
   font-size: 18px;
   margin-bottom: 5px;
 }
+p{
+  text-align: center;
+  padding-left: 0;
+}
 </style>
