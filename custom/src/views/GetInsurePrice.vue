@@ -13,34 +13,99 @@
         </div>
         <div class="bottom">
          <ul>
-             <li>
+             <li v-for="(item,index) in compalies" :key="index" >
  <van-card
-  price="2.00"
-  desc="描述信息"  
-  origin-price="10.00"
-  thumb="https://img.yzcdn.cn/vant/t-thirt.jpg"
+  :price="(item.price)"
+ 
+  :desc="(item.name)"  
+  :origin-price="(item.disPrice)"
+  :thumb="require('../assets/imgs/'+item.img) "
 >
-
-  <div slot="footer">
-    <van-button size="mini">按钮</van-button>
-  </div>
 </van-card>
-
-     
+ 
     </li>
          </ul>
         </div>
+
+<div class="footer">
+<van-button type="primary" text="显示遮罩层" @click="show = true" />
+
+
+<van-overlay :show="show" @click="show = false">
+  <div class="wrapper" @click.stop>
+    <div class="block"/>
+
+    
     </div>
+
+</van-overlay>
+<span><button :show="show"  @click="show = false" type="button">核对车辆信息</button></span>
+<span><button type="button">联系客服</button></span>
+</div>
+    </div>
+   
 </template>
 <script>
+
 export default {
     name:'getprice',
+    data(){
+        return {
+            show: false,
+            compalies:[
+                {
+                    id:1,
+                    name:"平安保险1",
+                    img:"shigu01.jpg",
+                    price:"10万",
+                    disPrice:"15万",
+                    ischeck:0
+
+                },
+                 {
+                    id:2,
+                    name:"平安保险3",
+                    img:"shigu01.jpg",
+                    price:"10万",
+                    disPrice:"15万",
+                    ischeck:0
+
+                },
+                 {
+                    id:3,
+                    name:"平安保险2",
+                    img:"shigu01.jpg",
+                    price:"10万",
+                    disPrice:"15万",
+                    ischeck:0
+
+                },
+                 {
+                    id:4,
+                    name:"平安保险2",
+                    img:"shigu01.jpg",
+                    price:"10万",
+                    disPrice:"15万",
+                    ischeck:0
+
+                }
+
+
+            ]
+        }
+    },
+     methods: {
+    showPopup() {
+      this.show = true;
+    }
+  }
 
 }
 </script>
 <style scoped>
 .getprices{width:100%}
 .top{
+    
     margin:0 auto;
     width:80%;
     height:80px;
@@ -72,7 +137,7 @@ border-right:1px solid rgb(41, 38, 38);
 .bottom ul li{
     width:100%;
     height:100px;
-    border:1px solid rgb(56, 54, 54);
+   
 }
 .van-button{
     bottom:30px;
@@ -83,7 +148,20 @@ margin-top:30px;
 }
 .van-card__price{
     margin-top:-90px;
+    font-size:16px;
+    margin-left:70px;
     
+}
+.van-card__origin-price{
+      font-size:16px;
+}
+.van-card__desc{
+    font-size:12px;
+}
+.van-card__bottom{
+    width:180px;
+    margin-left:70px;
+    margin-top:-20px;
 }
 
 .img{
@@ -92,7 +170,37 @@ margin-top:30px;
     margin-left:-200px;
     margin-top:5px;
 }
+.footer{
+    width:100%;
+    height:370px;
+   border:1px solid red;
+    position:fixed;
+    bottom:0;
+}
+.footer span{
+display:block;
+}
+.footer span button{
+width:100px;
+height:25px;
+border-radius:4px;
+font-size: 12px;
+border:0;
+background-color:#63ADDE;
+color:white;
 
+}
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
 
+.block {
+  width: 120px;
+  height: 120px;
+  background-color: #fff;
+}
 
 </style>
