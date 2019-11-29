@@ -32,7 +32,17 @@
 <span><button :show="show"  @click="show = false" type="button">核对车辆信息</button></span>
 <span><button type="button">联系客服</button></span>
 </div>
+
+<div class="zhezhao">
+    <div class="zz-show">
+        <div class="show-top"></div>
+        <div class="show-main"></div>
     </div>
+</div>
+    </div>
+
+
+    
    
 </template>
 <script>
@@ -162,7 +172,7 @@ margin-top:30px;
 }
 .footer{
     width:100%;
-    height:370px;
+    height:70px;
    border:1px solid red;
     position:fixed;
     bottom:0;
@@ -180,17 +190,13 @@ background-color:#63ADDE;
 color:white;
 
 }
-.wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-.block {
-  width: 120px;
-  height: 120px;
-  background-color: #fff;
+.zhezhao{
+    width:100%;
+    height:700px;
+    position:fixed;
+    top:0;
+    left:0;
+    background-color:rgba(14, 4, 4, 0.726);
 }
 
 </style>
