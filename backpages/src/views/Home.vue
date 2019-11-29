@@ -85,7 +85,7 @@
                 <el-menu-item index="openCity">开通城市</el-menu-item>  
                 <el-menu-item index="pushMess">推送消息</el-menu-item>  
               </el-submenu>
-             
+            
           </el-menu>
 
         </el-aside>
@@ -134,16 +134,13 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     }
-    
   },
   created(){
     this.currentUrl = this.$route.name;
     if(this.currentUrl == 'about'){
       this.currentUrl = 'home'
     }
-
   }
-
 }
 </script>
 

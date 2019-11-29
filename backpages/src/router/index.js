@@ -42,25 +42,9 @@ const routes = [
         }
       },
       {
-        path: '/adduser',   // 客户管理  添加用户信息
+        path: '/adduser',   // 客户管理  添加用户管理
         name: 'adduser',
         component: () => import('../views/AddUser.vue'),
-        meta: {
-          auth: true
-        }
-      },
-      {
-        path: '/modifyuser',   // 客户管理  修改用户信息
-        name: 'modifyuser',
-        component: () => import('../views/ModifyUser.vue'),
-        meta: {
-          auth: true
-        }
-      },
-      {
-        path: '/lookuser',   // 客户管理  查看用户信息
-        name: 'lookuser',
-        component: () => import('../views/lookUser.vue'),
         meta: {
           auth: true
         }
