@@ -28,17 +28,7 @@
         </div>
 
 <div class="footer">
-<van-button type="primary" text="显示遮罩层" @click="show = true" />
 
-
-<van-overlay :show="show" @click="show = false">
-  <div class="wrapper" @click.stop>
-    <div class="block"/>
-
-    
-    </div>
-
-</van-overlay>
 <span><button :show="show"  @click="show = false" type="button">核对车辆信息</button></span>
 <span><button type="button">联系客服</button></span>
 </div>
