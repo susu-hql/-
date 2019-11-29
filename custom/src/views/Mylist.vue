@@ -18,7 +18,11 @@ export default {
   }
 };
 </script>
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> dc1455788b3c4b507aad8ab2448a0eab4ba866bb
 <style lang="less" scoped>
 @import "../assets/css/base.less";
 .van-cell {

@@ -21,7 +21,11 @@
     </div>
   </div>
 </template>
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> dc1455788b3c4b507aad8ab2448a0eab4ba866bb
 <script>
 export default {
   methods: {

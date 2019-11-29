@@ -1,6 +1,10 @@
 
 <template>
 <div class="login">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> dc1455788b3c4b507aad8ab2448a0eab4ba866bb
 <form class="login-form">
      <van-cell-group>
   <van-field
@@ -16,8 +20,26 @@
     error-message="手机号格式错误"
   />
 </van-cell-group>
+<<<<<<< HEAD
 
        
+=======
+ 
+       
+=======
+<form class="app-login">
+        <div class="form-group">
+            <input type="text"  >
+        </div>
+        <div class="form-group">
+            <input type="password"  >
+            <button type="button">获取验证码</button>
+        </div>
+        <div class="form-group">
+            <input class="btnlogin" type="button" value="登录" @click="getLogin">
+        </div>
+>>>>>>> 3721ccb3e337ff705e0e411a3c39ad15d31fc67b
+>>>>>>> dc1455788b3c4b507aad8ab2448a0eab4ba866bb
     </form>
 </div>
  
