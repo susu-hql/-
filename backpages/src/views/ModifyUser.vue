@@ -4,7 +4,7 @@
     <div class="addUser-body">
 
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <table>
+        <table> 
           <tr>
             <td>
                 <!-- 输入框  --> 
@@ -224,12 +224,15 @@ export default {
                 carNumber:'',
                 usertel:'',
                 cartype:'',
-                cardId:'',
+                cardId:'', 
                 engineNumber:'',
                 insuranName:''
               }
+               this.$message({
+                  message: '修改成功',
+                  type: 'success'
+                });
           } else {
-            
             return false;
           }
         });

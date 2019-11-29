@@ -189,13 +189,13 @@ export default {
     text-align: center;
     line-height: 60px;
     height: 86vh;
-    overflow: hidden;
+    // overflow: hidden;
 
     .main-content{
       height: 100%;
-      overflow-x: hidden;
-      overflow-y: scroll;
-      margin-right: -17px;
+      // overflow-x: hidden;
+      // overflow-y: scroll;
+      // margin-right: -17px;
 
     }
   }

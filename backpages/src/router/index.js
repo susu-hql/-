@@ -73,6 +73,30 @@ const routes = [
           auth: true
         }
       },
+      { 
+        path: '/addUserCard',   // 客户管理   增加车主卡 
+        name: 'addUserCard',
+        component: () => import('../views/AddUserCard.vue'),
+        meta: {
+          auth: true
+        }
+      },
+      {
+        path: '/modifyusercard',   // 客户管理   修改车主卡 
+        name: 'modifyusercard',
+        component: () => import('../views/Modifyusercard.vue'),
+        meta: {
+          auth: true
+        }
+      },
+      {
+        path: '/lookusercard',   // 客户管理   查看车主卡 
+        name: 'lookusercard',
+        component: () => import('../views/Lookusercard.vue'),
+        meta: {
+          auth: true
+        }
+      },
       {
         path: '/driver',   // 客户管理   司机管理
         name: 'driver',
@@ -80,7 +104,31 @@ const routes = [
         meta: {
           auth: true
         }
-      },
+      }, 
+      {
+        path: '/adddriver',   // 客户管理   添加司机管理
+        name: 'adddriver',
+        component: () => import('../views/AddDriver.vue'),
+        meta: {
+          auth: true
+        }
+      }, 
+      {
+        path: '/lookdriver',   // 客户管理   查看司机管理
+        name: 'lookdriver',
+        component: () => import('../views/LookDriver.vue'),
+        meta: {
+          auth: true
+        }
+      }, 
+      {
+        path: '/modifydriver',   // 客户管理   修改司机管理
+        name: 'modifydriver',
+        component: () => import('../views/ModifyDriver.vue'),
+        meta: {
+          auth: true
+        }
+      }, 
       {
         path: '/contents',   // 内容管理  汽车品牌
         name: 'contents',

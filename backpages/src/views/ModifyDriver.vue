@@ -1,14 +1,15 @@
 <template>
-  <div class="addUser">
-    <h1>添加用户</h1>
+  <div class="modifydriver">
+    <h1>修改司机</h1>
     <div class="addUser-body">
 
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px"
+       class="demo-ruleForm" enctype="multipart/form-data">
         <table>
           <tr> 
             <td> 
                 <!-- 输入框  -->
-                <el-form-item label="联系人：" prop="name">        
+                <el-form-item label="司机名字：" prop="name">        
                   <el-input v-model="ruleForm.name"></el-input>
                 </el-form-item>
             </td>
@@ -28,59 +29,44 @@
             </td>
             <td>
                 <!-- 输入框  -->
-                <el-form-item label="车型：" prop="cartype">        
-                  <el-input v-model="ruleForm.cartype"></el-input>
-                </el-form-item>
-            </td>
-          </tr>
-          <tr>
-            <td>
-                <!-- 输入框  -->
                 <el-form-item label="身份证号：" prop="cardId">        
                   <el-input v-model="ruleForm.cardId"></el-input>
-                </el-form-item>
-            </td>
-            <td>
-                <!-- 输入框  -->
-                <el-form-item label="发动机号：" prop="engineNumber">        
-                  <el-input v-model="ruleForm.engineNumber"></el-input>
-                </el-form-item>
-            </td>
-          </tr>
-          <tr>
-            <td>
-                <!-- 输入框  -->
-                <el-form-item label="被保险人：" prop="insuranName">        
-                  <el-input v-model="ruleForm.insuranName"></el-input>
-                </el-form-item>
-            </td>
-            <td>
-                <!-- 日期  -->
-                <el-form-item label="投保日期：" required> 
-                    <el-form-item prop="insuranDate">
-                      <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.insuranDate" ></el-date-picker>
-                    </el-form-item>
                 </el-form-item>
             </td>
           </tr>
           <tr>
             <td>
                 <!-- 下拉框  -->
-                <el-form-item label="保险公司：" prop="insurance">   
-                  <el-select v-model="ruleForm.insurance" placeholder="请选择活动区域">
+                 <el-form-item label="所在区域:" prop="region">
+                  <el-select v-model="ruleForm.region" placeholder="请选择区域" >
                     <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
                   </el-select>
                 </el-form-item>
             </td>
-            <td></td>
+            <td>
+                <!-- 输入框  -->
+                <el-form-item label="在职状态" prop="engineNumber">        
+                    <el-radio v-model="ruleForm.radio" label="1">在职</el-radio>
+                    <el-radio v-model="ruleForm.radio" label="2">离职</el-radio>
+                </el-form-item>
+            </td>
           </tr>
           <tr>
             <td>
-                  <!-- 多行文本 -->
-                  <el-form-item label="备注：" prop="desc">
-                    <el-input type="textarea" v-model="ruleForm.desc"></el-input>
-                  </el-form-item>
+              <el-form-item label="司机照片：" required > 
+                  <el-upload
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    list-type="picture-card"
+                    :on-preview="handlePictureCardPreview"
+                    :on-remove="handleRemove">
+                    <i class="el-icon-plus"></i>
+                  </el-upload>
+                  <el-dialog :visible.sync="ruleForm.dialogVisible">
+                    <img width="100%" :src="ruleForm.dialogImageUrl" alt="">
+                  </el-dialog>
+              </el-form-item>
+                
+              
             </td>
           </tr>
         </table>
@@ -99,7 +85,7 @@
 <script>
 
 export default {
-  name:'adduser',
+  name:'modifydriver',
   data() {
       // 电话号码验证
       var Telpat = /^1(3|4|5|6|7|8|9)\d{9}$/ ;
@@ -149,30 +135,17 @@ export default {
         }
       };
 
-      // 用户名验证：2到11位（字母，数字，下划线，减号）
-      var insuranNamepat =  /^([a-zA-Z0-9_\u4e00-\u9fa5]{2,11})$/;
-      var validateinsuranName = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入投保人'));
-        }else if( !insuranNamepat.test(this.ruleForm.insuranName) ){
-          callback( new Error('请输入正确的投保人姓名'));
-        } else {
-          callback();
-        }
-      };
 
       return {
         ruleForm: {
           name: '',
-          insurance: '',
-          insuranDate: '',
-          desc: '',
+          region: '',
           carNumber:'',
           usertel:'',
-          cartype:'',
           cardId:'',
-          engineNumber:'',
-          insuranName:''
+          radio:'1',
+          dialogImageUrl: '',
+          dialogVisible: false
         },
         rules: {
           name: [  // 用户名
@@ -184,33 +157,21 @@ export default {
           usertel: [   // 联系电话
             {required: true, validator: validateTel, trigger: 'blur' }
           ],
-          cartype: [   //车型
-            { required: true, message: '请输入车型', trigger: 'blur' }
+          region: [   //车型
+            { required: true, message: '请选择区域', trigger: 'blur' }
           ],
           cardId: [   //身份证号
             { required: true, validator: validateCardid, trigger: 'blur' }
           ],
-          engineNumber: [   //发动机号
-            { required: true, message: '请输入车型', trigger: 'blur' }
-          ],
-          insuranName: [   //被 保险人
-            { required: true, validator:validateinsuranName, trigger: 'blur' }
-          ],
-          insurance: [   // 保险公司
-            { required: true, message: '请选择保险公司', trigger: 'change' }
-          ],
-          insuranDate: [
-            { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
-          ],
-          desc: [
-            { required: false, message: '', trigger: 'blur' }
+          dialogImageUrl: [   //司机图片
+            { required: true,  message: '请选择司机照片', trigger: 'change' }
           ]
         }
       };
   },
   methods:{
     // 保存
-    submitForm(formName) {
+      submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.$message({
@@ -221,15 +182,13 @@ export default {
             console.log(this.ruleForm);
             this.ruleForm = {
                 name: '',
-                insurance: '',
-                insuranDate: '',
-                desc: '',
+                region: '',
                 carNumber:'',
                 usertel:'',
-                cartype:'',
                 cardId:'',
-                engineNumber:'',
-                insuranName:''
+                radio:'1',
+                dialogImageUrl: '',
+                dialogVisible: false
               }
               //  ============ 保存--异步：向数据库添加 =======================
           } else {
@@ -241,14 +200,26 @@ export default {
       // 取消
       resetForm(formName) {
         this.$refs[formName].resetFields();
-        location.assign('/client');
+        location.assign('/driver');
+      },
+      handleRemove(file, fileList) {
+        console.log(file, fileList);
+      },
+      handlePictureCardPreview(file) {
+        this.ruleForm.dialogImageUrl = file.url;
+        this.ruleForm.dialogVisible = true;
       }
+  
+  },
+  created(){
+    // 获取到 了 用户id  ===============================然后渲染   直接给ruleForm赋值
+    console.log(this.$route.query.userid);
   }
 }
 </script>
 
 <style lang="less" scoped>
-.addUser{
+.modifydriver{
 
   h1{
     text-align: left;

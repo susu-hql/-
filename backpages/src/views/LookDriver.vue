@@ -1,14 +1,15 @@
 <template>
-  <div class="lookuser">
-    <h1>查看用户</h1>
+  <div class="lookdriver">
+     <h1>查看司机</h1>
     <div class="addUser-body">
 
-      <el-form :model="ruleForm" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <table> 
-          <tr>
-            <td>
-                <!-- 输入框  --> 
-                <el-form-item label="联系人：" prop="name">        
+      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px"
+       class="demo-ruleForm" enctype="multipart/form-data">
+        <table>
+          <tr> 
+            <td> 
+                <!-- 输入框  -->
+                <el-form-item label="司机名字：" prop="name">        
                   <el-input v-model="ruleForm.name" disabled></el-input>
                 </el-form-item>
             </td>
@@ -28,59 +29,44 @@
             </td>
             <td>
                 <!-- 输入框  -->
-                <el-form-item label="车型：" prop="cartype">        
-                  <el-input v-model="ruleForm.cartype" disabled></el-input>
-                </el-form-item>
-            </td>
-          </tr>
-          <tr>
-            <td>
-                <!-- 输入框  -->
                 <el-form-item label="身份证号：" prop="cardId">        
                   <el-input v-model="ruleForm.cardId" disabled></el-input>
-                </el-form-item>
-            </td>
-            <td>
-                <!-- 输入框  -->
-                <el-form-item label="发动机号：" prop="engineNumber">        
-                  <el-input v-model="ruleForm.engineNumber" disabled></el-input>
-                </el-form-item>
-            </td>
-          </tr>
-          <tr>
-            <td>
-                <!-- 输入框  -->
-                <el-form-item label="被保险人：" prop="insuranName">        
-                  <el-input v-model="ruleForm.insuranName" disabled></el-input>
-                </el-form-item>
-            </td>
-            <td>
-                <!-- 日期  -->
-                <el-form-item label="投保日期：" required> 
-                    <el-form-item prop="insuranDate" >
-                      <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.insuranDate" disabled></el-date-picker>
-                    </el-form-item>
                 </el-form-item>
             </td>
           </tr>
           <tr>
             <td>
                 <!-- 下拉框  -->
-                <el-form-item label="保险公司：" prop="insurance">   
-                  <el-select v-model="ruleForm.insurance" placeholder="请选择活动区域" disabled>
+                 <el-form-item label="所在区域:" prop="region">
+                  <el-select v-model="ruleForm.region" placeholder="请选择区域" disabled >
                     <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
                   </el-select>
                 </el-form-item>
             </td>
-            <td></td>
+            <td>
+                <!-- 输入框  -->
+                <el-form-item label="在职状态" prop="engineNumber" >        
+                    <el-radio v-model="ruleForm.radio" label="1" disabled>在职</el-radio>
+                    <el-radio v-model="ruleForm.radio" label="2" disabled>离职</el-radio>
+                </el-form-item>
+            </td>
           </tr>
           <tr>
             <td>
-                  <!-- 多行文本 -->
-                  <el-form-item label="备注：" prop="desc">
-                    <el-input  type="textarea" v-model="ruleForm.desc" disabled></el-input>
-                  </el-form-item>
+              <el-form-item label="司机照片：" required > 
+                  <el-upload
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    list-type="picture-card"
+                    :on-preview="handlePictureCardPreview"
+                    :on-remove="handleRemove" disabled>
+                    <i class="el-icon-plus" ></i>
+                  </el-upload>
+                  <el-dialog :visible.sync="ruleForm.dialogVisible" disabled>
+                    <img width="100%" :src="ruleForm.dialogImageUrl" alt="" disabled>
+                  </el-dialog>
+              </el-form-item>
+                
+              
             </td>
           </tr>
         </table>
@@ -98,28 +84,26 @@
 <script>
 
 export default {
-  name:'lookuser',
-  data() {
+  name:'lookdriver',
+   data() {
       return {
         ruleForm: {
-          name: 'dd',
-          insurance: '',
-          insuranDate: '',
-          desc: '',
+          name: '',
+          region: '',
           carNumber:'',
           usertel:'',
-          cartype:'',
           cardId:'',
-          engineNumber:'',
-          insuranName:''
+          radio:'1',
+          dialogImageUrl: '',
+          dialogVisible: false
         }
       };
   },
   methods:{
-    re(){
-      location.assign('/client');
-    }
-  }, 
+     re(){
+      location.assign('/driver');
+      }
+  },
   created(){
     // 获取到 了 用户id ，然后渲染  直接给ruleForm赋值
     console.log(this.$route.query.userid);
@@ -128,7 +112,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.lookuser{
+.lookdriver{
 
   h1{
     text-align: left;

@@ -7,6 +7,15 @@ import vueAxios from 'vue-axios'
 import http from './utils/http'
 import { Button, Icon ,Container ,Header,Aside,Main,Footer,Menu,MenuItem,MenuItemGroup} from 'element-ui';
 import { Submenu,Input,Checkbox,Pagination,Select,Option,DatePicker,Form,FormItem,Message} from 'element-ui';
+import { MessageBox,Upload,Dialog,Radio} from 'element-ui';
+
+Message.install = function (Vue) {
+  Vue.prototype.$message = Message
+}
+// MessageBox.install = function (Vue,options) {
+MessageBox.install = function (Vue) {
+  Vue.prototype.$confirm = MessageBox
+}
 
 Vue.use(vueAxios, http)
 Vue.use( Button)
@@ -29,6 +38,10 @@ Vue.use(DatePicker)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Message)
+Vue.use(MessageBox)
+Vue.use(Upload)
+Vue.use(Dialog)
+Vue.use(Radio)
 
 Vue.config.productionTip = false
 

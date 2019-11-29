@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import '../assets/js/chajian.js'
 export default {
   name:'about',
   components: {
