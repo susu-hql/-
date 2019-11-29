@@ -29,14 +29,42 @@
 
 <div class="footer">
 
-<span><button :show="show"  @click="show = false" type="button">核对车辆信息</button></span>
+<span><button   @click="changeShow" type="button">核对车辆信息</button></span>
 <span><button type="button">联系客服</button></span>
 </div>
 
-<div class="zhezhao">
+<div v-show="isShow" class="zhezhao">
     <div class="zz-show">
-        <div class="show-top"></div>
-        <div class="show-main"></div>
+        <div class="show-top"><span><a id="close" @click="changeShow" href="javascript:;">x</a></span></div>
+        <div class="show-main">
+            <ul class="mtul">
+                <li> 
+            <p>车牌号：</p>
+            <p><input type="text"></p>
+                </li>
+                   <li> 
+            <p>车架号：</p>
+            <p><input type="text"></p>
+                </li>
+                 <li> 
+            <p>发动机号：</p>
+            <p><input type="text"></p>
+                </li>
+                <li> 
+            <p>车牌型号：</p>
+            <p><input type="text"></p>
+                </li>
+              <li> 
+            <p>初登日期：</p>
+            <p><input type="text"></p>
+                </li>   
+                <li> 
+            <p>身份证号：</p>
+            <p><input type="text"></p>
+                </li>  
+            </ul>
+           <button class="qd-btn" type="submit">确定</button>
+        </div>
     </div>
 </div>
     </div>
@@ -46,12 +74,11 @@
    
 </template>
 <script>
-
 export default {
     name:'getprice',
     data(){
         return {
-            show: false,
+            isShow: false,
             compalies:[
                 {
                     id:1,
@@ -95,14 +122,37 @@ export default {
         }
     },
      methods: {
-    showPopup() {
-      this.show = true;
+    changeShow() {
+     this.isShow = !this.isShow;
     }
   }
 
 }
 </script>
 <style scoped>
+#close{
+    color:black;
+}
+.mtul{
+    margin-top:30px;
+    width:100%;
+    height:auto;
+    font-size:16px;
+    
+}
+.qd-btn{
+    width:140px;
+    height:30px;
+    margin-top:30px;
+    border-radius: 5px;
+    font-size:14px;
+}
+.mtul li p input{
+    width:90%;
+    height:30px;
+    border:1px solid black;
+}
+
 .getprices{width:100%}
 .top{
     
@@ -173,7 +223,6 @@ margin-top:30px;
 .footer{
     width:100%;
     height:70px;
-   border:1px solid red;
     position:fixed;
     bottom:0;
 }
@@ -197,6 +246,34 @@ color:white;
     top:0;
     left:0;
     background-color:rgba(14, 4, 4, 0.726);
+}
+.zz-show{
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    position:absolute;
+    margin:auto;
+     width:90%;
+    height:80%;
+    background-color:white;
+
+}
+.show-top{
+    width:100%;
+    height:10%;
+    
+}
+.show-top{
+    display: block;
+    float:right;
+    width:40px;
+    height:20px;
+}
+.show-main{
+    width:90%;
+    height:80%;
+    
 }
 
 </style>
