@@ -16,7 +16,7 @@
     error-message="手机号格式错误"
   />
 </van-cell-group>
-
+ 
        
     </form>
 </div>
