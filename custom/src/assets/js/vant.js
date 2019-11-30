@@ -9,11 +9,14 @@ import { Image } from 'vant';
 import { Cell, CellGroup } from 'vant';
 import { Icon } from 'vant';
 import { Overlay,Dialog } from 'vant';
-Vue.use(Card,Popup,Area );
-
+import { IndexBar, IndexAnchor } from 'vant';
 import { Tab, Tabs } from 'vant';
 import { Step, Steps } from 'vant';
+import { Rate } from 'vant';
 
+Vue.use(Rate);
+Vue.use(Card,Popup,Area );
+Vue.use(IndexBar).use(IndexAnchor);
 Vue.use(Step).use(Steps);
 Vue.use(Tab).use(Tabs);
 Vue.use(Toast);

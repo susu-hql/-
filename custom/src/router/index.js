@@ -8,6 +8,12 @@ import InsuerInput from '../views/InsuerInput.vue'
 import GetInsurePrice from '../views/GetInsurePrice.vue'
 import Dash from '../views/Dash'
 import Detail from '../views/Detail'
+import CarBrand from '../views/CarBrand'
+import CarBxh from '../views/CarBxh'
+import CarBxl from '../views/CarBxl'
+import CarSelect from '../views/CarSelect'
+import MoreStore from '../views/MoreStore'
+import ConfirmOrder from '../views/ConfirmOrder'
 
 
 Vue.use(VueRouter)
@@ -17,8 +23,41 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login
+    
   },
 
+  {
+    path: '/moreStore',
+    name: 'MoreStore',
+    component: MoreStore
+    
+  },
+  {
+    path: '/ConfirmOrder',
+    name: 'ConfirmOrder',
+    component:ConfirmOrder
+    
+  },
+  {
+    path: '/carBrand',
+    name: 'carBrand',
+    component:CarBrand
+  },
+  {
+    path: '/CarSelect',
+    name: 'CarSelect',
+    component:CarSelect
+  },
+  {
+    path: '/carBxh',
+    name: 'CarBxh',
+    component:CarBxh
+  },
+  {
+    path: '/CarBxl',
+    name: 'carBxl',
+    component:CarBxl
+  },
   {
     path: '/home',
     name: 'home',

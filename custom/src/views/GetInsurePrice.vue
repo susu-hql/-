@@ -1,5 +1,6 @@
 <template>
     <div class="getprices">
+            <van-nav-bar title="我的订单" left-text="返回" left-arrow @click-left="onClickLeft" class="header" />
         <div class="top">
          <p>已选3种险种</p>
          <ul>
@@ -130,6 +131,7 @@ export default {
 }
 </script>
 <style scoped>
+@import "../assets/css/base.less";
 #close{
     color:black;
 }
