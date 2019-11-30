@@ -4,7 +4,7 @@
     <div class="dheader">
       <p>订单号：</p>
       <p>订单时间：</p>
-      <span style="color:red" class="statu">待付款</span>
+      <span style="color:red" class="statu">待录入</span>
       <van-button size="small">取消服务</van-button>
     </div>
     <hr />
@@ -13,33 +13,32 @@
       <p v-html="'姓&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp名：'"></p>
       <p>联系方式：</p>
       <p>车牌号码：</p>
-      <p>接车时间：</p>
-      <p>修车门店：</p>
-      <p>修车地址：</p>
-      <p>接车地址：</p>
-      <p>还车地址：</p>
     </div>
     <hr />
     <div class="dfooter">
       <span>服务信息</span>
-      <p>服务项目：</p>
-      <p class="fuwu">服务部位：</p>
+      <p>保险公司：人寿保险</p>
+      <p class="fuwu">险种与费用：</p>
       <ul>
         <li>
-          <span class="shu">1 技改维修</span>
+          <span class="shu">交强险</span>
           <span style="color:red" class="dollar">$1000</span>
         </li>
         <li>
-          <span class="shu">1 技改维修</span>
+          <span class="shu">车船险</span>
           <span style="color:red" class="dollar">$1000</span>
         </li>
         <li>
-          <span class="shu">1 技改维修</span>
-          <span style="color:red" class="dollar">$1000</span>
+          <span class="shu">第三者责任险</span>
+          <span style="color:red" class="dollar">$100000</span>
         </li>
         <li>
-          <span class="shu">1 技改维修</span>
-          <span style="color:red" class="dollar">$1000</span>
+          <span class="shu">乘客责任险</span>
+          <span style="color:red" class="dollar">$100000</span>
+        </li>
+        <li>
+          <span class="shu">机动车被盗险</span>
+          <span style="color:red" class="dollar">$100000</span>
         </li>
       </ul>
       <p class="alldollar">
@@ -48,10 +47,8 @@
       </p>
     </div>
     <div>
-      <van-tabbar >
-        <van-tabbar-item  style="color:black">接车费用: <span style="color:red">$100</span></van-tabbar-item>
-        <van-tabbar-item style="color:red" is-link to="/refund">退款</van-tabbar-item>
-        <van-tabbar-item style="color:red" is-link to="/refund">去付款</van-tabbar-item>
+      <van-tabbar>
+        <van-tabbar-item style="color:red" is-link to="/idCard">去录入</van-tabbar-item>
       </van-tabbar>
     </div>
   </div>
@@ -68,7 +65,6 @@ p {
   text-indent: 2em;
 }
 .dheader {
-
   position: relative;
   p {
     line-height: 30px;
@@ -135,13 +131,12 @@ p {
     }
   }
 }
-.van-tabbar{
+.van-tabbar {
   height: 40px;
-.van-tabbar-item{
-  border: 1px solid #000;
-  font-size: 16px
+  .van-tabbar-item {
+    border: 1px solid #000;
+    font-size: 16px;
+  }
 }
-}
-
 </style>>
 

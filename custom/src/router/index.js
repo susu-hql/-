@@ -8,6 +8,7 @@ import InsuerInput from '../views/InsuerInput.vue'
 import GetInsurePrice from '../views/GetInsurePrice.vue'
 import Dash from '../views/Dash'
 import Detail from '../views/Detail'
+import SafeDetail from '../views/SafeDetail'
 
 
 Vue.use(VueRouter)
@@ -23,7 +24,7 @@ const routes = [
     path: '/home',
     name: 'home',
     component: Home,
-    children:[
+    children: [
       {
         path: "",
         name: "home",
@@ -33,8 +34,8 @@ const routes = [
         }
       },
       {
-        path:"mydata",
-        name:"maydata",
+        path: "mydata",
+        name: "maydata",
         component: () => import('../views/Mydata.vue'),
         meta: {
           auth: true
@@ -65,14 +66,14 @@ const routes = [
   {
     path: '/Insuretype',
     name: 'insuretype',
-    component:Insuretype
-    
+    component: Insuretype
+
 
   },
   {
     path: '/getprice',
     name: 'GetInsurePrice',
-    component:GetInsurePrice
+    component: GetInsurePrice
 
   },
   {
@@ -106,6 +107,16 @@ const routes = [
     }
   },
   {
+    path: "/comment",//司机评价
+    name: "comment",
+    component: () => import('../views/Comment.vue'),
+    meta: {
+      auth: true,
+      requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+      keepAlive: false, //此组件不需要被缓存
+    }
+  },
+  {
     path: "/details",//订单详情
     name: "details",
     component: () => import('../views/Details.vue'),
@@ -116,8 +127,8 @@ const routes = [
     },
     children: [{
       path: "",//我的资料
-      name: "details", 
-      component: Detail,  
+      name: "details",
+      component: Detail,
       meta: {
         auth: true,
         requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
@@ -134,11 +145,60 @@ const routes = [
         keepAlive: false, //此组件不需要被缓存
       }
     }]
-  }
+  },
+  {
+    path: "/allsafe",//全部保险订单
+    name: "allsafe",
+    component: () => import('../views/Allsafe.vue'),
+    meta: {
+      auth: true,
+      requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+      keepAlive: false, //此组件不需要被缓存
+    }
+  },
+  {
+    path: "/safeDetails",//保险订单详情
+    name: "safeDetails",
+    component: () => import('../views/SafeDetails.vue'),
+    meta: {
+      auth: true,
+      requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+      keepAlive: false, //此组件不需要被缓存
+    },
+    children: [{
+      path: "",//
+      name: "details",
+      component: SafeDetail,
+      meta: {
+        auth: true,
+        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+        keepAlive: false, //此组件不需要被缓存
+      }
+    },
+    {
+      path: "safeProgress",//保险订单详情
+      name: "safeProgress",
+      component: () => import('../views/SafeProgress.vue'),
+      meta: {
+        auth: true,
+        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+        keepAlive: false, //此组件不需要被缓存
+      }
+    }]
+  },
+  {
+    path: "/idCard",//身份录入
+    name: "idCard",
+    component: () => import('../views/IDcard.vue'),
+    meta: {
+      auth: true,
+      requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+      keepAlive: false, //此组件不需要被缓存
+    }
+  },
 
 
 
-  
 
 ]
 
