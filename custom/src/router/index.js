@@ -196,6 +196,46 @@ const routes = [
       keepAlive: false, //此组件不需要被缓存
     }
   },
+  {
+    path: "/carid",//车主卡
+    name: "carid",
+    component: () => import('../views/CarID.vue'),
+    meta: {
+      auth: true,
+      requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+      keepAlive: false, //此组件不需要被缓存
+    }
+  },
+  {
+    path: "/addcarID",//新增车主卡
+    name: "addcarID",
+    component: () => import('../views/AddCarid.vue'),
+    meta: {
+      auth: true,
+      requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+      keepAlive: false, //此组件不需要被缓存
+    }
+  },
+  {
+    path: "/mypolicy",//我的保单
+    name: "mypolicy",
+    component: () => import('../views/MyPolicy.vue'),
+    meta: {
+      auth: true,
+      requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+      keepAlive: false, //此组件不需要被缓存
+    }
+  },
+  {
+    path: "/policy",//新增车主卡
+    name: "policy",
+    component: () => import('../views/Policy.vue'),
+    meta: {
+      auth: true,
+      requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+      keepAlive: false, //此组件不需要被缓存
+    }
+  },
 
 
 
