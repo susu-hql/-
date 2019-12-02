@@ -42,6 +42,14 @@ const routes = [
         }
       },
       {
+        path: '/adduser',   // 客户管理  添加用户管理
+        name: 'adduser',
+        component: () => import('../views/AddUser.vue'),
+        meta: {
+          auth: true
+        }
+      },
+      {
         path: '/usercard',   // 客户管理   车主卡
         name: 'usercard',
         component: () => import('../views/UserCard.vue'),

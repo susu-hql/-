@@ -1,23 +1,18 @@
-
 <template>
 <div class="login">
-<form class="login-form">
-     <van-cell-group>
-  <van-field
-   
-    label="用户名"
-    placeholder="请输入用户名"
-    error
-  />
-  <van-field
-    
-    label="手机号"
-    placeholder="请输入手机号"
-    error-message="手机号格式错误"
-  />
-</van-cell-group>
+<form class="app-login">
+        <div class="form-group">
+            <input type="text"  >
+        </div>
+        <div class="form-group">
+            <input type="password"  >
+            <button type="button">获取验证码</button>
+        </div>
+        <div class="form-group">
+            <input class="btnlogin" type="button" value="登录" @click="getLogin">
+        </div>
 
-       
+
     </form>
 </div>
  

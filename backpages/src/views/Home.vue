@@ -9,13 +9,11 @@
       <el-container>
         <!-- 中左，侧导航 -->
         <el-aside width="200px">
-            <!-- <li><router-link to="/home">主页</router-link></li>
-            <li><router-link to="/banner">Banner管理</router-link></li>
-            <li><router-link to="/home">新增</router-link></li> -->
-          
-          <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" 
+           
+          <el-menu :default-active="currentUrl" class="el-menu-vertical-demo" @open="handleOpen" 
               @close="handleClose" background-color="#545c64" text-color="#fff"
-              active-text-color="#ffd04b" router>
+              active-text-color="#ffd04b" router >
+              <!-- <el-menu-item index="home" @click='changA' v-model="isactive" :class="{'is-active':isactive=='about'}"> -->
               <el-menu-item index="home" >
                 <i class="el-icon-menu"></i>
                 <span slot="title">主页</span>
@@ -28,7 +26,7 @@
                 <i class="el-icon-s-claim"></i>
                 <span slot="title">订单管理</span>
               </el-menu-item>
-              <el-submenu index="client">
+              <el-submenu index="5">
                 <template slot="title">
                   <i class="el-icon-user-solid"></i>
                   <span>客户管理</span>
@@ -94,10 +92,12 @@
 
         <!-- 中右 -->
         <el-main>   
-          <!-- 允许哪些可以被缓存  -->
-          <keep-alive include="">
-            <router-view></router-view>
-          </keep-alive>
+          <div class="main-content">
+            <!-- 允许哪些可以被缓存  -->
+            <keep-alive include="">
+              <router-view></router-view>
+            </keep-alive>
+          </div>
         </el-main>
       </el-container>
 
@@ -114,6 +114,17 @@
 
 export default {
   name: 'home',
+  data(){
+    return {
+      url:'',
+      currentUrl:''
+    }
+  },
+  watch:{
+    // isactive:function(newValue){
+    //   console.log('改变：'+newValue);
+    // }
+  },
   components: {
   },
   methods: {
@@ -123,14 +134,19 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     }
+  },
+  created(){
+    this.currentUrl = this.$route.name;
+    if(this.currentUrl == 'about'){
+      this.currentUrl = 'home'
+    }
   }
 }
 </script>
 
 <style lang="less" scoped>
 @import '../assets/style/base.less';
-.home{
-}
+
 .home-box{
   width: 100%;
   color: white;
@@ -144,8 +160,8 @@ export default {
   .el-aside {
     background-color: @themSecColor;
     text-align: center;
-    height: 86vh;
     overflow: hidden;
+    height: 86vh;
 
     .el-menu{
       height: 100%; 
@@ -153,9 +169,13 @@ export default {
       overflow-y: scroll;
       margin-right: -17px;
 
-      .erji{
-        background: white;
+     
+      .el-menu-item.is-active {
+          color: #409EFF!important;
+          font-size: 20px;
+          transition: .1s all linear;
       }
+
     }
 
 
@@ -165,6 +185,16 @@ export default {
     color: black;
     text-align: center;
     line-height: 60px;
+    height: 86vh;
+    overflow: hidden;
+
+    .main-content{
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      margin-right: -17px;
+
+    }
   }
 }
 
