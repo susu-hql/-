@@ -16,42 +16,57 @@
           type="email"
           label="邮箱"
           placeholder="请输入邮箱"
-          @blur='pan(email)'
-          :error-message = " emailInfo  "
+          @blur="pan(email)"
+          :error-message=" emailInfo  "
           required
-                   
         />
       </van-cell-group>
     </div>
-    <div>
+    <div class="shangchuan">
+      <p>上传身份证：（正反照各一张）</p>
       <van-uploader v-model="fileList" multiple :after-read="afterRead" />
     </div>
+    <div class="img">
+      <p>示例：</p>
+      <van-image width="100" height="100"  :src="require('../assets/imgs/shenfen01.jpg') " />
+      <van-image width="100" height="100"  :src="require('../assets/imgs/shenfen02.jpg')" />
+    </div>
+     <div>
+        <van-tabbar>         
+            <van-tabbar-item  is-link to='/allsafe' @click="addComment()">提交</van-tabbar-item>         
+        </van-tabbar>
+      </div>
   </div>
 </template>
 
 <script>
+import { Toast } from "vant";
 export default {
+  
   data() {
     return {
       username: "",
       email: "",
-      emailInfo:'',
+      emailInfo: "",
       fileList: []
     };
   },
   methods: {
-    pan(email) {     
+    pan(email) {
       var re = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
       if (re.test(email)) {
-        this.emailInfo = ''
+        this.emailInfo = "";
         // return ""
       } else {
-        this.emailInfo = '请输入正确邮箱格式  例如  alibaba@163.com'
+        this.emailInfo = "请输入正确邮箱格式  例如  alibaba@163.com";
       }
     },
     afterRead(file) {
       // 此时可以自行将文件上传至服务器
       console.log(file);
+    },
+     addComment() {
+      Toast("您已成功提交");
     }
   }
 };
@@ -59,5 +74,41 @@ export default {
 
 <style lang="less" scoped>
 @import "../assets/css/base.less";
+p {
+  display: block;
+  padding-left: 0;
+  text-indent: 2em;
+}
+.shangchuan {
+  text-align: left;
+  margin-top: 20px;
+}
+.van-uploader {
+  display: inline-block;
+  text-align: left;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+.img{
+  text-align: left;
+  margin-top: 20px;
+  .van-image{
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+}
+.van-tabbar {
+  height: 40px;
+  .van-tabbar-item {
+    font-size: 16px;
+    background-color: #63adde;
+    color: rgb(255, 255, 255);
+
+    .tijiao {
+      display: inline-block;
+      text-align: right;
+    }
+  }
+}
 </style>>
 

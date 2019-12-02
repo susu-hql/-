@@ -9,8 +9,8 @@
     <div class="">
       <van-cell icon="balance-list-o"  title="全部订单" is-link to="/mylist" />
 
-      <van-cell icon="logistics"  title="我的车主卡" is-link to="index" />
-      <van-cell icon="completed"  title="我的保单" is-link to="index" />
+      <van-cell icon="logistics"  title="我的车主卡" is-link to="/carid" />
+      <van-cell icon="completed"  title="我的保单" is-link to="/mypolicy" />
       <van-cell icon="comment-circle-o"  title="我的消息" is-link to="index" />
 
       <van-cell icon="wap-home-o"  title="退出" is-link to="index" />

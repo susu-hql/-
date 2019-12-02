@@ -13,7 +13,7 @@
       <br />
       <span>司机：王五</span>
     </div>
-<van-divider content-position="left">评价</van-divider>
+    <van-divider content-position="left">评价</van-divider>
     <div>
       <van-rate v-model="value" allow-half size="30px" />
     </div>
@@ -41,9 +41,7 @@
       <van-checkbox v-model="checked" class="niming">匿名提交</van-checkbox>
       <div>
         <van-tabbar>
-          
-            <van-tabbar-item  is-link to='/carlist' @click="addComment()">提交评价</van-tabbar-item>
-          
+          <van-tabbar-item is-link to="/carlist" @click="addComment()">提交评价</van-tabbar-item>
         </van-tabbar>
       </div>
     </div>
@@ -51,7 +49,7 @@
 </template>
 
 <script>
-import { Toast } from 'vant';
+import { Toast } from "vant";
 export default {
   data() {
     return {
@@ -61,9 +59,9 @@ export default {
       checked: ""
     };
   },
-  methods:{
-    addComment(){
-      Toast('您已成功评价')
+  methods: {
+    addComment() {
+      Toast("您已成功评价");
     }
   }
 };
@@ -105,7 +103,7 @@ p {
   height: 40px;
   .van-tabbar-item {
     font-size: 16px;
-    background-color:#63ADDE;
+    background-color: #63adde;
     color: rgb(255, 255, 255);
 
     .tijiao {
@@ -114,9 +112,9 @@ p {
     }
   }
 }
-.niming{
+.niming {
   display: flex;
-  justify-content: flex-end ;
+  justify-content: flex-end;
   margin-right: 20px;
   margin-top: 20px;
   font-size: 16px;
