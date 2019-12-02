@@ -23,6 +23,10 @@ Vue.use(Submenu)
 
 Vue.config.productionTip = false
 
+Vue.prototype.formatWord = function (val) {
+  return val.replace(/\n/g, '<br>')
+},
+
 new Vue({
   router,
   store,
