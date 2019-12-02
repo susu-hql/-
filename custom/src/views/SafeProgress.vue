@@ -25,39 +25,32 @@ export default {
       lists: [
         {
           id: 1,
-          statu: "已结单",
+          statu: "订单已经提交",
           statu0:1,
           time: "2016-07-11 10:00",
           beizhu: ""
         },
         {
           id: 2,
-          statu: "已发送",
+          statu: "待录入险种和保费",
           statu0:1,
           time: "2016-07-11 10:00",
-          beizhu: ""
+          beizhu: "等待后台录入"
         },
         {
           id: 3,
-          statu: "已受理",
+          statu: "待录入信息",
           statu0:2,
           time: "2016-07-11 10:00",
-          beizhu: "我好可乐"
+          beizhu: "已录入"
         },
         {
           id: 4,
-          statu: "已派工",
+          statu: "已完成",
           statu0:3,
           time: "2016-07-11 10:00",
-          beizhu: "我好可乐"
+          beizhu: "完成保单"
         },
-        {
-          id: 5,
-          statu: "司机接单",
-          statu0:4,
-          time: "2016-07-11 10:00",
-          beizhu: "我好可乐"
-        }
       ]
     };
   },

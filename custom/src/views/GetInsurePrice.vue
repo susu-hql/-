@@ -1,7 +1,18 @@
 <template>
     <div class="getprices">
-            <van-nav-bar title="我的订单" left-text="返回" left-arrow @click-left="onClickLeft" class="header" />
-        <div class="top">
+        <div class="nav">
+             <van-nav-bar
+      title="获取报价"
+      left-text="返回"
+      left-arrow
+      flxed
+      @click-left="$router.push('/mylist')"
+      class="header"
+    />
+        </div>
+          
+    <div class="main">
+ <div class="top">
          <p>已选3种险种</p>
          <ul>
              <li>司机险</li>
@@ -12,6 +23,8 @@
              <li>司xxxss机险</li>
          </ul>
         </div>
+
+           
         <div class="bottom">
          <ul>
              <li v-for="(item,index) in compalies" :key="index" >
@@ -28,13 +41,18 @@
          </ul>
         </div>
 
-<div class="footer">
+
+
+     
+
+    </div>
+    <div class="footer">
 
 <span><button   @click="changeShow" type="button">核对车辆信息</button></span>
-<span><button type="button">联系客服</button></span>
+<span><button type="button">去支付</button></span>
 </div>
-
-<div v-show="isShow" class="zhezhao">
+       
+  <div v-show="isShow" class="zhezhao">
     <div class="zz-show">
         <div class="show-top"><span><a id="close" @click="changeShow" href="javascript:;">x</a></span></div>
         <div class="show-main">
@@ -67,7 +85,10 @@
            <button class="qd-btn" type="submit">确定</button>
         </div>
     </div>
-</div>
+</div> 
+
+
+
     </div>
 
 
@@ -116,7 +137,27 @@ export default {
                     disPrice:"15万",
                     ischeck:0
 
-                }
+                },
+                 {
+                    id:5,
+                    name:"平安保险2",
+                    img:"shigu01.jpg",
+                    price:"10万",
+                    disPrice:"15万",
+                    ischeck:0
+
+                },
+                 {
+                    id:6,
+                    name:"平安保险2",
+                    img:"shigu01.jpg",
+                    price:"10万",
+                    disPrice:"15万",
+                    ischeck:0
+
+                },
+              
+                
 
 
             ]
@@ -130,8 +171,48 @@ export default {
 
 }
 </script>
-<style scoped>
+<style lang="less" scoped>
 @import "../assets/css/base.less";
+.footer{
+    width:100%;
+    height:70px;
+    position:fixed;
+    bottom:0;
+    background-color:white;
+  
+}
+.footer span{
+    display:block;
+}
+.footer span button{
+width:100px;
+height:25px;
+border-radius:4px;
+font-size: 12px;
+border:0;
+background-color:#63ADDE;
+color:white;
+
+
+}
+.nav{
+    width:100%;
+    height:47px;
+    position: fixed;
+    top:0;
+    left:0;
+}
+.main{
+    padding-top:30px;
+    width:100%;
+    height:auto;
+    overflow: hidden;
+}
+van-nav-bar{
+    top:0;
+    left:0;
+}
+
 #close{
     color:black;
 }
@@ -148,13 +229,17 @@ export default {
     margin-top:30px;
     border-radius: 5px;
     font-size:14px;
+    background-color: #63ADDE;
+    color:white;
 }
 .mtul li p input{
     width:90%;
-    height:30px;
+    height:25px;
     border:1px solid black;
 }
-
+.mtul li{
+    height:60px;
+}
 .getprices{width:100%}
 .top{
     
@@ -179,6 +264,8 @@ border-right:1px solid rgb(41, 38, 38);
 }
 .bottom{
     width:100%;
+    height:auto;
+    overflow: hidden;
     margin:0 auto;
     border-top:1px solid rgb(150, 145, 145);
 }
@@ -222,25 +309,7 @@ margin-top:30px;
     margin-left:-200px;
     margin-top:5px;
 }
-.footer{
-    width:100%;
-    height:70px;
-    position:fixed;
-    bottom:0;
-}
-.footer span{
-display:block;
-}
-.footer span button{
-width:100px;
-height:25px;
-border-radius:4px;
-font-size: 12px;
-border:0;
-background-color:#63ADDE;
-color:white;
 
-}
 .zhezhao{
     width:100%;
     height:700px;
@@ -248,6 +317,7 @@ color:white;
     top:0;
     left:0;
     background-color:rgba(14, 4, 4, 0.726);
+   
 }
 .zz-show{
     top:0;

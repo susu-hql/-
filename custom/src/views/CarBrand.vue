@@ -1,5 +1,13 @@
 <template>
 <div class="carBrand">
+  <van-nav-bar
+      title="品牌选择"
+      left-text="返回"
+      left-arrow
+      flxed
+      @click-left="$router.push('/mylist')"
+      class="header"
+    />
 <div class="main">
     <van-index-bar>
   <van-index-anchor index="A">A</van-index-anchor>
@@ -49,7 +57,8 @@ export default {
     
 }
 </script>
-<style scoped>
+<style lang="less" scoped>
+@import "../assets/css/base.less";
 </style>
 
 

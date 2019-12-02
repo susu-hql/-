@@ -1,5 +1,13 @@
 <template>
     <div class="ConfirmOrder">
+        <van-nav-bar
+      title="订单确认"
+      left-text="返回"
+      left-arrow
+      flxed
+      @click-left="$router.push('/mylist')"
+      class="header"
+    />
         <div class="imgs">
            <img src="../assets/imgs/baoxian.jpg"> 
         </div>
@@ -140,7 +148,8 @@ export default {
     
 }
 </script>
-<style scoped>
+<style lang="less" scoped>
+@import "../assets/css/base.less";
 .qr{
     background-color: #63ADDE;
 }

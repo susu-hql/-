@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar title="个人资料" left-text="返回" left-arrow @click-left="$router.back(-1)" class="header" />
+    <van-nav-bar title="个人资料"  @click-left="$router.back(-1)" class="header" />
     <div class="photo">
       <van-image src="https://img.yzcdn.cn/vant/cat.jpeg" round width="3rem" height="3rem">     
       </van-image>

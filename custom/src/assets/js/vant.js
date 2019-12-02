@@ -12,11 +12,20 @@ import { Overlay,Dialog } from 'vant';
 import { IndexBar, IndexAnchor } from 'vant';
 import { Tab, Tabs } from 'vant';
 import { Step, Steps } from 'vant';
-import { Rate } from 'vant';
 
-Vue.use(Rate);
 Vue.use(Card,Popup,Area );
 Vue.use(IndexBar).use(IndexAnchor);
+
+import { Rate } from 'vant';
+
+
+import { Checkbox, CheckboxGroup } from 'vant';
+import { Divider } from 'vant';
+import { Uploader } from 'vant';
+
+Vue.use(Uploader)
+Vue.use(Divider);
+Vue.use(Checkbox).use(CheckboxGroup);
 Vue.use(Step).use(Steps);
 Vue.use(Tab).use(Tabs);
 Vue.use(Toast);
@@ -25,9 +34,9 @@ Vue.use(Card);
 Vue.use(Button,AddressEdit,DatetimePicker);
 Vue.use(DropdownMenu).use(DropdownItem);
 Vue.use(Overlay);
-
+Vue.use(Card,Popup,Area );
 Vue.use(Icon);
-
+Vue.use(Rate);
 
 Vue.use(Cell).use(CellGroup);
 Vue.use(Image);

@@ -1,5 +1,13 @@
 <template>
     <div class="CarSelect">
+           <van-nav-bar
+      title="选择维修部位"
+      left-text="返回"
+      left-arrow
+      flxed
+      @click-left="$router.push('/mylist')"
+      class="header"
+    />
        <div class="top">
            <ul>
                <li v-for="(item,index) in bws" :key="index">
@@ -43,6 +51,7 @@
     </div>
 </template>
 <script>
+
 export default {
     name:"CarSelect",
     data() {
@@ -106,7 +115,8 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style lang="less" scoped>
+@import "../assets/css/base.less";
 .bwimgs{width:80px;
 height:60px;}
 .footer{

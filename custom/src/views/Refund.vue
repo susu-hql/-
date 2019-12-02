@@ -44,7 +44,6 @@ export default {
       Toast('您已成功申请退款');
        this.$router.push({
             path:"/carlist",
-
           })
     }
   }
