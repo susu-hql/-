@@ -5,13 +5,19 @@ import store from './store'
 import './assets/style/resize.css'
 import vueAxios from 'vue-axios'
 import http from './utils/http'
-import { Button, Icon ,Container ,Header,Aside,Main,Footer,Menu,MenuItem,MenuItemGroup} from 'element-ui';
-import { Submenu,Input,Checkbox,Pagination,Dropdown,DropdownMenu,DropdownItem,Select,Option} from 'element-ui';
-
+import { Button, Icon ,Container ,Header,Aside,Main,Footer,Menu,MenuItem,MenuItemGroup,Autocomplete} from 'element-ui';
+import { Submenu,Input,Checkbox,Pagination,Dropdown,DropdownMenu,DropdownItem,Select,Option,Table,TableColumn} from 'element-ui';
+import { Tag } from 'element-ui';
+ 
 import Echarts from 'echarts'
 
 Vue.prototype.echarts = Echarts
 
+
+Vue.use(Tag)
+Vue.use(TableColumn)
+Vue.use(Table)
+Vue.use(Autocomplete)
 Vue.use(Option)
 Vue.use(Select)
 Vue.use(DropdownItem)
