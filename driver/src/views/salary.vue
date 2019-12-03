@@ -4,8 +4,13 @@
       <router-link to="/" class="ift" id="f">&#xe607;返回</router-link>
       <p class="b">我的工资</p>
     </nav>
+    <div :style="{'width':'100%','height':'20px','border-bottom':'1px #333 solid'}"></div>
     <div class="nr">
-
+     <div :style="{'display':'flex','flex-wrap':'nowrap','justify-content':'space-between','width':'100%'}">
+      <p class="gs">估损预约维修</p>
+      <p class="sj">2019/12/2</p>
+    </div>
+      <p class="gz">您得到工资:</p>
     </div>
   </div>
 </template>
@@ -16,6 +21,10 @@ export default {
 </script>
 
 <style lang="less">
+*{
+  margin: 0;
+  padding:0;
+}
 .nav {
   width: 100%;
   height: 80px;
@@ -40,6 +49,24 @@ body{
   margin: 0 auto;
   margin-right: 60px;
   font-size: 30px;
+}
+.nr{
+  width: 100%;
+  height:150px;
+  background: white;
+  font-size:30px;
+  border-bottom: 1px solid #333;  
+}
+.gs{
+width: 300px;
+margin-bottom: 30px;
+}
+.sj{
+width: 200px;
+float: right;
+}
+.gz{
+width:280px;
 }
 
 

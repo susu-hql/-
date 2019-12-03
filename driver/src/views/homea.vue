@@ -62,9 +62,7 @@ export default {
   data() {
     return {                                     
       value: 2.5,
-      name:"何志勇",
-      img:"blog菜单图片_07.png",
-      dindan:"1234"
+      sy:[]
     };
     
   },
@@ -86,6 +84,17 @@ export default {
     bfb() {
       return (this.value / 5) * 100;
     }
+  },
+  created(){
+    this.axios
+    .get()
+    .then(res =>{
+      this.myorder = res.data.data;
+
+    })
+    .catch(err =>{
+
+    });
   }
 };
 </script>
@@ -148,7 +157,6 @@ body {
   border-radius: 13px;
   width: 130px;
   height: 130px;
-  background: rgb(212, 186, 120);
   margin-left: 30px;
 }
 .xm {

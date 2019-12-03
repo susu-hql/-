@@ -4,8 +4,8 @@
       <router-link to="/" class="ift" id="f">&#xe607;返回</router-link>
       <p class="b">我的评价</p>
     </nav>
-    <div class="yhpj" v-for="(item,index) in 5" :key="index">
-      <p v-for="(iten,index) in item.pi" :key="index">{{iten}}</p>
+    <div class="yhpj" v-for="(item,index) in qqq" :key="index">
+      <p v-for="(iten,index) in item.pi" :key="index">{{list[iten]}}</p>
       <div class="yxpj">
         <p
           :style="{'text-align':'left','width':'100%','line-height':'40px','font-size':'20px','margin-top':'10px',}"
@@ -67,17 +67,17 @@ export default {
         {
           name: "qq",
           age: "12",
-          pi: [0, 1]
+          pi: [0, 1,2]
         },
         {
           name: "ww",
           age: "13",
-          pi: [1, 2]
+          pi: [1, 2,0]
         },
         {
           name: "ee",
           age: "14",
-          pi: [0, 2]
+          pi: [0, 2,1]
         }
       ]
     };
