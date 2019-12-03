@@ -1,8 +1,14 @@
 <template>
     <div class="app">
-        <div class="app-nav">
-            <span>服务详细说明</span>
-        </div>
+          <van-nav-bar
+      title="服务详细说明"
+      left-text="返回"
+      left-arrow
+      flxed
+      @click-left="$router.push('/mylist')"
+      class="header"
+    />
+        
         <div class="app-main">
  <Inindex></Inindex>
         </div>
@@ -24,25 +30,20 @@ export default {
 
 }
 </script>
-<style scoped>
-.app-nav{
-    width:100%;
-    height:60px;
-    background-color:black;
-   
-    }
+<style lang="less" scoped>
+@import "../assets/css/base.less";
  .app-nav span{
-     
     text-align: center;
     color:white;
     align-items: center;
     display:block;
     font-size: 18px;
-    line-height: 70px;
+    line-height: 60px;
     }
 .app-main{
     width:100%;
-    height:1150px;
+    height:600px;
+
 }
 
 </style>

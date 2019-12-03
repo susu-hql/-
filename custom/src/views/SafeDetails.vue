@@ -1,18 +1,18 @@
 <template>
   <div>
     <van-nav-bar
-      title="订单详情"
+      title="保单详情"
       left-text="返回"
       left-arrow
       fixed
       z-index="2"
-      @click-left="$router.push('/carlist')"
+      @click-left="$router.push('/allsafe')"
       class="header"     
     />
     <div class="dingdan" z-index="2">
       <van-tabs > 
-        <van-tab title="订单详情" is-link to="/details" class="fenlan"></van-tab>
-        <van-tab title="订单状态" is-link to="/details/progress"></van-tab>
+        <van-tab title="订单详情" is-link to="/safeDetails" class="fenlan"></van-tab>
+        <van-tab title="订单状态" is-link to="/safeDetails/safeProgress"></van-tab>
       </van-tabs>
     </div>
     <div>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <van-nav-bar
-      title="车辆订单"
+      title="保险订单"
       left-text="返回"
       left-arrow
       flxed
@@ -10,14 +10,13 @@
     />
     <div v-for="item in lists" :key="item.id">
       <van-card
-        :desc="'类型：'+getType(item.type)"
+        :desc="'保单'"
         :title="'订单号：'+item.orderN"
         :thumb="require('../assets/imgs/'+item.photo) "
-        :thumb-link="'/details?'+item.id"
+        :thumb-link="'/safeDetails?'+item.id"
       >
         <div slot="tags">
-          <p>接车时间：{{item.time}}</p>
-          <p>接车司机：{{item.driver}}</p>
+          <p>保费：{{item.driver}}</p>
         </div>
         <div slot="tags" class="stuta01">
           <span v-html="getStatu(item.statu)"></span>
@@ -25,13 +24,7 @@
         <div slot="footer">
           <div v-show="item.statu==1">
             <van-button size="small" @click="quxiao(item.id)">取消服务</van-button>
-            <van-button size="small" type="warning" is-link to="index">去付款</van-button>
-          </div>
-          <div v-show="item.statu>1&&item.statu<5">
-            <van-button size="small" type="warning" @click="tuikuan(item.id)">退款</van-button>
-          </div>
-          <div v-show="item.statu==12">
-            <van-button size="small" type="warning" @click="comment(item.id)">去评价</van-button>
+            <van-button size="small" type="warning" is-link to="idCard">去录入</van-button>
           </div>
         </div>
 
@@ -53,8 +46,8 @@ export default {
           type: "1",
           time: "2019/11/28 11:20:08",
           driver: "小谢",
-          statu: 12,
-          photo: "shigu01.jpg"
+          statu: 1,
+          photo: "baoxian.jpg"
         },
         {
           id: 2,
@@ -63,7 +56,7 @@ export default {
           time: "2019/11/28 11:20:08",
           driver: "小谢",
           statu: 1,
-          photo: "shigu01.jpg"
+          photo: "baoxian.jpg"
         },
         {
           id: 3,
@@ -72,7 +65,7 @@ export default {
           time: "2019/11/28 11:20:08",
           driver: "小谢",
           statu: 2,
-          photo: "shigu01.jpg"
+          photo: "baoxian.jpg"
         }
       ]
     };
@@ -93,7 +86,7 @@ export default {
     },
     getStatu(statu) {
       if (statu == 1) {
-        return "未支付";
+        return "待录入";
       } else if (statu == 2) {
         return "审核中";
       }
@@ -116,27 +109,6 @@ export default {
           // on cancel
         });
     },
-    tuikuan(id) {
-      Dialog.confirm({
-        title: "提示",
-        message: "您确定退款吗"
-      })
-        .then(() => {
-          this.$router.push({
-            path: "/refund",
-            query: { id }
-          });
-        })
-        .catch(() => {
-          // on cancel
-        });
-    },
-    comment(id){
-       this.$router.push({
-            path: "/comment",
-            query: { id }
-          });       
-    }
   }
 };
 </script>
@@ -168,6 +140,9 @@ p{
   padding-left: 0;
   font-size: 12px;
   margin-top: 2px;
+}
+.van-card__title{
+  margin-top: 15px;
 }
 </style>>
 

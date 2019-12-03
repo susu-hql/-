@@ -1,6 +1,18 @@
 <template>
     <div class="getprices">
-        <div class="top">
+        <div class="nav">
+             <van-nav-bar
+      title="获取报价"
+      left-text="返回"
+      left-arrow
+      flxed
+      @click-left="$router.push('/mylist')"
+      class="header"
+    />
+        </div>
+          
+    <div class="main">
+ <div class="top">
          <p>已选3种险种</p>
          <ul>
              <li>司机险</li>
@@ -11,36 +23,226 @@
              <li>司xxxss机险</li>
          </ul>
         </div>
+
+           
         <div class="bottom">
          <ul>
-             <li>
+             <li v-for="(item,index) in compalies" :key="index" >
  <van-card
-  price="2.00"
-  desc="描述信息"  
-  origin-price="10.00"
-  thumb="https://img.yzcdn.cn/vant/t-thirt.jpg"
+  :price="(item.price)"
+ 
+  :desc="(item.name)"  
+  :origin-price="(item.disPrice)"
+  :thumb="require('../assets/imgs/'+item.img) "
 >
-
-  <div slot="footer">
-    <van-button size="mini">按钮</van-button>
-  </div>
 </van-card>
-
-     
+ 
     </li>
          </ul>
         </div>
+
+
+
+     
+
     </div>
+    <div class="footer">
+
+<span><button   @click="changeShow" type="button">核对车辆信息</button></span>
+<span><button type="button">去支付</button></span>
+</div>
+       
+  <div v-show="isShow" class="zhezhao">
+    <div class="zz-show">
+        <div class="show-top"><span><a id="close" @click="changeShow" href="javascript:;">x</a></span></div>
+        <div class="show-main">
+            <ul class="mtul">
+                <li> 
+            <p>车牌号：</p>
+            <p><input type="text"></p>
+                </li>
+                   <li> 
+            <p>车架号：</p>
+            <p><input type="text"></p>
+                </li>
+                 <li> 
+            <p>发动机号：</p>
+            <p><input type="text"></p>
+                </li>
+                <li> 
+            <p>车牌型号：</p>
+            <p><input type="text"></p>
+                </li>
+              <li> 
+            <p>初登日期：</p>
+            <p><input type="text"></p>
+                </li>   
+                <li> 
+            <p>身份证号：</p>
+            <p><input type="text"></p>
+                </li>  
+            </ul>
+           <button class="qd-btn" type="submit">确定</button>
+        </div>
+    </div>
+</div> 
+
+
+
+    </div>
+
+
+    
+   
 </template>
 <script>
 export default {
     name:'getprice',
+    data(){
+        return {
+            isShow: false,
+            compalies:[
+                {
+                    id:1,
+                    name:"平安保险1",
+                    img:"shigu01.jpg",
+                    price:"10万",
+                    disPrice:"15万",
+                    ischeck:0
+
+                },
+                 {
+                    id:2,
+                    name:"平安保险3",
+                    img:"shigu01.jpg",
+                    price:"10万",
+                    disPrice:"15万",
+                    ischeck:0
+
+                },
+                 {
+                    id:3,
+                    name:"平安保险2",
+                    img:"shigu01.jpg",
+                    price:"10万",
+                    disPrice:"15万",
+                    ischeck:0
+
+                },
+                 {
+                    id:4,
+                    name:"平安保险2",
+                    img:"shigu01.jpg",
+                    price:"10万",
+                    disPrice:"15万",
+                    ischeck:0
+
+                },
+                 {
+                    id:5,
+                    name:"平安保险2",
+                    img:"shigu01.jpg",
+                    price:"10万",
+                    disPrice:"15万",
+                    ischeck:0
+
+                },
+                 {
+                    id:6,
+                    name:"平安保险2",
+                    img:"shigu01.jpg",
+                    price:"10万",
+                    disPrice:"15万",
+                    ischeck:0
+
+                },
+              
+                
+
+
+            ]
+        }
+    },
+     methods: {
+    changeShow() {
+     this.isShow = !this.isShow;
+    }
+  }
 
 }
 </script>
-<style scoped>
+<style lang="less" scoped>
+@import "../assets/css/base.less";
+.footer{
+    width:100%;
+    height:70px;
+    position:fixed;
+    bottom:0;
+    background-color:white;
+  
+}
+.footer span{
+    display:block;
+}
+.footer span button{
+width:100px;
+height:25px;
+border-radius:4px;
+font-size: 12px;
+border:0;
+background-color:#63ADDE;
+color:white;
+
+
+}
+.nav{
+    width:100%;
+    height:47px;
+    position: fixed;
+    top:0;
+    left:0;
+}
+.main{
+    padding-top:30px;
+    width:100%;
+    height:auto;
+    overflow: hidden;
+}
+van-nav-bar{
+    top:0;
+    left:0;
+}
+
+#close{
+    color:black;
+}
+.mtul{
+    margin-top:30px;
+    width:100%;
+    height:auto;
+    font-size:16px;
+    
+}
+.qd-btn{
+    width:140px;
+    height:30px;
+    margin-top:30px;
+    border-radius: 5px;
+    font-size:14px;
+    background-color: #63ADDE;
+    color:white;
+}
+.mtul li p input{
+    width:90%;
+    height:25px;
+    border:1px solid black;
+}
+.mtul li{
+    height:60px;
+}
 .getprices{width:100%}
 .top{
+    
     margin:0 auto;
     width:80%;
     height:80px;
@@ -62,6 +264,8 @@ border-right:1px solid rgb(41, 38, 38);
 }
 .bottom{
     width:100%;
+    height:auto;
+    overflow: hidden;
     margin:0 auto;
     border-top:1px solid rgb(150, 145, 145);
 }
@@ -72,7 +276,7 @@ border-right:1px solid rgb(41, 38, 38);
 .bottom ul li{
     width:100%;
     height:100px;
-    border:1px solid rgb(56, 54, 54);
+   
 }
 .van-button{
     bottom:30px;
@@ -83,7 +287,20 @@ margin-top:30px;
 }
 .van-card__price{
     margin-top:-90px;
+    font-size:16px;
+    margin-left:70px;
     
+}
+.van-card__origin-price{
+      font-size:16px;
+}
+.van-card__desc{
+    font-size:12px;
+}
+.van-card__bottom{
+    width:180px;
+    margin-left:70px;
+    margin-top:-20px;
 }
 
 .img{
@@ -93,6 +310,42 @@ margin-top:30px;
     margin-top:5px;
 }
 
+.zhezhao{
+    width:100%;
+    height:700px;
+    position:fixed;
+    top:0;
+    left:0;
+    background-color:rgba(14, 4, 4, 0.726);
+   
+}
+.zz-show{
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    position:absolute;
+    margin:auto;
+     width:90%;
+    height:80%;
+    background-color:white;
 
+}
+.show-top{
+    width:100%;
+    height:10%;
+    
+}
+.show-top{
+    display: block;
+    float:right;
+    width:40px;
+    height:20px;
+}
+.show-main{
+    width:90%;
+    height:80%;
+    
+}
 
 </style>

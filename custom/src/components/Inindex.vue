@@ -27,7 +27,7 @@
      </ul>
      </div>     
 <div class="app-bottom">
- <van-button color="linear-gradient(to right, #4bb0ff, #6149f6)" type="primary" to="index">立即预约</van-button>
+ <van-button color="linear-gradient(to right, #4bb0ff, #6149f6)" type="primary" to="insuerInput">立即预约</van-button>
         </div>
   </div>
 
@@ -41,8 +41,9 @@ export default {
 <style scoped>
 .inindex{
     width:100%;
-    height:1050px;
-    position: relative;
+    height:600px;
+    
+    
 }
 .app-bottom{
     width:100%;
@@ -55,9 +56,13 @@ export default {
     height:90%;
    
 }
-P{line-height: 10px;}
+P{  height:40px;
+
+   
+}
 .title{
-    font-size: 40px;
+    height:40px;
+    font-size: 24px;
 }
 .title2{
     width:90%;
