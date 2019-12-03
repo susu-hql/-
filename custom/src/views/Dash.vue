@@ -1,11 +1,10 @@
 <template>
   <div>
-    <van-nav-bar title="首页"    class="header" />
+    <van-nav-bar title="首页" left-text="返回" left-arrow @click-left="onClickLeft" class="header" />
     <div class="banner">
       <van-swipe @change="onChange" :autoplay="3000" indicator-color="blank">
         <van-swipe-item v-for="(image, index) in images" :key="index">
-          <img :src="require('../assets/imgs'+image.address)" alt="">
-          <!-- <img :src="[require(toString(image.address))]" alt="123" /> -->
+          <img :src="image" alt="123" />
         </van-swipe-item>
       </van-swipe>
     </div>
@@ -14,25 +13,26 @@
     </div>
   </div>
 </template>
-
+ 
 <script>
-
+import a from "../../public/imgs/develop1.png";
+import b from "../../public/imgs/develop2.png";
+import c from "../../public/imgs/develop3.png";
+import d from "../../public/imgs/develop4.png";
 export default {
   name: "dash",
   data() {
     return {
-      images: [
-        {address:"/develop1.png"},
-        {address:"/develop2.png"},
-        {address:"/develop3.png"},
-        {address:"/develop4.png"},  
-      ]
+      images: [a, b, c, d]
     };
   },
   methods: {
     onChange(index) {
       this.current = index;
-    },  
+    },
+    onClickLeft() {
+      console.log("4545");
+    }
   }
 };
 </script>

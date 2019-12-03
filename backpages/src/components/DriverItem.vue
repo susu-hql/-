@@ -6,7 +6,7 @@
       <td class="tel">12547895442</td>
       <td class="carNum">在职</td>
       <td class="lTime">2019-09-1-27</td>
-      <td class='operate'> 
+      <td class='operate'>  
           <el-button type="primary" icon="el-icon-edit" circle @click='modify(info.userid)' title="修改" ></el-button>
           <el-button type="success" icon="el-icon-view" circle @click='look(info.userid)' title="查看" ></el-button>
          <el-button type="danger" icon="el-icon-delete" circle @click='del(info.userid)' title="删除"></el-button>

@@ -26,9 +26,41 @@ const routes = [
         }
       },
       {
-        path: '/order',   // 订单管理
+        path: '/order',   // 订单管理   --  估损预约
         name: 'order',
         component: () => import('../views/Order.vue'),
+        meta: {
+          auth: true
+        }
+      },
+      {
+        path: '/orders',   // 订单管理  -- 直接预约
+        name: 'orders',
+        component: () => import('../views/Orders.vue'),
+        meta: {
+          auth: true
+        }
+      },
+      {
+        path: '/lookOrder',   // 订单管理  查看订单
+        name: 'lookOrder',
+        component: () => import('../views/LookOrder.vue'),
+        meta: {
+          auth: true
+        }
+      },
+      {
+        path: '/modifyOrder',   // 订单管理  修改订单
+        name: 'modifyOrder',
+        component: () => import('../views/ModifyOrder.vue'),
+        meta: {
+          auth: true
+        }
+      },
+      {
+        path: '/addOrder',   // 订单管理  增加订单
+        name: 'addOrder',
+        component: () => import('../views/AddOrder.vue'),
         meta: {
           auth: true
         }
@@ -42,25 +74,9 @@ const routes = [
         }
       },
       {
-        path: '/adduser',   // 客户管理  添加用户信息
+        path: '/adduser',   // 客户管理  添加用户管理
         name: 'adduser',
         component: () => import('../views/AddUser.vue'),
-        meta: {
-          auth: true
-        }
-      },
-      {
-        path: '/modifyuser',   // 客户管理  修改用户信息
-        name: 'modifyuser',
-        component: () => import('../views/ModifyUser.vue'),
-        meta: {
-          auth: true
-        }
-      },
-      {
-        path: '/lookuser',   // 客户管理  查看用户信息
-        name: 'lookuser',
-        component: () => import('../views/lookUser.vue'),
         meta: {
           auth: true
         }
@@ -154,9 +170,17 @@ const routes = [
         }
       },
       {
-        path: '/evaluate',   // 评价管理
+        path: '/evaluate',   // 评价管理 司机评论
         name: 'evaluate',
         component: () => import('../views/Evaluate.vue'),
+        meta: {
+          auth: true
+        }
+      },
+      {
+        path: '/lookEvaluate',   // 评价管理 查看司机评论详情
+        name: 'lookEvaluate',
+        component: () => import('../views/LookEvaluate.vue'),
         meta: {
           auth: true
         }
@@ -217,6 +241,14 @@ const routes = [
           auth: true
         }
       },
+      {
+        path: '/makeby',   // 
+        name: 'makeby',
+        component: () => import('../views/MakeBy.vue'),
+        meta: {
+          auth: true
+        }
+      },
     ]
   },
   {
@@ -241,22 +273,22 @@ const router = new VueRouter({
 
 // 注册全局守卫
 // 在访问路由之前进行拦截
-// router.beforeEach((to, from, next) => {
-//   // 获取 token，登录的标识
-//   var token = sessionStorage.getItem("token")
+router.beforeEach((to, from, next) => {
+  // 获取 token，登录的标识
+  var token = sessionStorage.getItem("token")
 
-//   if(to.meta.auth) { // 判断是否需要权限
-//     if(token) { // 再次判断是否已经有权限了
-//       next() 
-//     } else {
-//       next({ // 没有权限，导向登录页
-//         path: "/login",
-//         query: {redirect: to.fullPath} // 记录原本想访问的路由
-//       })
-//     }
-//   } else {
-//     next() // 想去哪就去哪
-//   }
-// })
+  if(to.meta.auth) { // 判断是否需要权限
+    if(token) { // 再次判断是否已经有权限了
+      next() 
+    } else {
+      next({ // 没有权限，导向登录页
+        path: "/login",
+        // query: {redirect: to.fullPath} // 记录原本想访问的路由
+      })
+    }
+  } else {
+    next() // 想去哪就去哪
+  }
+})
 
 export default router

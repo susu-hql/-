@@ -4,7 +4,7 @@
       <el-input v-model="search" placeholder="请输入内容" clear="search-input"></el-input>
       <el-button class="search-button" type="primary" @click='searchOrder'>查询</el-button>
       <el-button class="addUser-button" type="warning" @click="addUser">
-        <span class="el-icon-plus" > 添加用户</span>
+        <span class="el-icon-plus"> 添加用户</span>
       </el-button>
       <table> 
           <tr class="table-th">
@@ -27,14 +27,13 @@
 
 <script>
 import UserItem from '@/components/UserItem.vue'
-// import { mapState } from 'vuex'
 
 export default {
   name: 'client',
   data(){
     return {
       search:'',
-      userList:[{userid:'1',name:'微微一笑很倾城'},{userid:'2',name:'lucy'},{userid:'3',name:'lucy'},{userid:'4',name:'lucy'},{userid:'5',name:'lucy'}]
+      userList:[{name:'微微一笑很倾城'},{name:'lucy'},{name:'lucy'},{name:'lucy'},{name:'lucy'}]
     }
   },
   components: {
@@ -46,7 +45,7 @@ export default {
    },
    addUser:function(){
      console.log('添加用户');
-     location.assign('/adduser');
+     location.replace('/adduser');
    }
   },
   created(){

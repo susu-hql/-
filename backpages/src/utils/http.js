@@ -1,6 +1,7 @@
 // 对 axios 进行二次封装
 import axios from 'axios'
 import router from '../router/'
+import qs from 'qs' // 引入 qs 模块，该模块不需要安装，用来序列化 post 类型的数据
 
 // 添加一个新的 axios 的实例
 const http = axios.create({
@@ -10,11 +11,21 @@ const http = axios.create({
 
 // 请求拦截，统一在请求时带上 token
 http.interceptors.request.use(function (config) {
+  
+  if (config.method === "post") { // 这一步主要取决于后端是否可以接受 json
+    config.headers = {
+      'Content-Type':'application/x-www-form-urlencoded'
+    }
+    // 参数序列化
+    config.data = qs.stringify(config.data);
+  }
+
   // 获取 token
   const token = sessionStorage.getItem('token')
   if(token) {
     // 在请求头上带上 token，固定写法
-    config.headers['Authorization'] = 'Bearer ' + token
+    config.headers['Authorization'] =  token
+    // config.headers['Authorization'] = 'Bearer' + token
   }
   return config;
 }, function (error) {

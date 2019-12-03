@@ -37,26 +37,6 @@ const routes = [
     path: '/myorder',
     name: 'myorder',
     component: () => import('../views/myorder.vue')
-  },
-  {
-    path: '/orderAmount',
-    name: 'orderAmount',
-    component: () => import('../views/orderAmount.vue')
-  },
-  {
-    path: '/orderReceiving',
-    name: 'orderReceiving',
-    component: () => import('../views/orderReceiving.vue')
-  },
-  {
-    path: '/orderStatus',
-    name: 'orderStatus',
-    component: () => import('../views/orderStatus.vue')
-  },
-  {
-    path: '/map',
-    name: 'map',
-    component: () => import('../views/map.vue')
   }
 ]
 

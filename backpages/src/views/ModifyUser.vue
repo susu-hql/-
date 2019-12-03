@@ -263,11 +263,6 @@ export default {
     margin-left:80px;
     margin-top: 30px;
 
-    table{
-
-      td{
-      }
-    }
 
     .el-input,
     .el-select,

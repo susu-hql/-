@@ -1,15 +1,15 @@
 <template>
   <!-- <div class="userItem"> -->
     <tr>
-      <td class="userid">{{info.userid}}</td>
+      <td class="userid">1</td>
       <td class="username">{{info.name}}</td>
       <td class="tel">12547895442</td>
       <td class="time">2019-09-1-27 24：10</td>
       <td class='operate'> 
-          <el-button type="primary" icon="el-icon-edit" circle @click='modify(info.userid)' title="修改" :disabled='isdisable'></el-button>
-          <el-button type="success" icon="el-icon-view" circle @click='look(info.userid)' title="查看" :disabled='isdisable'></el-button>
+          <el-button type="primary" icon="el-icon-edit" circle @click='modify' title="修改" :disabled='isdisable'></el-button>
+          <el-button type="success" icon="el-icon-view" circle @click='look' title="查看" :disabled='isdisable'></el-button>
           <el-button type="warning" :icon="icons" circle  @click='lock' :title="islock" ></el-button>
-          <el-button type="danger" icon="el-icon-delete" circle @click='del(info.userid)' title="删除" :disabled='isdisable'></el-button>
+          <el-button type="danger" icon="el-icon-delete" circle @click='del' title="删除" :disabled='isdisable'></el-button>
       </td>
     </tr>
   <!-- </div> -->
@@ -27,12 +27,10 @@ export default {
   },
   props:['info'],
   methods:{
-    modify:function(i){
-      location.assign('/modifyuser?userid='+i);
-      console.log('修改');
+    modify:function(){
+     console.log('修改');
     },
-    look:function(i){
-      location.assign('/lookuser?userid='+i);
+    look:function(){
       console.log('查看');
     },
     lock:function(){
