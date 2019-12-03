@@ -18,14 +18,10 @@
     to="/home/mydata"
     icon="friends-o"
     class="tab"
-  >
+  > 
     我的资料
   </van-tabbar-item>
 </van-tabbar>
-
-
-
-
   </div>
 </template>
 
