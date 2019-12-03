@@ -1,9 +1,9 @@
 <template>
   <!-- <div class="userItem"> -->
     <tr>
-      <td class="userid">1</td>
-      <td class="username">{{info.name}}</td>
-      <td class="tel">12547895442</td>
+      <td class="userid">{{info.userId}}</td>
+      <td class="username">{{info.userName}}</td>
+      <td class="tel">{{info.userTel}}</td>
       <td class="time">2019-09-1-27 24：10</td>
       <td class='operate'> 
           <el-button type="primary" icon="el-icon-edit" circle @click='modify' title="修改" :disabled='isdisable'></el-button>
@@ -32,6 +32,7 @@ export default {
     },
     look:function(){
       console.log('查看');
+      // location.assign('/lookuser?userid='+ this.info.userId )
     },
     lock:function(){
       if(this.islock == '锁定'){

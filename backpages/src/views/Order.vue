@@ -141,7 +141,7 @@ export default {
         this.axios  
           .post("/back/state/findOrderState")
           .then(res => {
-            console.log('订单状态',res.data.data);
+            // console.log('订单状态',res.data.data);
             if (res.data.state == "200") {
                 this.orderStausList = res.data.data
             } else {

@@ -17,8 +17,8 @@
             </td>
             <td>
                 <!-- 输入框  --> 
-                <el-form-item label="用户姓名：" prop="name">        
-                  <el-input v-model="ruleForm.name"></el-input>
+                <el-form-item label="用户姓名：" prop="username">        
+                  <el-input v-model="ruleForm.username"></el-input>
                 </el-form-item>
             </td>
           </tr>
@@ -56,13 +56,11 @@
           <tr>
             <td>
                 <el-form-item label="接车司机：" prop="acceptDriver">   
-                  <el-select v-model="ruleForm.acceptLocation" placeholder="区域" class="ban">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                  <el-select v-model="ruleForm.acceptLocation" placeholder="区域" class="ban" @input='renderAcceptDriver'>
+                    <el-option v-for="(item,index) in locationList" :key = 'index' :label="item.openCity" :value="item.openId"></el-option>
                   </el-select>
                   <el-select v-model="ruleForm.acceptDriver" placeholder="接车司机" class="ban">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                    <el-option v-for="(item,index) in acceptDriverList" :key = 'index' :label="item.openCity" :value="item.openId"></el-option>
                   </el-select>
                 </el-form-item>
             </td>
@@ -70,20 +68,16 @@
                <el-form-item label="接车地址：" prop="acceptAddrss">        
                   <el-input v-model="ruleForm.acceptAddrss"></el-input>
                 </el-form-item>
-
-               
             </td>
           </tr>
           <tr>
             <td>
                 <el-form-item label="还车司机：" prop="returnDriver">   
-                  <el-select v-model="ruleForm.returnLocation" placeholder="区域" class="ban">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                  <el-select v-model="ruleForm.returnLocation" placeholder="区域" class="ban" @input='renderReturnDriver'>
+                    <el-option v-for="(item,index) in locationList" :key = 'index' :label="item.openCity" :value="item.openId"></el-option>
                   </el-select>
                   <el-select v-model="ruleForm.returnDriver" placeholder="还车司机" class="ban">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                    <el-option v-for="(item,index) in returnDriverList" :key = 'index' :label="item.openCity" :value="item.openId"></el-option>
                   </el-select>
                 </el-form-item>
             </td>
@@ -106,23 +100,42 @@
             </td>
             <td>
               <el-form-item label="4s店：" prop="fourDoor">   
-                  <el-select v-model="ruleForm.fourDoorLocation" placeholder="区域" class="ban">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                  <el-select v-model="ruleForm.fourDoorLocation" placeholder="区域" class="ban" @input='renderFour'>
+                     <el-option v-for="(item,index) in locationList" :key = 'index' :label="item.openCity" :value="item.openId"></el-option>
                   </el-select>
-                  <el-select v-model="ruleForm.fourDoor" placeholder="4s店" class="ban">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                  <el-select v-model="ruleForm.fourDoor" placeholder="4s店" class="ban1">
+                    <el-option v-for="(item,index) in fourDoorList" :key = 'index' :label="item.servicshopName" :value="item.serviceNumber"></el-option>
                   </el-select>
                 </el-form-item>
             </td>
           </tr>
           <tr>
             <td>
-                  <!-- 多行文本 -->
-                  <el-form-item label="备注：" prop="desc">
-                    <el-input type="textarea" v-model="ruleForm.desc"></el-input>
-                  </el-form-item>
+                <el-form-item label="维修方式：" prop="repairMethod" require > 
+                  <el-select v-model="ruleForm.repairMethod" placeholder="维修方式">
+                    <el-option label="自费" value="1"></el-option>
+                    <el-option label="保险" value="0"></el-option>
+                  </el-select>
+                </el-form-item>
+            </td>
+            <td>
+              <el-form-item label="是否接车:" prop="substituteDriving" require>   
+                  <el-select v-model="ruleForm.substituteDriving" placeholder="是否接车" >
+                    <el-option label="接车" value="1"></el-option>
+                    <el-option label="不接" value="0"></el-option>
+                  </el-select>
+                </el-form-item>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <el-form-item label="事故类型:" prop="accidentType" require>   
+                  <el-select v-model="ruleForm.accidentType" placeholder="事故类型" >
+                    <el-option label="双车事故（第三者）" value="双车事故（第三者）"></el-option>
+                    <el-option label="单车事故" value="单车事故"></el-option>
+                    <el-option label="多车事故" value="多车事故"></el-option>
+                  </el-select>
+                </el-form-item>
             </td>
           </tr>
         </table>
@@ -160,7 +173,7 @@ export default {
       var validateName = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请输入用户名'));
-        }else if( !Usernamepat.test(this.ruleForm.name) ){
+        }else if( !Usernamepat.test(this.ruleForm.username) ){
           callback( new Error('请输入正确的用户名'));
         } else {
           callback();
@@ -181,16 +194,21 @@ export default {
 
 
       return {
-        orderStausList:[],
+        obj:{},
+        acceptDriverList:[],  // 接车司机列表
+        returnDriverList:[],  // 还车司机列表  
+        fourDoorList:[],  // 4s店列表
+        locationList:[],   // 区域类别
+        orderStausList:[],             // 订单状态类别
+
         ruleForm: {
           orderType:'',
-          name: '',
+          username: '',
           acceptAddrss:'',
           returnAddrss:'',
           desc: '',
           carNumber:'',
           usertel:'',
-          cartype:'',
           engineNumber:'',
           acceptTime:'',
           acceptDriver:'',
@@ -199,13 +217,16 @@ export default {
           returnLocation:'',
           orderStaus:'待确定',
           fourDoorLocation:'',
-          fourDoor:''
+          fourDoor:'',
+          substituteDriving:'',
+          repairMethod:'',
+          accidentType:''
         },
         rules: {
           orderType: [  // 订单类型
             { required: true,message:'请选择订单类型',  trigger: 'blur' },
           ],
-          name: [  // 用户名
+          username: [  // 用户名
             { required: true, validator:validateName,  trigger: 'blur' },
           ],
           acceptAddrss: [  // 接车地址
@@ -250,22 +271,47 @@ export default {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             // 对象  ============ 保存--异步：向数据库修改 =======================
+            this.obj  = {
+                orderType:this.orderType,   // 订单类型
+                userName: this.username,   // 用户名
+                acceptAddrss:'',    // 接车地址
+                carNum:this.carNumber,   // 车牌号
+                userTel:this.usertel,   // 联系电话
+                engineNumber:'',      // 发动机号
+                substituteTime:this.acceptTime ,      // 接车时间
+                driverId : this.acceptDriver,     //接车司机
+                // aubstituteAddress:this.acceptLocation,    // 接车地址
+                // driverId : this.returnDriver,
+                returnLocation:'',
+                returnAddress : this.returnAddrss,
+                orderStaus: this.orderStaus,     // 订单状态
+                fourDoorLocation:'',   // 4s店区域
+                shopId: this.fourDoor , // 4s店名称
+                substituteDriving:this.substituteDriving,
+                repairMethod:this.repairMethod,
+                accidentType:this.accidentType
+              }
             console.log(this.ruleForm);
               this.ruleForm = {
-                orderType:'',
-                name: '',
-                acceptAddrss:'',
-                desc: '',
-                carNumber:'',
-                usertel:'',
-                cartype:'',
-                engineNumber:'',
-                acceptTime:'',
-                acceptDriver:'',
-                acceptLocation:'',
-                orderStaus:'待确定',
-                fourDoorLocation:'',
-                fourDoor:''
+                orderType:'',   // 订单类型
+                username: '',   // 用户名
+                acceptAddrss:'',    // 接车地址
+                desc: '',        // 备注
+                carNumber:'',   // 车牌号
+                usertel:'',   // 联系电话
+                engineNumber:'',      // 发动机号
+                acceptTime:'',      // 接车时间
+                acceptDriver:'',     //接车司机
+                acceptLocation:'',    // 接车地址
+                returnDriver:'',
+                returnLocation:'',
+                returnAddrss:'',
+                orderStaus:'待确定',     // 订单状态
+                fourDoorLocation:'',   // 4s店区域
+                fourDoor:'' , // 4s店名称      
+                substituteDriving:'',
+                repairMethod:'',
+                accidentType:''
               }
               this.$message({
                 message: '添加成功',
@@ -286,7 +332,7 @@ export default {
         this.axios  
           .post("/back/state/findOrderState")
           .then(res => {
-            console.log('订单状态',res.data.data);
+            // console.log('订单状态',res.data.data);
             if (res.data.state == "200") {
                 this.orderStausList = res.data.data
             } else {
@@ -300,10 +346,58 @@ export default {
           .catch(err => {
             console.log(err);
           });
-      }
+      },
+      getLocation:function(){   // 获取区域
+        this.axios  
+          .get("/back/city/list1")
+          .then(res => {
+            console.log('4s店区域',res.data.data);
+            if (res.data.state == "200") {
+                this.locationList = res.data.data
+            } else {
+              this.$message({
+                showClose: true,
+                message: '请求出错',
+                type: 'error'
+              });
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      },
+      renderFour:function(){    // 获取4s店
+          console.log("00",this.ruleForm.fourDoorLocation);
+         this.axios  
+          .post("/back/serviceShop/findAllByAreaID",{
+            areaId:this.ruleForm.fourDoorLocation
+          })
+          .then(res => {
+            console.log('4s店',res.data.data);
+            if (res.data.state == "200") {
+                this.fourDoorList = res.data.data
+            } else {
+              this.$message({
+                showClose: true,
+                message: '请求出错',
+                type: 'error'
+              });
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      },
+      renderReturnDriver:function(){   // 获取还车司机
+
+      },
+      renderAcceptDriver:function(){   // 获取接车司机
+
+      },
   },
   created(){
     this.getOrderStates();
+    this.getLocation();
   }
 }
 </script>

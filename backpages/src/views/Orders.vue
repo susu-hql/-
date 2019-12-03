@@ -16,7 +16,7 @@
 
       <el-select v-model="searchOderState" placeholder="审核状态" class="search">
         <el-option label="全部状态" value=""></el-option>
-        <el-option label="待审核"  value="0"> </el-option>
+        <el-option label="待审核"  value="3"> </el-option>
         <el-option label="通过审核"  value="1"> </el-option>
         <el-option label="未通过审核"  value="2"> </el-option>
       </el-select>
