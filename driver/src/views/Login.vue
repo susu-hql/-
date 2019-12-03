@@ -3,14 +3,15 @@
     <div class="nav">
         <p>登录</p>
     </div>
-    <p>Welcome</p>
+    <p class="wel">Welcome</p>
     <form class="login-form">
       <div class="form-group">
-        <input type="text" placeholder="请输入手机号" v-model="username">
+        <input type="text" placeholder="请输入手机号" v-model="driverTel">
       </div>
       <div class="form-group">
-        <input type="text" placeholder="请输入密码" v-model="userpass">
+        <input type="password" placeholder="请输入密码" v-model="driverPassword">
       </div>
+      <div>{{content}}</div>
       <div class="form-group">
         <input type="button" value="登录" @click="getLogin">
       </div>
@@ -23,23 +24,24 @@ export default {
   name: "login",
   data() {
     return {
-      username: "",
-      userpass: ""
+      driverTel: "",
+      driverPassword: "",
+      content: ""
     }
   },
   methods: {
     getLogin() {
-      // console.log("访问查询参数：", this.$route.query.id);
-      // this.$route：保存了当前路由信息
+      if(this.driverTel === '' || this.driverPassword === ''){
+        alert('账号密码不能为空')
+      }else{
       console.log("登录")
-      this.axios.post("/users/login", {
-        username: this.username,
-        userpass: this.userpass
+      this.axios.post("/driver/login", {
+        driverTel: this.driverTel,
+        driverPassword: this.driverPassword
       })
       .then((res) => {
         console.log(res.data)
         if(res.data.state == "200") {
-          // var token = "njaksxbxkjasbkjcxasbjk" // 模拟后台返回的token
           var token = res.data.token;
           sessionStorage.setItem("token", token)
 
@@ -47,7 +49,7 @@ export default {
           var url = this.$route.query.redirect;
           console.log(url)
 
-          url = url ? url : "/"
+          url = url ? url : "/personal"
           // 切换路由
           this.$router.replace(url)
         } else {
@@ -57,7 +59,7 @@ export default {
       .catch(err=> {
         console.log(err)
       })
-     
+     }
     }
   }
 }
@@ -68,9 +70,14 @@ export default {
     padding: 0;
     text-align: center
   }
-  body{
-    background-image: linear-gradient(to bottom right,lightblue , skyblue);
+  .app-login{
+    background-image: linear-gradient(to bottom right,rgb(89, 240, 240) , rgb(85, 152, 228));
     height: 1334px;
+  }
+  .wel{
+    font-size: 100px;
+    margin-top: 260px;
+    color: white
   }
   .huoqu{
     position: absolute;
@@ -81,38 +88,43 @@ export default {
     font-size: 18px;
     border-radius: 9px
   }
+  input::-webkit-input-placeholder{
+            color:white;
+        }
   .login-form {
-    margin-top: 100px;
+    margin-top: 140px;
 
     .form-group {
-      margin-bottom: 60px;
+      margin-bottom: 40px;
       position: relative;
 
-      input[type=text]{
+      input{
         padding: 5px 3px;
         width: 500px;
-        height: 40px;
+        height: 60px;
         border-radius:30px;
         box-shadow: none;
-        border: 1px solid black;
+        border: 2px solid white;
         outline: none;
-        color: black;
+        color: white;
         font-size: 14px;
         text-align: left;
-        text-indent: 40px
+        text-indent: 40px;
+        background: none;
       }
 
       input[type=button] {
-        padding: 5px 3px;
         width: 500px;
-        height: 50px;
+        height: 80px;
         border-radius: 30px;
-        background: white;
+        background: lightgreen;
         box-shadow: none;
-        color: black;
-        border: 1px solid black;
+        color: white;
         outline: none;
-        font-size: 18px;
+        font-size: 32px;
+        border: none;
+        text-align: center;
+        padding-right:60px;
 
         &:active {
           box-shadow: 1px 1px 3px #10412b;
@@ -123,15 +135,15 @@ export default {
   }
   .nav{
       width: 100%;
-      height: 60px;
+      height: 80px;
       background: #63ADDE;
-      font-size: 18px;
+      font-size: 36px;
       color: white;
-      line-height: 60px;
+      line-height: 80px;
       text-align: center;
 
       p{
-          transform: translateX(-12px);
+        transform: translateX(-12px);
       }
   }
 </style>

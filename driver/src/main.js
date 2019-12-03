@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
 import store from './store'
+import router from './router/index'
 import 'amfe-flexible'
 import './assets/js/vant'
-import BaiduMap from 'vue-baidu-map'
+import http from './utils/http'
+import vueAxios from 'vue-axios'
 
-Vue.use(BaiduMap,{
-    ak:'百度地图秘钥'		//使用申请的百度地图秘钥
-})
+Vue.use(vueAxios, http)
+
 Vue.config.productionTip = false
 
 new Vue({

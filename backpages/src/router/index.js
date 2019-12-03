@@ -145,6 +145,14 @@ const routes = [
           auth: true
         }
       },
+      {
+        path: '/AddPolicy',   // 设置管理  推送消息
+        name: 'AddPolicy',
+        component: () => import('../views/AddPolicy.vue'),
+        meta: {
+          auth: true
+        }
+      }
     ]
   },
   {

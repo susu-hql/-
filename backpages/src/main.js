@@ -5,9 +5,20 @@ import store from './store'
 import './assets/style/resize.css'
 import vueAxios from 'vue-axios'
 import http from './utils/http'
-import { Button, Icon ,Container ,Header,Aside,Main,Footer,Menu,MenuItem,MenuItemGroup} from 'element-ui';
-import { Submenu,Input,Checkbox} from 'element-ui';
+import { Button, Icon ,Container ,Header,Aside,Main,Footer,Menu,MenuItem,MenuItemGroup,Table,TableColumn} from 'element-ui';
+import { Submenu,Input,Checkbox,Pagination,Dropdown,DropdownMenu,DropdownItem,Select,Option} from 'element-ui';
 
+import Echarts from 'echarts'
+
+Vue.prototype.echarts = Echarts
+
+Vue.use(TableColumn)
+Vue.use(Table)
+Vue.use(Option)
+Vue.use(Select)
+Vue.use(DropdownItem)
+Vue.use(DropdownMenu)
+Vue.use(Dropdown)
 Vue.use(vueAxios, http)
 Vue.use( Button)
 Vue.use(Icon)
@@ -22,6 +33,7 @@ Vue.use(MenuItemGroup)
 Vue.use(Submenu)
 Vue.use(Input)
 Vue.use(Checkbox)
+Vue.use(Pagination)
 
 Vue.config.productionTip = false
 
