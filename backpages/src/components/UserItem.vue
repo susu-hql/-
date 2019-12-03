@@ -38,15 +38,50 @@ export default {
         this.islock = '解锁';
         this.icons = 'el-icon-lock';
         this.isdisable = true;
+<<<<<<< HEAD
+=======
+        this.$message({
+          message: '已锁定',
+          type: 'success'
+        });
+>>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
       }else{
         this.islock = '锁定';
         this.icons = 'el-icon-unlock';
         this.isdisable = false; 
+<<<<<<< HEAD
       }
       console.log('锁定');
     },
     del:function(){
       console.log('删除');
+=======
+        this.$message({
+          message: '已解锁',
+          type: 'success'
+        });
+      }
+      console.log('锁定');
+    },
+    del:function(i){
+      console.log('删除'+i);
+      this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+          //  =============== 删除 ===============
+        });
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });          
+      });
+>>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
     },
   }
 }
