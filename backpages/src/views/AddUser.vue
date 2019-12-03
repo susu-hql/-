@@ -98,6 +98,9 @@
 
 <script>
 export default {
+<<<<<<< HEAD
+  name:'adduser'
+=======
   name:'adduser',
   data() {
       // 电话号码验证
@@ -243,6 +246,7 @@ export default {
         location.assign('/client');
       }
   }
+>>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
 }
 </script>
 

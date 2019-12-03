@@ -71,9 +71,12 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
+.status{
+  text-align: left
+}
 .van-hairline::after {
-  border: 0 solid black;
+  border-bottom: 2px solid black;
 }
 .wrapper {
   display: flex;
@@ -90,7 +93,7 @@ export default {
   text-align: center;
 }
 .block input {
-  border: 1px solid black;
+  border: 2px solid black;
   padding: 10px;
 }
 .block input:first-child {
@@ -99,7 +102,7 @@ export default {
 .block button {
   background: white;
   width: 130px;
-  border: 1px solid black;
+  border: 2px solid black;
   height: 40px;
   padding: 10px;
 }

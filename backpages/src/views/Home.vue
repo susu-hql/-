@@ -43,6 +43,9 @@
               <!-- <el-menu-item index="order">
                 <i class="el-icon-s-claim"></i>
                 <span slot="title">订单管理</span>
+<<<<<<< HEAD
+              </el-menu-item>
+=======
               </el-menu-item> -->
 
               <el-submenu index="2">
@@ -54,6 +57,7 @@
                 <el-menu-item index="orders">直接预约</el-menu-item>    
               </el-submenu>
 
+>>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
               <el-submenu index="5">
                 <template slot="title">
                   <i class="el-icon-user-solid"></i>
@@ -153,9 +157,13 @@ export default {
   data(){
     return {
       url:'',
+<<<<<<< HEAD
+      currentUrl:''
+=======
       currentUrl:'',
       touxiang:require('../assets/img/tx1.png'),
       admin:''
+>>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
     }
   },
   watch:{
@@ -169,6 +177,8 @@ export default {
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath);
+<<<<<<< HEAD
+=======
     },
     quit(){
       console.log('退出');
@@ -200,6 +210,7 @@ export default {
           .catch(err => {
             console.log(err);
           });
+>>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
     }
   },
   created(){
@@ -207,6 +218,8 @@ export default {
     if(this.currentUrl == 'about'){
       this.currentUrl = 'home'
     }
+<<<<<<< HEAD
+=======
 
     this.getAdminName();
 
@@ -229,6 +242,7 @@ export default {
     //   });
 
     
+>>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
   }
 }
 </script>
@@ -320,6 +334,17 @@ export default {
     text-align: center;
     line-height: 60px;
     height: 86vh;
+<<<<<<< HEAD
+    overflow: hidden;
+
+    .main-content{
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      margin-right: -17px;
+
+    }
+=======
     // overflow: hidden;
 
     .main-content{
@@ -351,6 +376,7 @@ export default {
         color: rgb(100, 96, 96);
       }
     }
+>>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
   }
 }
 

@@ -39,14 +39,24 @@ export default {
         this.islock = '解锁';
         this.icons = 'el-icon-lock';
         this.isdisable = true;
+<<<<<<< HEAD
+=======
         this.$message({
           message: '已锁定',
           type: 'success'
         });
+>>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
       }else{
         this.islock = '锁定';
         this.icons = 'el-icon-unlock';
         this.isdisable = false; 
+<<<<<<< HEAD
+      }
+      console.log('锁定');
+    },
+    del:function(){
+      console.log('删除');
+=======
         this.$message({
           message: '已解锁',
           type: 'success'
@@ -72,6 +82,7 @@ export default {
           message: '已取消删除'
         });          
       });
+>>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
     },
   }
 }

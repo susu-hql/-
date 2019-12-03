@@ -25,6 +25,11 @@ export default {
   },
   methods:{
     login:function(){
+<<<<<<< HEAD
+      console.log('登录');
+      console.log(this.remeber);
+      location.replace('/home');
+=======
       if(this.username==''){
         this.$message({
           showClose: true,
@@ -76,6 +81,7 @@ export default {
 
         // location.replace('/home');
       }
+>>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
     }
   }
 }

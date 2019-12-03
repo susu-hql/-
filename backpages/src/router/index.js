@@ -242,6 +242,15 @@ const routes = [
         }
       },
       {
+<<<<<<< HEAD
+        path: '/AddPolicy',   // 设置管理  推送消息
+        name: 'AddPolicy',
+        component: () => import('../views/AddPolicy.vue'),
+        meta: {
+          auth: true
+        }
+      }
+=======
         path: '/makeby',   // 
         name: 'makeby',
         component: () => import('../views/MakeBy.vue'),
@@ -249,6 +258,7 @@ const routes = [
           auth: true
         }
       },
+>>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
     ]
   },
   {

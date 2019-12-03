@@ -6,7 +6,11 @@
       <el-button class="addUser-button" type="warning" @click="addUser">
         <span class="el-icon-plus"> 添加用户</span>
       </el-button>
+<<<<<<< HEAD
+      <table>
+=======
       <table> 
+>>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
           <tr class="table-th">
             <td>ID</td>
             <td>用户名</td>
