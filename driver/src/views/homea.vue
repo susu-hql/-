@@ -111,7 +111,7 @@ export default {
   padding: 0;
 }
 body {
-  background: rgba(204, 204, 204, 1);
+  background: white;
 }
 .van-icon-star {
   font-size: 50px;
@@ -124,7 +124,7 @@ body {
 .nav {
   width: 100%;
   height: 80px;
-  background: #333;
+  background: #63ADDE;
 }
 .ift {
   color: rgb(255, 235, 235);

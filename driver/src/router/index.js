@@ -45,6 +45,13 @@ const routes = [
     component: () => import('../views/orderReceiving.vue'),
     children:[
       {
+        path: '/',
+        component: () => import('../views/orderAmount2.vue'),
+        meta: {
+          auth: true
+        }
+      },
+      {
         path: '/orderStatus',
         name: 'orderStatus',
         component: () => import('../views/orderStatus.vue'),
@@ -113,6 +120,7 @@ const routes = [
       auth: true
     }
   },
+  
 ]
 const router = new VueRouter({
   mode: 'history',

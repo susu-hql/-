@@ -6,163 +6,42 @@
       </ul>
       <p>全部订单</p>
     </div>
-    <div class="tab">
+    <!-- <div class="tab">
       <ul>
         <li>进行中</li>
         <li>已完成</li>
         <li>全部订单</li>
       </ul>
-    </div>
-    <div class="orders">
+    </div>-->
+    <div class="orders" v-for="(item,index) in myorder" :key="index">
       <div class="orders-top">
-        <span>订单号:213151321532135</span>
-        <span>新订单</span>
+        <span>订单号:{{item.directOrderId}}</span>
+        <span>{{item.orderStateName}}</span>
       </div>
       <div class="orders-bottom">
-        <div class="touxiang"></div>
         <div class="info">
-          <span>验车</span>
+          <span>{{item.typeName}}</span>
           <br />
-          <span>接车时间：2119.11.28</span>
+          <span>接车时间：{{item.substituteTime}}</span>
         </div>
         <div class="accept">
-          <button type="button" @click="acceprBtn">接单</button>
-        </div>
-      </div>
-    </div>
-    <div class="orders">
-      <div class="orders-top">
-        <span>订单号:213151321532135</span>
-        <span>新订单</span>
-      </div>
-      <div class="orders-bottom">
-        <div class="touxiang"></div>
-        <div class="info">
-          <span>验车</span>
-          <br />
-          <span>接车时间：2119.11.28</span>
-        </div>
-        <div class="accept">
-          <button type="button">接单</button>
+          <button type="button" @click=getId(myorder[index].orderId)>接单</button>
         </div>
       </div>
     </div>
-    <div class="orders">
+    <div class="orders" v-for="(item,index) in myorder2" :key="'orders'+index">
       <div class="orders-top">
-        <span>订单号:213151321532135</span>
-        <span>新订单</span>
+        <span>订单号:{{item.orderId}}</span>
+        <span>{{item.orderStateName}}</span>
       </div>
       <div class="orders-bottom">
-        <div class="touxiang"></div>
         <div class="info">
-          <span>验车</span>
+          <span>{{item.typeName}}</span>
           <br />
-          <span>接车时间：2119.11.28</span>
+          <span>接车时间：{{item.substituteTime}}</span>
         </div>
         <div class="accept">
-          <button type="button">接单</button>
-        </div>
-      </div>
-    </div>
-    <div class="orders">
-      <div class="orders-top">
-        <span>订单号:213151321532135</span>
-        <span>新订单</span>
-      </div>
-      <div class="orders-bottom">
-        <div class="touxiang"></div>
-        <div class="info">
-          <span>验车</span>
-          <br />
-          <span>接车时间：2119.11.28</span>
-        </div>
-        <div class="accept">
-          <button type="button">接单</button>
-        </div>
-      </div>
-    </div>
-    <div class="orders">
-      <div class="orders-top">
-        <span>订单号:213151321532135</span>
-        <span>新订单</span>
-      </div>
-      <div class="orders-bottom">
-        <div class="touxiang"></div>
-        <div class="info">
-          <span>验车</span>
-          <br />
-          <span>接车时间：2119.11.28</span>
-        </div>
-        <div class="accept">
-          <button type="button">接单</button>
-        </div>
-      </div>
-    </div>
-    <div class="orders">
-      <div class="orders-top">
-        <span>订单号:213151321532135</span>
-        <span>新订单</span>
-      </div>
-      <div class="orders-bottom">
-        <div class="touxiang"></div>
-        <div class="info">
-          <span>验车</span>
-          <br />
-          <span>接车时间：2119.11.28</span>
-        </div>
-        <div class="accept">
-          <button type="button">接单</button>
-        </div>
-      </div>
-    </div>
-    <div class="orders">
-      <div class="orders-top">
-        <span>订单号:213151321532135</span>
-        <span>新订单</span>
-      </div>
-      <div class="orders-bottom">
-        <div class="touxiang"></div>
-        <div class="info">
-          <span>验车</span>
-          <br />
-          <span>接车时间：2119.11.28</span>
-        </div>
-        <div class="accept">
-          <button type="button">接单</button>
-        </div>
-      </div>
-    </div>
-    <div class="orders">
-      <div class="orders-top">
-        <span>订单号:213151321532135</span>
-        <span>新订单</span>
-      </div>
-      <div class="orders-bottom">
-        <div class="touxiang"></div>
-        <div class="info">
-          <span>验车</span>
-          <br />
-          <span>接车时间：2119.11.28</span>
-        </div>
-        <div class="accept">
-          <button type="button">接单</button>
-        </div>
-      </div>
-    </div>
-    <div class="orders">
-      <div class="orders-top">
-        <span>订单号:213151321532135</span>
-        <span>新订单</span>
-      </div>
-      <div class="orders-bottom">
-        <div class="touxiang"></div>
-        <div class="info">
-          <span>验车</span>
-          <br />
-          <span>接车时间：2119.11.28</span>
-        </div>
-        <div class="accept">
-          <button type="button">接单</button>
+          <button type="button" @click=getId(myorder2[index].orderId)>接单</button>
         </div>
       </div>
     </div>
@@ -172,17 +51,43 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      myorder: [],
+      myorder2:[]
+    };
   },
   methods: {
     goback() {
       this.$router.push("/");
     },
-    acceprBtn() {
-      this.$router.push("/orderAmount");
+    getId(i) {
+      console.log(i)
+      // this.$router.push();
+      location.assign("/orderAmount?orderId="+i)
     }
+  },
+  created() {
+    this.axios
+      .get("/driver/directOrder/findList")
+      .then(res => {
+        this.myorder = res.data.data;
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+      this.axios
+      .get("/driver/assessmentOrder/findList")
+      .then(res => {
+        this.myorder2 = res.data.data;
+        console.log("myoder2",this.myorder2);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
-}
+};
 </script>
 
 <style lang='less' scoped>
@@ -193,7 +98,7 @@ export default {
 .nav {
   width: 100%;
   height: 80px;
-  background: #63ADDE;
+  background: #63adde;
   font-size: 36px;
   color: white;
   line-height: 80px;
@@ -230,44 +135,43 @@ export default {
   font-size: 36px;
   border-bottom: 6px solid lightgray;
   height: 200px;
-  line-height:42px;
+  line-height: 42px;
 }
 .orders-top {
-  display: flex;
-  justify-content: space-evenly;
+  height: 40px;
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-left: -20px
+  margin-left: -20px;
+}
+.orders-top span:first-child {
+  float: left;
+  margin-left: 40px;
 }
 .orders-top span:last-child {
-  transform: translateX(8px);
+  float: right;
+  color: red;
+  margin-right: 20px;
 }
 .orders-bottom {
   margin-top: 8px;
 }
-.touxiang {
-  width: 100px;
-  height: 100px;
-  background: lightblue;
-  float: left;
-  margin-left: 60px;
-  margin-right: 20px;
-}
 .info {
   text-align: left;
-  line-height: 54px;
+  line-height: 66px;
+  margin-left: 20px;
 }
 .accept {
   float: right;
-  margin-right: 66px;
+  margin-right: 20px;
   margin-top: -45px;
 }
 .accept button {
   width: 112px;
-  height: 36px;
-  background: white;
-  border: 1px solid black;
+  height: 40px;
+  background: orange;
+  border: 1px solid orange;
   outline: none;
   border-radius: 5px;
+  color: white;
 }
 </style>

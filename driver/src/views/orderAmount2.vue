@@ -1,20 +1,55 @@
 <template>
     <div class="order-amount">
         <div class="wrap">
-            <div class="info">客户姓名：辗迟</div>
-            <div class="info">客户电话：18412474512</div>
-            <div class="info">接车时间：2019.11.28</div>
-            <div class="info">车牌号码：川A85865</div>
-            <div class="info">接车地址：地址地址地址地址地址地址地址地<span><img src="../assets/地图.png" alt="">地图</span></div>
-            <div class="info">还车地址：地址地址地址地址地址地址地址地<span><img src="../assets/地图.png" alt="">地图</span></div>
-            <div class="info">门店名称：店铺名字店铺名字店铺名字店铺名<span><img src="../assets/地图.png" alt="">地图</span></div> 
+            <div class="info">客户姓名：{{orderinfo.userName}}</div>
+            <div class="info">客户电话：{{orderinfo.userTel}}</div>
+            <div class="info">接车时间：{{orderinfo.substituteTime}}</div>
+            <div class="info">车牌号码：{{orderinfo.carNum}}</div>
+            <div class="info">接车地址：{{orderinfo.substituteAddress}}</div>
+            <div class="info">还车地址：{{orderinfo.returnAddress}}</div>
+            <div class="info">门店名称：{{orderinfo.servicshopName}}</div> 
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    
+    data() {
+        return {
+            orderinfo:[]
+        };
+    },
+    methods:{
+        goback(){
+            console.log("点击")
+            this.$router.push('/myorder')
+        },
+        toorder(){
+            this.$router.push('/orderReceiving')
+        }
+    },
+    created(){
+      this.axios.post("/driver/findAssessmentOrderByOrderId",{
+          orderId:this.$route.query.orderId
+      })
+      .then(res => {
+        this.orderinfo = res.data.data
+        console.log(res)
+      })
+      .catch(err=> {
+        console.log(err)
+      });
+    //   this.axios.post("/driver/findDirectOrderByOrderId",{
+    //       orderId:this.$route.query.orderId
+    //   })
+    //   .then(res => {
+    //     this.orderinfo = res.data.data
+    //     console.log(res)
+    //   })
+    //   .catch(err=> {
+    //     console.log(err)
+    //   })
+    }
 }
 </script>
 

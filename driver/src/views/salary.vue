@@ -46,10 +46,10 @@ export default {
 .nav {
   width: 100%;
   height: 80px;
-  background: #333;
+  background: #63ADDE;
 }
 body{
-  background: rgba(204, 204, 204, 1);
+  background: white;
   }
 .ift {
   color: rgb(255, 235, 235);
