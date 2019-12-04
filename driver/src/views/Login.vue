@@ -49,7 +49,7 @@ export default {
           var url = this.$route.query.redirect;
           console.log(url)
 
-          url = url ? url : "/personal"
+          url = url ? url : "/homea"
           // 切换路由
           this.$router.replace(url)
         } else {

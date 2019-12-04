@@ -45,6 +45,13 @@ const routes = [
     component: () => import('../views/orderReceiving.vue'),
     children:[
       {
+        path: '/',
+        component: () => import('../views/orderAmount2.vue'),
+        meta: {
+          auth: true
+        }
+      },
+      {
         path: '/orderStatus',
         name: 'orderStatus',
         component: () => import('../views/orderStatus.vue'),
@@ -85,6 +92,14 @@ const routes = [
     path: '/about',
     name: 'about',
     component: () => import('../views/About.vue'),
+    meta: {
+      auth: true
+    }
+  },
+  {
+    path: '/homea',
+    name: 'homea',
+    component: () => import('../views/homea.vue'),
     meta: {
       auth: true
     }

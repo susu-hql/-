@@ -1,8 +1,8 @@
 <template>
     <div class="receiving">
         <ul>
-            <li><router-link to='/orderStatus'>订单状态</router-link></li>
-            <li><router-link to='/orderAmount2'>订单详情</router-link></li>
+            <li><router-link :to="'/orderStatus?orderId='+id">订单状态</router-link></li>
+            <li><router-link :to="'/orderAmount2?orderId='+id">订单详情</router-link></li>
         </ul>
         <keep-alive include="orderAmount2,orderStatus">
             <router-view />
@@ -12,7 +12,16 @@
 
 <script>
 export default {
-    
+    data(){
+        return{
+            id:""
+        }
+    },
+    created(){
+        var a = this.$route.query.orderId;
+        this.id = a
+        console.log(a)
+    }
 }
 </script>
 
