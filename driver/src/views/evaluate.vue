@@ -63,6 +63,7 @@ export default {
       www: "0",
       pl: "花催你和承诺或金额VB是万花催 ",
       list: ["好", "干净", "整洁"],
+      sy:[],
       qqq: [
         {
           name: "qq",
@@ -86,7 +87,20 @@ export default {
   mounted() {
     console.log(this.list[this.qqq[1].pi[2]]);
   },
-  created: {}
+   created(){
+    this.axios
+      .post("/driver/getEvaluate",{
+       driverId:"1"
+      })
+      .then(res => {
+        console.log(res)
+        this.sy = res.data.data;
+
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 };
 </script>
 

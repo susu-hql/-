@@ -5,18 +5,36 @@
       <p class="b">我的工资</p>
     </nav>
     <div :style="{'width':'100%','height':'20px','border-bottom':'1px #333 solid'}"></div>
-    <div class="nr">
+    <div class="nr" v-for="(item,index) in sy" :key="index">
      <div :style="{'display':'flex','flex-wrap':'nowrap','justify-content':'space-between','width':'100%'}">
-      <p class="gs">估损预约维修</p>
-      <p class="sj">2019/12/2</p>
+      <p class="gs">{{item.stateName}}</p>
+      <p class="sj">{{item.endTime}}</p>
     </div>
-      <p class="gz">您得到工资:</p>
+      <p class="gz">您得到工资:{{item.carriageFee}}</p>
     </div>
   </div>
 </template>
 <script>
 export default {
-  el: "#se"
+  data(){
+  return{
+    sy:[],
+  }
+   },
+    created(){
+    this.axios
+      .post("/driver/findSalaryByDriverId",{
+       driverId:"1"
+      })
+      .then(res => {
+        console.log(res)
+        this.sy = res.data.data;
+
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 };
 </script>
 
@@ -56,17 +74,18 @@ body{
   background: white;
   font-size:30px;
   border-bottom: 1px solid #333;  
+  padding-top: 20px;
 }
 .gs{
 width: 300px;
 margin-bottom: 30px;
 }
 .sj{
-width: 200px;
+width: 300px;
 float: right;
 }
 .gz{
-width:280px;
+width:320px;
 }
 
 

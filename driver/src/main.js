@@ -7,6 +7,7 @@ import './assets/js/vant'
 import http from './utils/http'
 import vueAxios from 'vue-axios'
 
+
 Vue.use(vueAxios, http)
 
 Vue.config.productionTip = false

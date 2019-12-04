@@ -58,13 +58,15 @@
 
 <script>
 export default {
-  el: ".sss",
+  
   data() {
-    return {                                     
+    return {
       value: 2.5,
-      sy:[]
+      sy: [],
+      dindan: "222",
+      img: "blog菜单图片_07.png",
+      name: "何志勇"
     };
-    
   },
   methods: {
     qb(e) {
@@ -83,18 +85,22 @@ export default {
   computed: {
     bfb() {
       return (this.value / 5) * 100;
+      
     }
   },
-  created(){
+  created() {
     this.axios
-    .get()
-    .then(res =>{
-      this.myorder = res.data.data;
+      .post("/driver/person",{
+       driverId:"1"
+      })
+      .then(res => {
+        console.log(res)
+        this.sy = res.data.data;
 
-    })
-    .catch(err =>{
-
-    });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };
 </script>
@@ -109,6 +115,9 @@ body {
 }
 .van-icon-star {
   font-size: 50px;
+}
+.xing{
+  margin-left:-50px; 
 }
 
 //导航栏
