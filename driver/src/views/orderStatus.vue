@@ -1,11 +1,11 @@
 <template>
   <div class="status">
-    <van-steps direction="vertical" :active="1">
-      <van-step>
-        <h3>新订单</h3>
-        <p>2016-07-12 12:40</p>
+    <van-steps direction="vertical" :active="active">
+      <van-step v-for="(item,index) in dingdan" :key="index">
+        <h3>{{item.logTitle}}</h3>
+        <p>{{item.logTime}}</p>
       </van-step>
-      <van-step>
+      <!-- <van-step>
         <h3>已接单</h3>
         <p>2016-07-11 10:00</p>
       </van-step>
@@ -41,10 +41,14 @@
           <span class="content">{{phone}}</span>
           <span class="content">{{time}}</span>
         </p>
-
         <p>2016-07-10 09:30</p>
-      </van-step>
+      </van-step> -->
     </van-steps>
+    <div class="qhbtn">
+      <van-button type="primary" @click="prev" :disabled="active == '1'" class="prev">上一步</van-button>
+      <van-button type="primary" @click="next" :disabled="active == '4'" class="next">下一步</van-button>
+      <van-button type="primary" :disabled="active == '0' || active == '1' ||active == '2' ||active == '3'" class="finish">完成</van-button>
+    </div>
   </div>
 </template>
 
@@ -57,7 +61,9 @@ export default {
       show: false,
       name: "",
       phone: "",
-      time: ""
+      time: "",
+      active:1,
+      dingdan:[]
     };
   },
   components: {
@@ -66,9 +72,32 @@ export default {
   methods: {
     addThingClick() {
       console.log(this.$el.querySelector("input").value);
+    },
+    next(){
+      if(this.active++>3){
+        this.active = 4
+      }
+    },
+    prev(){
+      if(this.active--<2){
+        this.active = 1
+      }
     }
+  },
+  created() {
+    this.axios
+      .post("/driver/findOrderLogByOrderId",{
+        orderId:this.$route.query.orderId
+      })
+      .then(res => {
+        this.dingdan = res.data.data;
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
@@ -111,5 +140,14 @@ export default {
 }
 .content {
   margin-right: 10px;
+}
+.qhbtn{
+  position: absolute;
+  bottom: 100px;
+}
+.prev,.next,.finish{
+  width: 200px;
+  margin-left: 40px;
+  height: 50px
 }
 </style>

@@ -58,15 +58,15 @@
 
 <script>
 export default {
-  el: ".sss",
+  
   data() {
-    return {                                     
+    return {
       value: 2.5,
-      name:"何志勇",
-      img:"blog菜单图片_07.png",
-      dindan:"1234"
+      sy: [],
+      dindan: "222",
+      img: "blog菜单图片_07.png",
+      name: "何志勇"
     };
-    
   },
   methods: {
     qb(e) {
@@ -85,7 +85,22 @@ export default {
   computed: {
     bfb() {
       return (this.value / 5) * 100;
+      
     }
+  },
+  created() {
+    this.axios
+      .post("/driver/person",{
+       driverId:"1"
+      })
+      .then(res => {
+        console.log(res)
+        this.sy = res.data.data;
+
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };
 </script>
@@ -96,17 +111,20 @@ export default {
   padding: 0;
 }
 body {
-  background: rgba(204, 204, 204, 1);
+  background: white;
 }
 .van-icon-star {
   font-size: 50px;
+}
+.xing{
+  margin-left:-50px; 
 }
 
 //导航栏
 .nav {
   width: 100%;
   height: 80px;
-  background: #333;
+  background: #63ADDE;
 }
 .ift {
   color: rgb(255, 235, 235);
@@ -148,7 +166,6 @@ body {
   border-radius: 13px;
   width: 130px;
   height: 130px;
-  background: rgb(212, 186, 120);
   margin-left: 30px;
 }
 .xm {

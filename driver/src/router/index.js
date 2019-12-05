@@ -45,6 +45,13 @@ const routes = [
     component: () => import('../views/orderReceiving.vue'),
     children:[
       {
+        path: '/',
+        component: () => import('../views/orderAmount2.vue'),
+        meta: {
+          auth: true
+        }
+      },
+      {
         path: '/orderStatus',
         name: 'orderStatus',
         component: () => import('../views/orderStatus.vue'),
@@ -88,7 +95,32 @@ const routes = [
     meta: {
       auth: true
     }
-  }
+  },
+  {
+    path: '/homea',
+    name: 'homea',
+    component: () => import('../views/homea.vue'),
+    meta: {
+      auth: true
+    }
+  },
+  {
+    path: '/evaluate',
+    name: 'evaluate',
+    component: () => import('../views/evaluate.vue'),
+    meta: {
+      auth: true
+    }
+  },
+  {
+    path: '/salary',
+    name: 'salary',
+    component: () => import('../views/salary.vue'),
+    meta: {
+      auth: true
+    }
+  },
+  
 ]
 const router = new VueRouter({
   mode: 'history',
