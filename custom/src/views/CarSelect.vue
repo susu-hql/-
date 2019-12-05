@@ -1,6 +1,7 @@
 <template>
     <div class="CarSelect">
-           <van-nav-bar
+          <div class="nav">
+               <van-nav-bar
       title="选择维修部位"
       left-text="返回"
       left-arrow
@@ -8,7 +9,9 @@
       @click-left="$router.push('/mylist')"
       class="header"
     />
-       <div class="top">
+          </div>
+       <div class="mains">
+           <div class="top">
            <ul>
                <li v-for="(item,index) in bws" :key="index">
                   <img class="bwimgs" :src="require('../assets/imgs/'+item.img)">
@@ -25,8 +28,8 @@
                    </div>
                    <div class="items-mid">
                        <div calss="mid-top">
-                        <p>{{item.name}}</p>
-                       <p class="adress">地址：{{item.addres}}</p>
+                        <p class="top-name">{{item.name}}</p>
+                       <p class="top-adress">地址：{{item.addres}}</p>
                        </div>
                        <div class="mid-main">
                         <p><span class="mid-l">
@@ -47,6 +50,7 @@
                </div>
            </div>
        </div>
+       </div>
        <div class="footer"><a href="javascript:;" @click="showMore">显示更多</a></div>
     </div>
 </template>
@@ -57,6 +61,8 @@ export default {
     data() {
     return {
          values: 3,
+         allshop:[],
+         allbw:[],
       bws:[
           {id:1,
            state:0,
@@ -104,19 +110,130 @@ export default {
             status:0,
             img:"shigu01.jpg"
 
-          }
+          },
+           {
+              id:1,
+              name:"北京正的运城汽车贸易服务有限公司",
+              addres:"成都市高新区惺惺惜惺惺嘻嘻嘻详细嘻嘻嘻",
+             person:500,
+            zf:5000,
+            bx:4000,
+            values: 3,
+            status:0,
+            img:"shigu01.jpg"
+
+          },
+           {
+              id:1,
+              name:"北京正的运城汽车贸易服务有限公司",
+              addres:"成都市高新区惺惺惜惺惺嘻嘻嘻详细嘻嘻嘻",
+             person:500,
+            zf:5000,
+            bx:4000,
+            values: 3,
+            status:0,
+            img:"shigu01.jpg"
+
+          },
+           {
+              id:1,
+              name:"北京正的运城汽车贸易服务有限公司",
+              addres:"成都市高新区惺惺惜惺惺嘻嘻嘻详细嘻嘻嘻",
+             person:500,
+            zf:5000,
+            bx:4000,
+            values: 3,
+            status:0,
+            img:"shigu01.jpg"
+
+          },
+          
       ]
     }
   },
   methods:{
       showMore(){
           this.$router.replace("/moreStore")
-      }
-  }
+      },
+ showbw:function(){
+
+ this.axios.get("/user/getAllPart")
+        .then(res=>{
+             console.log("保险信息0990129301",res.data.data);
+                 
+            if(res.data.state=="200"){
+                this.allbw=res.data.data;
+            }else{
+                this.$message({
+                message:'请求出错',
+                type:'error'
+                });
+            }
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+
+
+         
+     },
+showbwdp:function(){
+
+ this.axios.post("/user/getQuotePrice",{
+     versionId:2
+ })
+        .then(res=>{
+             console.log("4s店铺",res.data.data);
+                 
+            if(res.data.state=="200"){
+         this.allshop=res.data.data;
+            }else{
+                this.$message({
+                message:'请求出错',
+                type:'error'
+                });
+            }
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+
+
+         
+     },
+
+
+  },
+   created(){
+        this.showbw();
+        this.showbwdp();
+      
+         
+    }
 }
 </script>
 <style lang="less" scoped>
 @import "../assets/css/base.less";
+.nav{
+    width:100%;}
+   
+.mains{
+    height:500px;
+    overflow: hidden;
+   
+}
+.footer{
+    width:100%;
+    height:50px;
+    position: fixed;
+    bottom:0;
+}
+.top-name{
+    font-size:10px;
+    text-align: left;
+    margin:0;
+    padding:0;
+}
 .bwimgs{width:80px;
 height:60px;}
 .footer{
@@ -147,6 +264,7 @@ s{
     float: left;
     height:16px;
     width:180px;
+    text-align: left;
     
 }
 .mid-r{
@@ -158,6 +276,7 @@ s{
 }
 p{
     padding:0;
+    margin:0;
 }
 .mid-top{
     width:100%;
@@ -167,6 +286,9 @@ p{
 .mid-main{
    width:100%;
     height:50%;
+    margin:0;
+    padding:0;
+
     
 }
 .nav span{
@@ -178,9 +300,12 @@ p{
     margin-top:5px;
     border-bottom:1px solid #63ADDE;
 }
-.adress{
+.top-adress{
     width:260px;
     font-size: 10px;
+     margin:0;
+    padding:0;
+    text-align: left;
 }
 .items-left{
     width:80px;
