@@ -21,6 +21,7 @@ import DirectHome from '../views/DirectHome'
 import DirectInput from '../views/DirectInput' 
 import time from '../views/time' 
 import insuertype from '../views/insuertype' 
+import zjhome from '../views/zjhome' 
 
 
 
@@ -32,6 +33,12 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login
+    
+  },
+  {
+    path: '/zjhome',
+    name: 'zjhome',
+    component:zjhome
     
   },
   {

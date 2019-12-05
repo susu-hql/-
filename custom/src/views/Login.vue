@@ -9,7 +9,7 @@
         <input class="login" type="text" placeholder="请输入手机号" v-model="driverTel">
       </div>
       <div class="form-group">
-        <input class="yzput" type="password" placeholder="获取验证码" v-model="driverPassword">
+        <input class="yzput" type="text" placeholder="获取验证码" v-model="driverPassword">
         <button @click="getcode"  class="yzbtn" type="button">获取验证码</button>
       </div>
       <div>{{content}}</div>
@@ -76,8 +76,11 @@ export default {
       .then((res) => {
         console.log("111111",res.data)
         if(res.data.state == "200") {
-          var token = res.data.token;
-          sessionStorage.setItem("token", token)
+          // var token = res.data.token;
+
+          // sessionStorage.setItem("token", token)
+          var a = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjoie1widXNlcklkXCI6MSxcInVzZXJOYW1lXCI6XCJMV1lcIixcInVzZXJUZWxcIjpcIjE4MjgyNTMyNDEzXCIsXCJ1c2VySWRjYXJkXCI6XCI0NTA0MDMxOTc4MDgxMDcyNDZcIixcInVzZXJMYXN0TG9naW50aW1lXCI6MTU3NDkyOTEyOTAwMCxcImluc3VyYW5jZUlkXCI6MSxcImNvbXBhbnlOYW1lXCI6XCLkuK3lm73kurrlr79cIixcImluc3VyYW5jZURhdGVcIjoxNTc1NDc1MjAwMDAwLFwiaW5zdXJhbmNlUGVyc29uXCI6XCLmnY7nmb1cIixcInVzZXJOb3Rlc1wiOlwi5YKF5aSnXCIsXCJpbWdVcmxcIjpcIuWCheWkpyBcIixcImRhdGFzdGF0ZVwiOjF9IiwiaXNzIjoiamF2YSIsImV4cCI6MTU3NTY0NzE4NywidXNlcklkIjoxfQ.uNzrOO_jtxbBT74QFPCOI1NiobtqpafN8uygL_dqdzk"
+          sessionStorage.setItem("token", a)
           console.log("登陆chengg");
 
           // 获取参数（未登录时想访问的路由）

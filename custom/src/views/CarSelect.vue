@@ -6,7 +6,7 @@
       left-text="返回"
       left-arrow
       flxed
-      @click-left="$router.push('/mylist')"
+      @click-left="$router.push('/carBrand')"
       class="header"
     />
           </div>
@@ -24,7 +24,8 @@
            <div class="group">
                <div class="items" @click="getShopid"  v-for="(item2,index2) in allshop" :key="index2">
                    <div class="items-left">
-                       <img :alt="item2.shopid" :src="require('../assets/imgs/shigu01.jpg')">
+            
+                       <img :alt="item2.shopId" :src="require('../assets/imgs/shigu01.jpg')">
                    </div>
                    <div class="items-mid">
                        <div calss="mid-top">
@@ -65,13 +66,11 @@ export default {
          allbw:[],
          partId:"",
          partName:"",
-         data:[{"a":1},{"a":2},{"a":4}],
-     
-     
+         bwarr:[] 
     }
   },
   methods:{
-       ...mapMutations(["getPartId"]),
+       ...mapMutations(["getPartId","getbwid"]),
       getBwId(e){
        /*    this.ids=e.target.title; */
       
@@ -79,10 +78,17 @@ export default {
         this.partName=e.target.alt;
       console.log("部位partId", this.partId);
         console.log("部位partName", this.partName);
-        this.getPartId(this.partId);
+      
+       this.bwarr.push(this.partId);
+
+       console.log("部位数值", this.bwarr);
+         this.getbwid(this.bwarr);
       },
       getShopid(e){
-          console.log("店铺id",e.target);
+          this.dpid=e.target.alt;
+          console.log("店铺id",this.dpid);
+           this.getPartId(this.dpid);
+           this.$router.replace("ConfirmOrder"); 
 
       },
       showMore(){

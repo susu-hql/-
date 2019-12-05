@@ -6,7 +6,7 @@
       left-text="返回"
       left-arrow
       flxed
-      @click-left="$router.push('/mylist')"
+      @click-left="$router.push('/DirectHome')"
       class="header"
     />
   </div>
@@ -45,7 +45,9 @@
 </div>
 </template>
 <script>
+ import { mapMutations } from "vuex"; 
 export default {
+  
     name:"carBrand",
     data(){
       return{
@@ -59,11 +61,13 @@ export default {
       }
     },
     methods:{
+...mapMutations(["getxlID"]),
       getid:function(e){
         this.ids=e.target.title;
         console.log("111",this.ids);
          this.show=true;
         this.getalltypexl(this.ids);
+
 
       },
        getxxid:function(e){
@@ -71,11 +75,22 @@ export default {
         console.log("系列id",this.idss);
         this.changeshows();
         this.getalltypebb();
+         
+        
        
 
       },
-      gomore:function(){
-         this.$router.replace("CarSelect");
+     
+      gomore:function(e){
+        
+        this.idxl=e.target.title;
+        console.log("099999",e.target)
+        console.log("系列111id",this.idxl);
+         this.getxlID(this.idxl);
+ this.$router.replace("CarSelect"); 
+      
+
+
       },
 
       changeshows:function(){

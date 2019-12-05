@@ -11,7 +11,7 @@
     <div class="none" v-show="false">
       <h5>未检测到您的车主卡信息</h5>
     </div>
-
+    <div class="hong"></div>
     <div class="cheka" v-for="(item, index) in list" :key="index"  >
       <van-card>
         <div slot="tags">
@@ -99,8 +99,11 @@ export default {
 
 <style lang="less" scoped>
 @import "../assets/css/base.less";
-.cheka{
+.hong{
   margin-top: 50px;
+}
+.cheka{
+  margin-top: 10px;
 }
 .none{
   margin-top: 50px;

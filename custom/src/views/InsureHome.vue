@@ -5,7 +5,7 @@
       left-text="返回"
       left-arrow
       flxed
-      @click-left="$router.push('/mylist')"
+      @click-left="$router.push('/home')"
       class="header"
     />
         

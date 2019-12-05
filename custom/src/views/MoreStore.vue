@@ -71,6 +71,7 @@
     </div>
 </template>
 <script>
+import { mapMutations } from "vuex";
 export default {
     name:"moreStore",
     data(){
@@ -82,12 +83,12 @@ export default {
         }
     },
     methods:{
+        ...mapMutations(["getdpid"]),
         getShopid(e){
-          console.log("店铺id",e.target.alt);
-          this.shopIds=e.target.alt;
-          console.log("店铺id11",this.shopIds);
-          this.$router.replace("/ConfirmOrder");
-
+         this.dpid=e.target.alt;
+          console.log("店铺id",this.dpid);
+           this.getdpid(this.dpid);
+            this.$router.replace("ConfirmOrder");  
       },
 showbwdp:function(){
 

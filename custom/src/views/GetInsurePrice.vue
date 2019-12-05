@@ -56,27 +56,27 @@
             <ul class="mtul">
                 <li> 
             <p>车牌号：</p>
-            <p><input type="text" v-model="a1"></p>
+            <p><input type="text" :value="hqdatas[0]" ></p>
                 </li>
                    <li> 
             <p>车架号：</p>
-            <p><input type="text" v-model="a2"></p>
+            <p><input type="text" :value="hqdatas[1]" ></p>
                 </li>
                  <li>
             <p>发动机号：</p>
-            <p><input type="text" v-model="a3"></p>
+            <p><input type="text" :value="hqdatas[2]"></p>
                 </li>
                 <li> 
             <p>车牌型号：</p>
-            <p><input type="text" v-model="a4"></p>
+            <p><input type="text" :value="hqdatas[3]"></p>
                 </li>
               <li> 
             <p>初登日期：</p>
-            <p><input type="text" v-model="a5"></p>
+            <p><input type="text" :value="hqdatas[4]"></p>
                 </li>   
                 <li> 
             <p>身份证号：</p>
-            <p><input type="text" v-model="a6"></p>
+            <p><input type="text" :value="hqdatas[5]"></p>
                 </li>  
             </ul>
            <van-button is-Link to="/pay" class="qd-btn" type="submit">确定</van-button>
@@ -183,6 +183,7 @@ export default {
              
          },
       
+   
     changeShow() {
      this.isShow = !this.isShow;
     },

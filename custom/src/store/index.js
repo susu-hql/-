@@ -8,8 +8,8 @@ export default new Vuex.Store({
    lists:[],
    list2:[],
    partId:"",
-
-
+   xlId:"",
+   getbwid:[]
 
 
 
@@ -26,7 +26,14 @@ export default new Vuex.Store({
    getPartId(state,n){
     state.partId=n;
    },
+   getbwid(state,n){
+    state.getbwid=n;
+   },
+   getxlID(state,n){
+    state.xlId=n;
+   },
   },
+ 
   actions: {
   },
   modules: {

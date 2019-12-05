@@ -43,7 +43,7 @@
       <van-checkbox v-model="checked" class="niming">匿名提交</van-checkbox>
       <div>
         <van-tabbar>
-          <van-tabbar-item  @click="addComment()">提交评价</van-tabbar-item>
+          <van-tabbar-item is-link to="/carlist" @click="addComment()">提交评价</van-tabbar-item>
         </van-tabbar>
       </div>
     </div>

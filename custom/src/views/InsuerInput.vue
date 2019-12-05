@@ -74,14 +74,14 @@
         </li>
         </ul>
 
-     <van-button  class="btnkg" type="primary" is-Link to="/insuertype"  @click="senddata" >提交</van-button><!-- to="insuretype" -->
+     <van-button  class="btnkg" type="primary"   @click="senddata" >提交</van-button><!-- to="insuretype" -->
 
 
 
         </div>
 
 <!-- <div v-show="isShow" class="zhezhao">
-
+is-Link to="/insuertype"
     is-link to=""
         <div class="zhezhao-show">
             <div class="zz-top">                
@@ -127,12 +127,12 @@ export default {
 
   },
    methods: {
-      ...mapMutations(["get"]),  
+      ...mapMutations(["gets"]),  
        getallcard:function(){//获取保险种类
         this.axios
         .get("/user/findCarCardInfo.do")
         .then(res=>{
-            console.log("保险信息",res.data.data);
+            console.log("保险信息11111",res.data);
             if(res.data.state=="200"){
                 this.allCard=res.data.data;
             }else{
@@ -182,7 +182,8 @@ export default {
     },
 
     senddata:function(){
-        console.log({
+        console.log("1223124352",{
+            
             /* carCard:this.select,//车主卡 */
             carNum:this.getalllist.carNum,//车牌号
             carCardNum:this.getalllist.carCardNum,//车架号
@@ -195,15 +196,15 @@ export default {
         })
       this.axios
         .post("/user/addSubscribe.do",{
-            /* carCard:this.select,//车主卡 */
+             carCard:this.select,//车主卡 
             carNum:this.getalllist.carNum,//车牌号
-           // carCardNum:this.getalllist.carCardNum,//车架号
-            //carRecognizeNum:this.getalllist.carCardNum,//发动机号
-            // date:this.timeValue,//投保日期  
-           // carRegistTime:this.getalllist.carRegistTime,//初登记日期
-           //  carBrand:this.getalllist.carBrand,//品牌型号
-            // tel:this.getalllist.ownerTel,//车主手机号
-           // idCard:this.idCard//身份证号
+           carCardNum:this.getalllist.carCardNum,//车架号
+            carRecognizeNum:this.getalllist.carCardNum,//发动机号
+            date:this.timeValue,//投保日期  
+           carRegistTime:this.getalllist.carRegistTime,//初登记日期
+           carBrand:this.getalllist.carBrand,//品牌型号
+            tel:this.getalllist.ownerTel,//车主手机号
+           idCard:this.idCard//身份证号
         })
         .then(res=>{
             console.log("保险信息11111",res.data.data);
@@ -254,7 +255,7 @@ export default {
         let year = time.getFullYear();
         let month = time.getMonth() + 1;
         let day = time.getDate();
-        return year + '年' + month + '月' + day + '日'
+        return year + '-' + month + '-' + day + '-'
       }
 
     },
