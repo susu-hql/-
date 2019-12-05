@@ -97,13 +97,13 @@
                 <el-menu-item index="refund">退款中</el-menu-item>  
                 <!-- <el-menu-item index="refundHistory">历史记录</el-menu-item>     -->
               </el-submenu>
-              <!-- <el-submenu index="thirdParty">
+              <el-submenu index="thirdParty">
                 <template slot="title">
                   <i class="el-icon-location"></i>
                   <span>第三方管理</span>
                 </template>
                 <el-menu-item index="thirdParty">保险公司管理</el-menu-item>  
-              </el-submenu> -->
+              </el-submenu>
               <el-submenu index="10">
                 <template slot="title">
                   <i class="el-icon-setting"></i>

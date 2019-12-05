@@ -1,8 +1,8 @@
 <template>
-  <div class="addBrand">
-    <h1>添加汽车品牌</h1>
+  <div class="addCity">
+    <h1>添加开通城市</h1>
     <div class="content">
-      <p>汽车品牌名称：</p>
+      <p>开通城市名称：</p>
       <input type="text" v-model="input" />
     </div>
     <div class="btnGroup">
@@ -15,7 +15,7 @@
 <script>
 import { Message } from 'element-ui'
 export default {
-  name:'addBrand',
+  name:'addCity',
   data(){
     return {
       input:''
@@ -23,22 +23,22 @@ export default {
   },
   methods:{
     cancel(){
-      location.assign('/contents');
+      location.assign('/openCity');
     },
     save(){
       console.log(this.input);
         this.axios  
-          .post("/back/carBrand/insert.do",{
-             brandName :this.input
+          .post("/back/openCity/insert.do",{
+             openCity :this.input
           })
           .then(res => {
             console.log(res.data);
             if (res.data.state == "200") {
               this.input=''
-              location.assign('/contents')
+              location.assign('/openCity')
             } else {
               Message({
-                  message: "账号已过时，请重新登录修改成功",
+                  message: "新增失败",
                   type: "error",
                   showClose: true
               })

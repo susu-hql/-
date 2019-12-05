@@ -258,6 +258,14 @@ const routes = [
         }
       },
       {
+        path: '/addCity',   // 设置管理  开通城市
+        name: 'addCity',
+        component: () => import('../views/AddCity.vue'),
+        meta: {
+          auth: true
+        }
+      },
+      {
         path: '/pushMess',   // 设置管理  推送消息
         name: 'pushMess',
         component: () => import('../views/PushMess.vue'),

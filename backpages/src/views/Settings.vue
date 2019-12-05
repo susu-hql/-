@@ -1,6 +1,6 @@
 <template>
   <div class="settings">
-    <h1>管理员管理</h1>
+    <h1>管理员管理</h1> 
     <div class="search">
       <el-input v-model="input" placeholder="请输入要查询的账号"></el-input>
       <el-button type="primary" icon="el-icon-search">查询</el-button>
@@ -17,11 +17,17 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination middle layout="prev, pager, next" :total="100"> </el-pagination>
+    <!-- <el-pagination middle layout="prev, pager, next" :total="100"> </el-pagination> -->
+     <el-pagination
+          layout="prev, pager, next" v-if="isShow"
+          :total="total" :page-size="limit" :current-page='page'
+          @prev-click='pre'  @next-click='next'>
+      </el-pagination>
     </div>
 </template>
 
 <script>
+import { Message } from 'element-ui'
 
 export default {
   name: 'settings',
@@ -29,6 +35,11 @@ export default {
   },
   data(){
     return {
+      isShow:true,
+      total:1,   // 一共多少条
+      page:1,   //当前第几页
+      limit:5   ,// 每页多少条
+        input:'',
         restaurants: [],
         state: '',
         timeout:  null,
@@ -94,10 +105,44 @@ export default {
       },
       handleDelete(index, row) {
         console.log(index, row);
-      }
+      },
+      getAdminList(){
+        this.axios  
+          .post("/back/admin/list.do",{
+             page:this.page,    //当前页
+             limit:this.limit ,  //每页显示多少条
+          })
+          .then(res => {
+            console.log(res.data);
+            if (res.data.state == "200") { 
+              this.tableData = res.data.data.list;
+            } else {
+              Message({
+                message: "查询失败",
+                type: "error",
+                showClose: true
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+
+      }, 
+      pre:function(){  //上一页
+        this.page --;
+        this.getAdminList();
+      },
+      next:function(){  //上一页
+          this.page ++;
+          this.getAdminList();
+      },
     }, 
     mounted() {
       this.restaurants = this.loadAll();
+    },
+    created(){
+      // this.getAdminList();
     }
 }
 </script>

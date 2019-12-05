@@ -1,10 +1,10 @@
-<template>
+<template> 
   <div class="insurance">
     <div class="insur">
       <h1>保险管理</h1>
     </div> 
     <div class="form">
-      <input type="text" placeholder="请输入要查询用户名或手机号" />
+      <input type="text" v-model="search" placeholder="请输入要查询用户名或手机号" />
       <el-button type="primary" @click="searchOrder">查询</el-button>
     </div>
     <div class="addBtn">
@@ -34,8 +34,9 @@
     </div>
     <div class="block">
       <el-pagination
-        layout="prev, pager, next"
-        :total="20" :page-size="5">
+          layout="prev, pager, next" v-if="isShow"
+          :total="total" :page-size="limit" :current-page='page'
+          @prev-click='pre'  @next-click='next'>
       </el-pagination>
     </div>
   </div>
@@ -43,6 +44,7 @@
 
 <script>
 
+import { Message } from 'element-ui'
 import InsuranceItem from '@/components/InsuranceItem.vue'
 
 export default {
@@ -50,6 +52,12 @@ export default {
   components: {InsuranceItem},
   data() {
     return {
+      isShow:true,
+      search:'',
+      companyList:'',
+      total:1,   // 一共多少条
+      page:1,   //当前第几页
+      limit:5   ,// 每页多少条
       tableData: [
         {
           name: "王小虎",
@@ -111,6 +119,40 @@ export default {
     addpolicy:function(){
       location.replace('/AddPolicy');
     },
+    getCompanyList(){
+        this.axios  
+          .post("/back/Company/list",{
+             page:this.page,    //当前页
+            limit:this.limit ,  //每页显示多少条
+          })
+          .then(res => {
+            console.log(res.data);
+            if (res.data.state == "200") { 
+              console.log(1)
+            } else {
+              Message({
+                message: "账号已过时，请重新登录",
+                type: "error",
+                showClose: true
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+
+    },
+    pre:function(){  //上一页
+      this.page --;
+      this.getCompanyList();
+    },
+    next:function(){  //上一页
+        this.page ++;
+        this.getCompanyList();
+    },
+  },
+  created(){
+    this.getCompanyList();
   }
 };
 </script>
@@ -149,7 +191,7 @@ export default {
       text-align: center;
     }
     td{
-      padding:0 10px;
+      padding:0 20px;
     }
     tr{
       height: 50px;
