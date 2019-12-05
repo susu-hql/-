@@ -15,26 +15,33 @@
             <td>最后登录时间</td>
             <td>操作</td>
           </tr>
-          <DriverItem v-for="(item,index) in userList" :key="index" :info='item'></DriverItem>
+          <DriverItem v-for="(item,index) in driverList" :key="index" :info='item'></DriverItem>
       </table>
       <div class="block">
         <el-pagination
-          layout="prev, pager, next"
-          :total="20" :page-size="5">
+          layout="prev, pager, next" v-if="isShow"
+          :total="total" :page-size="limit" :current-page='page'
+          @prev-click='pre'  @next-click='next'>
         </el-pagination>
       </div>
   </div>
 </template>
 
 <script>
+import { Message } from 'element-ui'
 
 import DriverItem from '@/components/DriverItem.vue'
 export default {
   name: 'driver',
  data(){
     return {
+      isShow:true,
       search:'',
-      userList:[{userid:'1',name:'微微一笑很倾城'},{userid:'2',name:'lucy'},{userid:'3',name:'lucy'},{userid:'4',name:'lucy'},{userid:'5',name:'lucy'}]
+      driverList:'',
+      total:1,   // 一共多少条
+      page:1,   //当前第几页
+      limit:5   ,// 每页多少条
+      // userList:[{userid:'1',name:'微微一笑很倾城'},{userid:'2',name:'lucy'},{userid:'3',name:'lucy'},{userid:'4',name:'lucy'},{userid:'5',name:'lucy'}]
     }
   },
   components: {
@@ -43,14 +50,55 @@ export default {
   methods:{
    searchOrder:function(){
      console.log('查询');
+     this.getDriverList();
    },
    addDriver:function(){
      console.log('添加司机');
      location.assign('/adddriver');
-   }
+   },
+    getDriverList(){
+        this.axios  
+          .post("/back/findDriverByNameOrTel",{
+          // .post("/back/car/selectByNameOrTel",{
+            page:this.page,    //当前页
+            limit:this.limit ,  //每页显示多少条
+            name: this.search ,  // 搜索条件 
+            // tel:this.search
+          }) 
+          .then(res => {
+            console.log("司机列表：",res.data);
+            if (res.data.state == "200") {
+              this.driverList = res.data.data.list;
+              this.total = res.data.data.total;   //总共多少页
+              if(this.driverList==''){
+                  console.log('空');
+                  this.isShow = false;
+                }else{
+                  this.isShow  = true;
+                }
+            }else{
+               Message({
+                message: "账号已过时，请重新登录!",
+                type: "error",
+                showClose: true
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+    },
+    pre:function(){  //上一页
+      this.page --;
+      this.getOrderList1();
+    },
+    next:function(){  //上一页
+        this.page ++;
+        this.getOrderList1();
+    },
   },
   created(){
-    
+    this.getDriverList();
   }
 }
 </script> 
@@ -95,6 +143,24 @@ export default {
     }
     td{
       // padding:0 10px;
+    }
+    td:nth-child(1){
+      min-width: 60px;
+    }
+    td:nth-child(2){
+      min-width: 100px;
+    }
+    td:nth-child(3){
+      min-width: 150px;
+    }
+    td:nth-child(4){
+      min-width: 70px;
+    }
+    td:nth-child(5){
+      min-width: 170px;
+    }
+    td:nth-child(6){
+      min-width: 300px;
     }
     tr{
       height: 50px;

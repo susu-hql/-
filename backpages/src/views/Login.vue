@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { Message } from 'element-ui'
 
 export default {
   name: 'login',
@@ -25,21 +26,18 @@ export default {
   },
   methods:{
     login:function(){
-<<<<<<< HEAD
-      console.log('登录');
-      console.log(this.remeber);
-      location.replace('/home');
-=======
       if(this.username==''){
-        this.$message({
-          showClose: true,
-          message: '请输入用户名'
-        });
+        Message({
+          message: "请输入用户名",
+          type: "error",
+          showClose: true
+        })
       }else if(this.userpass == ''){
-        this.$message({
-          showClose: true,
-          message: '请输入密码'
-        });
+        Message({
+          message: "请输入密码",
+          type: "error",
+          showClose: true
+        })
       }else{
         console.log('登录');
         console.log(this.remeber);
@@ -67,11 +65,11 @@ export default {
                 // 切换路由
                 this.$router.replace('/home');
               } else {
-                this.$message({
-                  showClose: true,
-                  message: '账号或密码错误',
-                  type: 'error'
-                });
+                Message({
+                  message: "账号或密码错误",
+                  type: "error",
+                  showClose: true
+                })
                 console.log("登陆失败");
               }
             })
@@ -81,7 +79,6 @@ export default {
 
         // location.replace('/home');
       }
->>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
     }
   }
 }

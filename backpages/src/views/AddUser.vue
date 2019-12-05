@@ -97,10 +97,9 @@
 </template>
 
 <script>
+import { Message } from 'element-ui'
+
 export default {
-<<<<<<< HEAD
-  name:'adduser'
-=======
   name:'adduser',
   data() {
       // 电话号码验证
@@ -164,6 +163,7 @@ export default {
       };
 
       return {
+        obj:{},
         ruleForm: {
           name: '',
           insurance: '',
@@ -214,25 +214,39 @@ export default {
     // 保存
     submitForm(formName) {
         this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.$message({
-              message: '添加成功',
-              type: 'success'
-            });
-            // 对象
-            console.log(this.ruleForm);
-            this.ruleForm = {
-                name: '',
-                insurance: '',
-                insuranDate: '',
-                desc: '',
-                carNumber:'',
-                usertel:'',
-                cartype:'',
-                cardId:'',
-                engineNumber:'',
-                insuranName:''
+          if (!valid) {
+            Message({
+              message: "添加成功!",
+              type: "success",
+              showClose: true
+            })  
+            this.obj = {
+                   userName: this.ruleForm.name,
+                    userTel:this.ruleForm.usertel,
+                    userIdcard:this.ruleForm.cardId,
+                    insurancePerson:this.ruleForm.insuranName,
+                    companyName: this.ruleForm.insurance,
+                    insuranceDate: this.ruleForm.insuranDate,
+                    userNotes: this.ruleForm.desc,
+                    carNum:this.ruleForm.carNumber,
+                    carStyle:this.ruleForm.cartype,
+                    carEngineNum:this.ruleForm.engineNumber
               }
+              
+            this.addUser(this.obj);
+
+            // this.ruleForm = {
+            //     name: '',
+            //     insurance: '',
+            //     insuranDate: '',
+            //     desc: '',
+            //     carNumber:'',
+            //     usertel:'',
+            //     cartype:'',
+            //     cardId:'',
+            //     engineNumber:'',
+            //     insuranName:''
+            //   }
               //  ============ 保存--异步：向数据库添加 =======================
           } else {
             
@@ -244,9 +258,45 @@ export default {
       resetForm(formName) {
         this.$refs[formName].resetFields();
         location.assign('/client');
+      },
+      addUser(obj){
+        console.log(obj);
+        this.axios  
+            .post("/back/insertUser",{
+                    userName: this.ruleForm.name,
+                    userTel:this.ruleForm.usertel,
+                    userIdcard:this.ruleForm.cardId,
+                    insurancePerson:this.ruleForm.insuranName,
+                    companyName: this.ruleForm.insurance,
+                    insuranceDate: this.ruleForm.insuranDate,
+                    userNotes: this.ruleForm.desc,
+                    carNum:this.ruleForm.carNumber,
+                    carStyle:this.ruleForm.cartype,
+                    carEngineNum:this.ruleForm.engineNumber
+            })
+            .then(res => {
+              console.log('增加用户：',res.data);
+              if (res.data.state == "200") {
+                console.log(obj);
+                Message({
+                  message: "添加成功!",
+                  type: "success",
+                  showClose: true
+                })  
+              } else {
+                Message({
+                  message: "请求出错!",
+                  type: "error",
+                  showClose: true
+                })  
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        
       }
   }
->>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
 }
 </script>
 

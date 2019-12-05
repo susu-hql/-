@@ -1,6 +1,6 @@
 <template>
   <div class="modifyusercard">
-    <h1>添加用户</h1>
+    <h1>修改车主卡</h1>
     <div class="addUser-body">
 
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px"
@@ -38,28 +38,23 @@
             <td>
                 <!-- 下拉框  -->
                  <el-form-item label="品牌型号：" prop="carbrandtype">
-                  <el-select v-model="ruleForm.carbrandtype.yi" placeholder="品牌" class="brand">
-                    <el-option label="区域一" value="shanghai"></el-option>
+                  <el-select v-model="ruleForm.carbrandtype.yi" placeholder="品牌" class="brand" @input='getSeries'>
+                    <el-option v-for="(item,index) in brandList" :key = 'index' :label="item" :value="index+1"></el-option>
                   </el-select>
-                  <el-select v-model="ruleForm.carbrandtype.er" placeholder="系列" class="brand">
-                    <el-option label="区域一" value="shanghai"></el-option>
+                  <el-select v-model="ruleForm.carbrandtype.er" placeholder="系列" class="brand" @input="getCarVersion">
+                     <el-option v-for="(item,index) in seriesList" :key = 'index' :label="item" :value="index+1"></el-option>
                   </el-select>
                   <el-select v-model="ruleForm.carbrandtype.san" placeholder="版本" class="brand">
-                    <el-option label="区域一" value="shanghai"></el-option>
+                     <el-option v-for="(item,index) in carVersion" :key = 'index' :label="item" :value="index"></el-option>
                   </el-select>
                 </el-form-item>
             </td>
-            <td>
-                <!-- 输入框  -->
-                <el-form-item label="发动机号：" prop="engineNumber">        
-                  <el-input v-model="ruleForm.engineNumber"></el-input>
-                </el-form-item>
-            </td>
+           
           </tr>
           <tr>
             <td>
                 <!-- 输入框  -->
-                <el-form-item label="商业险到期日：" required> 
+                <el-form-item label="商业险到期日：" > 
                     <el-form-item prop="SinsuranDate">
                       <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.SinsuranDate" ></el-date-picker>
                     </el-form-item>
@@ -67,7 +62,7 @@
             </td>
             <td>
                 <!-- 日期  -->
-                <el-form-item label="交强险到期日：" required> 
+                <el-form-item label="交强险到期日：" > 
                     <el-form-item prop="JinsuranDate">
                       <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.JinsuranDate" ></el-date-picker>
                     </el-form-item>
@@ -77,7 +72,7 @@
           <tr>
             <td>
                 <!-- 日期  -->
-                <el-form-item label="车辆初登日期：" required > 
+                <el-form-item label="车辆初登日期："  > 
                     <el-form-item prop="FinsuranDate">
                       <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.FinsuranDate" ></el-date-picker>
                     </el-form-item>
@@ -86,6 +81,12 @@
             <td></td>
           </tr>
           <tr>
+             <td>
+                <!-- 输入框  -->
+                <el-form-item label="发动机号：" prop="engineNumber">        
+                  <el-input v-model="ruleForm.engineNumber"></el-input>
+                </el-form-item>
+            </td>
             <td>
               <el-form-item label="行驶证附件：" required > 
                   <el-upload
@@ -106,17 +107,26 @@
         </table>
      
         <!-- 按钮 -->
-        <el-form-item class="button-group" >
-          <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
+        <el-form-item class="button-group" v-if="handleStateName == '待审核'">
+          <el-button type="danger" @click="refuse">审核不通过</el-button>
+          <el-button type="primary" @click="submitForm('ruleForm')">通过审核</el-button>
           <el-button @click="resetForm('ruleForm')">取消</el-button>
         </el-form-item>
-      </el-form>
+        <el-form-item class="button-group" v-else-if ="handleStateName == '通过审核'">
+          <el-button type="primary" @click="resetForm('ruleForm')" title="返回">审核已通过，点击返回</el-button>
+        </el-form-item>
+        <el-form-item class="button-group" v-else-if ="handleStateName == '未通过审核'">
+          <el-button type="danger" @click="resetForm('ruleForm')">未通过审核，点击返回</el-button>
+        </el-form-item>
+
+      </el-form> 
 
     </div>
   </div>
 </template>
 
 <script>
+import { Message ,MessageBox} from 'element-ui'
 
 export default {
   name:'modifyusercard',
@@ -171,6 +181,10 @@ export default {
 
 
       return {
+        handleStateName:'待审核',
+        brandList:'',
+        seriesList:'',
+        carVersion:'',
         dialogImageUrl: '',
         dialogVisible: false,
         ruleForm: {
@@ -204,45 +218,79 @@ export default {
             { required: true, message: '请输入车型', trigger: 'blur' }
           ],
           SinsuranDate: [   //商业险到期日期
-            { required: true, type: 'date', message: '请选择日期', trigger: 'change' }
+            { required: true , message: '请选择日期', trigger: 'change' }
           ],
           JinsuranDate: [   //较强险到期日期
-            { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+            { required: true, message: '请选择日期', trigger: 'change' }
           ],
           carbrandtype: [   // 汽车品牌
             { required: true, message: '请选择汽车品牌', trigger: 'change' }
           ],
           FinsuranDate: [
-            { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+            {  required: true, message: '请选择日期', trigger: 'change' }
           ]
         }
       };
   },
   methods:{
-    // 保存
+      // 未通过审核   
+      refuse(){
+        console.log('审核未通过')
+        MessageBox.confirm(
+              "此操作将拒绝该车主卡通过审核, 是否继续?"
+            )
+            .then(() => {
+              this.changState(2);
+              this.del();
+              Message({
+                message: "该审核未通过!",
+                type: "success",
+                showClose: true
+              })
+            }).then(()=>{
+              // location.assign('/usercard');
+            }).catch(() => {
+              Message({
+                message: "已取消拒绝该请求!",
+                type: "info",
+                showClose: true
+              })       
+            });
+      },  // 传参没反应  ================
+      changState(state){
+        this.axios  
+            .post("/back/updateCarCard",{
+              id : this.$route.query.cardId,
+              cardState : state
+            })
+            .then(res => {
+              console.log(res.data);
+              if (res.data.state == "200") { 
+                console.log(1)
+                location.assign('/usercard');
+              } else {
+                Message({
+                  message: "操作失败",
+                  type: "error",
+                  showClose: true
+                })
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
+      },
+      // 审核通过
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.$message({
-              message: '添加成功',
-              type: 'success'
-            });
-            // 对象
-            console.log(this.ruleForm);
-            this.ruleForm = {
-                 name: '',
-                FinsuranDate: '',
-                carNumber:'',
-                usertel:'',
-                cardId:'',
-                engineNumber:'',
-                SinsuranDate:'',
-                JinsuranDate:'',
-                carbrandtype:{yi:'',er:'',san:''},   // 品牌型号
-              }
-              //  ============ 保存--异步：向数据库添加 =======================
+          if (valid || 1==1) {
+            this.changState(1);
+            Message({
+                  message: "审核通过",
+                  type: "success",
+                  showClose: true
+            })
           } else {
-            
             return false;
           }
         });
@@ -258,8 +306,140 @@ export default {
       handlePictureCardPreview(file) {
         this.dialogImageUrl = file.url;
         this.dialogVisible = true;
-      }
+      },
+      getCarBrand(){
+        this.axios  
+          .post("/back/getCarBrand")
+          .then(res => {
+            console.log('品牌',res.data);
+            if (res.data.state == "200") {
+                this.brandList = res.data.data;
+                // console.log(this.brandList)
+            } else {
+              Message({
+                  message: "请求出错",
+                  type: "error",
+                  showClose: true
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      },
+      getSeries(){
+        this.axios  
+          .post("/back/getSeries",{
+            carBrandId:this.ruleForm.carbrandtype.yi
+          })
+          .then(res => {
+            console.log('系列',res.data);
+            if (res.data.state == "200") {
+                this.seriesList = res.data.data;
+                // console.log(this.brandList)
+            } else {
+              Message({
+                  message: "请求出错",
+                  type: "error",
+                  showClose: true
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      },
+      getCarVersion(){
+        this.axios  
+          .post("/back/getCarVersion",{
+            seriesId:this.ruleForm.carbrandtype.er
+          })
+          .then(res => {
+            console.log('品牌',res.data);
+            if (res.data.state == "200") {
+                this.carVersion = res.data.data;
+                // console.log(this.brandList)
+            } else {
+              Message({
+                  message: "请求出错",
+                  type: "error",
+                  showClose: true
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      },
+      getUserCardInfo(){
+       this.axios  
+          .post("/back/getCardByCarNum",{
+            carNum:this.$route.query.carNum
+          }) 
+          .then(res => {
+            console.log(res.data);
+            if (res.data.state == "200") {
+                this.handleStateName = res.data.data.stateName
+                this.ruleForm.name = res.data.data.userName;
+                this.ruleForm.engineNumber = res.data.data.carEngineNum;
+                this.ruleForm.SinsuranDate = res.data.data.commercialInsuranceDate;
+                this.ruleForm.JinsuranDate= res.data.data.compulsoryInsuranceDate;
+                this.ruleForm.FinsuranDate= res.data.data.createTime;
+                this.ruleForm.carNumber= res.data.data.carNum
+                this.ruleForm.usertel= res.data.data.ownerTel;
+                this.ruleForm.cardId= res.data.data.ownerPid;
+                this.ruleForm.carbrandtype.yi= res.data.data.carStyle;
+                this.ruleForm.carbrandtype.er= res.data.data.carBrand;
+                this.ruleForm.carbrandtype.san= res.data.data.carSeries;
+                // this.imgName= require("http://172.17.4.226:8080/upload/2019/12/04/37b662b7613f447283241f135926ec4d.jpg");
+                // this.dialogImageUrl= require("res.data.data.carOwnerUrl");
+            }else{
+              Message({
+                message: "账号已过时，请重新登录",
+                type: "error",
+                showClose: true
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      },
+      del:function(){
+
+          this.axios  
+            .post("/back/updatDateState",{
+              id: this.ruleForm.carNumber
+            }) 
+            .then(res => {
+              console.log("删除",res.data);
+              if (res.data.state == "200") {
+                Message({
+                    message: "删除成功!",
+                    type: "success",
+                    showClose: true
+                })
+                location.reload();
+              }else{
+                // Message({
+                //   message: "账号已过时，请重新登录",
+                //   type: "error",
+                //   showClose: true
+                // })
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
+
+      },
   
+  },
+  created(){
+    this.getCarBrand();
+    this.getUserCardInfo();
+    
+            // cardId:this.$route.query.cardId
   }
 }
 </script>
@@ -293,7 +473,7 @@ export default {
       width: 300px;
     }
     .brand{
-      width: 60px;
+      width: 160px;
       margin-right: 10px;
     }
 

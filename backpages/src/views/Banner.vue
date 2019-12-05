@@ -3,59 +3,6 @@
     <h1>Banner管理</h1>
     <el-button type="primary" plain class="addDate">添加数据<i class="el-icon-plus"></i></el-button>
     
-<<<<<<< HEAD
-      <table class="table">
-        <tr>
-          <th>编号</th>
-          <th>轮播图</th>
-          <th>标题</th>
-          <th>点击量</th>
-          <th>添加事件</th>
-          <th>操作</th>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td> <img src="" alt=""></td>
-          <td><a href="javascript:;"><span>banner对应的标题</span></a></td>
-          <td>1000</td>
-          <td>time</td>
-          <td class="table-icon">
-              <el-button type="primary" icon="el-icon-edit" circle title="编辑"></el-button>
-              <el-button type="success" icon="el-icon-view" circle title="可见性" background="green"></el-button>
-              <el-button type="danger" icon="el-icon-delete" circle title="删除"></el-button>        
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td> <img src="" alt=""></td>
-          <td><a href="javascript:;"><span>banner对应的标题</span></a></td>
-          <td>1000</td>
-          <td>time</td>
-          <td class="table-icon">
-              <el-button type="primary" icon="el-icon-edit" circle title="编辑"></el-button>
-              <el-button type="success" icon="el-icon-view" circle title="可见性"></el-button>
-              <el-button type="danger" icon="el-icon-delete" circle title="删除"></el-button>                      
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td> <img src="" alt=""></td>
-          <td><a href="javascript:;"><span>banner对应的标题</span></a></td>
-          <td>1000</td>
-          <td>time</td>
-          <td class="table-icon">
-              <el-button type="primary" icon="el-icon-edit" circle title="编辑"></el-button>
-              <el-button type="success" icon="el-icon-view" circle title="可见性"></el-button>
-              <el-button type="danger" icon="el-icon-delete" circle title="删除"></el-button>       
-          </td>
-        </tr>
-      </table>
-      <div class="block">
-        <span class="demonstration"></span>
-        <el-pagination layout="prev, pager, next"  :total="50" page-size="5" hide-on-single-page="true" pager-count="5">
-        </el-pagination>
-      </div>
-=======
    <el-table :data="tableData"  style="width: 100%">
     <el-table-column label="编号">
       <template slot-scope="scope">
@@ -97,7 +44,6 @@
       </el-table-column>
   </el-table>
   <el-pagination middle layout="prev, pager, next" :total="100"> </el-pagination>
->>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
     
   </div>
 </template>
@@ -110,8 +56,6 @@ export default {
   name:'banner',
   components: {
   },
-<<<<<<< HEAD
-=======
   data() {
     return {
       tableData: [{
@@ -140,7 +84,6 @@ export default {
         console.log(index, row);
       }
     }
->>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
 
 }
 
@@ -159,15 +102,8 @@ export default {
     justify-content: flex-start;
     margin: 10px;
   }
-<<<<<<< HEAD
-  .table {
-    width: 100%;
-    height: 350px;
-    border: 1px solid black;
-=======
   .el-table {
     height: 400px;
->>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
   }
   .table-icon i{
     margin: 10px;
@@ -178,12 +114,8 @@ export default {
   }
   .block {
     margin-top: 10px;
-<<<<<<< HEAD
-    
-=======
   }
   .el-pagination {
     margin-top: 20px;
->>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
   }
 </style>

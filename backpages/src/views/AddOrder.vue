@@ -10,8 +10,8 @@
                 <!-- 输入框  --> 
                 <el-form-item label="订单类型：" prop="orderType">        
                   <el-select v-model="ruleForm.orderType" placeholder="请选择订单类型">
-                    <el-option label="估损预约" value="估损预约"></el-option>
-                    <el-option label="直接预约" value="直接预约"></el-option>
+                    <el-option label="估损预约" value="0"></el-option>
+                    <el-option label="直接预约" value="1"></el-option>
                   </el-select>
                 </el-form-item>
             </td>
@@ -60,7 +60,7 @@
                     <el-option v-for="(item,index) in locationList" :key = 'index' :label="item.openCity" :value="item.openId"></el-option>
                   </el-select>
                   <el-select v-model="ruleForm.acceptDriver" placeholder="接车司机" class="ban">
-                    <el-option v-for="(item,index) in acceptDriverList" :key = 'index' :label="item.openCity" :value="item.openId"></el-option>
+                    <el-option v-for="(item,index) in DriverList" :key = 'index' :label="item.driverName" :value="item.driverId"></el-option>
                   </el-select>
                 </el-form-item>
             </td>
@@ -77,7 +77,7 @@
                     <el-option v-for="(item,index) in locationList" :key = 'index' :label="item.openCity" :value="item.openId"></el-option>
                   </el-select>
                   <el-select v-model="ruleForm.returnDriver" placeholder="还车司机" class="ban">
-                    <el-option v-for="(item,index) in returnDriverList" :key = 'index' :label="item.openCity" :value="item.openId"></el-option>
+                    <el-option v-for="(item,index) in DriverList" :key = 'index' :label="item.driverName" :value="item.driverId"></el-option>
                   </el-select>
                 </el-form-item>
             </td>
@@ -152,6 +152,7 @@
 </template>
 
 <script>
+import { Message } from 'element-ui'
 
 export default {
   name:'addOrder',
@@ -195,8 +196,7 @@ export default {
 
       return {
         obj:{},
-        acceptDriverList:[],  // 接车司机列表
-        returnDriverList:[],  // 还车司机列表  
+        DriverList:[],  // 还车司机列表  
         fourDoorList:[],  // 4s店列表
         locationList:[],   // 区域类别
         orderStausList:[],             // 订单状态类别
@@ -272,52 +272,60 @@ export default {
           if (valid) {
             // 对象  ============ 保存--异步：向数据库修改 =======================
             this.obj  = {
-                orderType:this.orderType,   // 订单类型
-                userName: this.username,   // 用户名
-                acceptAddrss:'',    // 接车地址
-                carNum:this.carNumber,   // 车牌号
-                userTel:this.usertel,   // 联系电话
-                engineNumber:'',      // 发动机号
-                substituteTime:this.acceptTime ,      // 接车时间
-                driverId : this.acceptDriver,     //接车司机
-                // aubstituteAddress:this.acceptLocation,    // 接车地址
-                // driverId : this.returnDriver,
-                returnLocation:'',
-                returnAddress : this.returnAddrss,
-                orderStaus: this.orderStaus,     // 订单状态
-                fourDoorLocation:'',   // 4s店区域
-                shopId: this.fourDoor , // 4s店名称
-                substituteDriving:this.substituteDriving,
-                repairMethod:this.repairMethod,
-                accidentType:this.accidentType
+                  orderType:this.ruleForm.orderType,   // 订单类型
+                  userName: this.ruleForm.username,   // 用户名
+                  userTel:this.ruleForm.usertel,   // 联系电话
+                  orderState: this.ruleForm.orderStaus,     // 订单状态
+                  carNum:this.ruleForm.carNumber,   // 车牌号
+                  driverId : this.ruleForm.acceptDriver,     //接车司机
+                  substituteAddress:this.ruleForm.acceptAddrss,    // 接车地址
+                  returnAddress : this.ruleForm.returnAddrss,
+                  substituteTime:this.ruleForm.acceptTime ,      // 接车时间
+                  shopId: this.ruleForm.fourDoor , // 4s店名称
+                  substituteDriving:this.ruleForm.substituteDriving,
+                  repairMethod:this.ruleForm.repairMethod,
+                  accidentType:this.ruleForm.accidentType
               }
-            console.log(this.ruleForm);
-              this.ruleForm = {
-                orderType:'',   // 订单类型
-                username: '',   // 用户名
-                acceptAddrss:'',    // 接车地址
-                desc: '',        // 备注
-                carNumber:'',   // 车牌号
-                usertel:'',   // 联系电话
-                engineNumber:'',      // 发动机号
-                acceptTime:'',      // 接车时间
-                acceptDriver:'',     //接车司机
-                acceptLocation:'',    // 接车地址
-                returnDriver:'',
-                returnLocation:'',
-                returnAddrss:'',
-                orderStaus:'待确定',     // 订单状态
-                fourDoorLocation:'',   // 4s店区域
-                fourDoor:'' , // 4s店名称      
-                substituteDriving:'',
-                repairMethod:'',
-                accidentType:''
-              }
-              this.$message({
-                message: '添加成功',
-                type: 'success'
-              });
-              // location.assign('/order')
+            console.log(this.obj);
+              
+              this.axios  
+                .post("/back/order/insert",{
+                  orderType:this.ruleForm.orderType,   // 订单类型
+                  userName: this.ruleForm.username,   // 用户名
+                  userTel:this.ruleForm.usertel,   // 联系电话
+                  orderState: this.ruleForm.orderStaus,     // 订单状态
+                  carNum:this.ruleForm.carNumber,   // 车牌号
+                  driverId : this.ruleForm.acceptDriver,     //接车司机
+                  substituteAddress:this.ruleForm.acceptAddrss,    // 接车地址
+                  returnAddress : this.ruleForm.returnAddrss,
+                  substituteTime:this.ruleForm.acceptTime ,      // 接车时间
+                  shopId: this.ruleForm.fourDoor , // 4s店名称
+                  substituteDriving:this.ruleForm.substituteDriving,
+                  repairMethod:this.ruleForm.repairMethod,
+                  accidentType:this.ruleForm.accidentType
+              })
+                .then(res => {
+                  console.log('司机：',res.data);
+                  if (res.data.state == "200") {
+                      Message({
+                        message: "添加成功!",
+                        type: "success",
+                        showClose: true
+                      })  
+                  } else {
+                    Message({
+                      message: "请求出错!",
+                      type: "error",
+                      showClose: true
+                    })  
+                  }
+                }).then( () => {
+                  console.log('增加成功');
+                  // location.assign('order');
+                }).catch(err => {
+                  console.log(err);
+                });
+
           } else {
             return false;
           }
@@ -389,11 +397,49 @@ export default {
           });
       },
       renderReturnDriver:function(){   // 获取还车司机
-
+        console.log("司机",this.ruleForm.returnLocation)
+          this.axios  
+          .post("/back/findAllByCityId",{
+            cityId:this.ruleForm.returnLocation
+          })
+          .then(res => {
+            console.log('司机：',res.data);
+            if (res.data.state == "200") {
+                this.DriverList = res.data.data
+            } else {
+              this.$message({
+                showClose: true,
+                message: '请求出错',
+                type: 'error'
+              });
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
       },
       renderAcceptDriver:function(){   // 获取接车司机
-
-      },
+        console.log("司机",this.ruleForm.acceptLocation)
+          this.axios  
+          .post("/back/findAllByCityId",{
+            cityId:this.ruleForm.acceptLocation
+          })
+          .then(res => {
+            console.log('司机：',res.data);
+            if (res.data.state == "200") {
+                this.DriverList = res.data.data
+            } else {
+              this.$message({
+                showClose: true,
+                message: '请求出错',
+                type: 'error'
+              });
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
   },
   created(){
     this.getOrderStates();

@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import { Message } from 'element-ui'
 import OrderItems from '@/components/OrderItems.vue'
 // import { mapState } from 'vuex'
 
@@ -105,11 +106,11 @@ export default {
                   this.isShow  = true;
                 }
             } else {
-              this.$message({
-                showClose: true,
-                message: '账号已过时，请重新登录',
-                type: 'error'
-              });
+               Message({
+                  message: "账号已过时，请重新登录修改成功",
+                  type: "error",
+                  showClose: true
+              })
             }
           })
           .catch(err => {
@@ -132,11 +133,11 @@ export default {
             if (res.data.state == "200") {
                 this.orderStausList = res.data.data
             } else {
-              this.$message({
-                showClose: true,
-                message: '请求出错',
-                type: 'error'
-              });
+              Message({
+                  message: "请求出错",
+                  type: "error",
+                  showClose: true
+              })
             }
           })
           .catch(err => {

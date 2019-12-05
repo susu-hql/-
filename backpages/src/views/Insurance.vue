@@ -2,7 +2,7 @@
   <div class="insurance">
     <div class="insur">
       <h1>保险管理</h1>
-    </div>
+    </div> 
     <div class="form">
       <input type="text" placeholder="请输入要查询用户名或手机号" />
       <el-button type="primary" @click="searchOrder">查询</el-button>
@@ -28,22 +28,8 @@
             <td>获得积分</td>
             <td>操作</td>
           </tr>
-          <tr v-for="(item,index) in tableData" :key="index" :info='item'>
-            <td>{{item.name}}</td>
-            <td>{{item.phone}}</td>
-            <td>{{item.dateStartstrength}}</td>
-            <td>{{item.dateEndstrength}}</td>
-            <td>{{item.businessStarttime}}</td>
-            <td>{{item.businessEndtime}}</td>
-            <td>{{item.price}}</td>
-            <td>{{item.integral}}</td>
-            <td>
-              <el-button type="primary" icon="el-icon-edit" circle @click='modify' title="修改" :disabled='isdisable'></el-button>
-              <el-button type="success" icon="el-icon-view" circle @click='look' title="查看" :disabled='isdisable'></el-button>
-              <el-button type="warning" :icon="icons" circle  @click='lock' :title="islock" ></el-button>
-              <el-button type="danger" icon="el-icon-delete" circle @click='del' title="删除" :disabled='isdisable'></el-button>
-            </td>
-          </tr>
+          <InsuranceItem v-for="(item,index) in tableData" :key="index" :item='item'></InsuranceItem>
+          
       </table>
     </div>
     <div class="block">
@@ -56,9 +42,12 @@
 </template>
 
 <script>
+
+import InsuranceItem from '@/components/InsuranceItem.vue'
+
 export default {
   name: "insurance",
-  components: {},
+  components: {InsuranceItem},
   data() {
     return {
       tableData: [
@@ -113,46 +102,25 @@ export default {
           integral:"66690"
         }
       ],
-      islock:'锁定',
-      icons:'el-icon-lock',
-      isdisable:false
     };
   },
   methods:{
-    modify:function(){
-     console.log('修改');
-    },
-    look:function(){
-      console.log('查看');
-    },
-    lock:function(){
-      if(this.islock == '锁定'){
-        this.islock = '解锁';
-        this.icons = 'el-icon-lock';
-        this.isdisable = true;
-      }else{
-        this.islock = '锁定';
-        this.icons = 'el-icon-unlock';
-        this.isdisable = false; 
-      }
-      console.log('锁定');
-    },
-    del:function(){
-      console.log('删除');
+    searchOrder:function(){
+      console.log('查询');
     },
     addpolicy:function(){
       location.replace('/AddPolicy');
     },
-    searchOrder:function(){
-      console.log('查询');
-    }
   }
 };
 </script>
 
 <style lang="less" scoped>
   .insur,.form{
-    text-align: left
+    text-align: left;
+  }
+  table{
+    font-size:14px;
   }
   .form input{
     width: 300px;

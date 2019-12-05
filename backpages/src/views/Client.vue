@@ -1,16 +1,12 @@
 <template>
   <div class="client">
       <h1>用户管理</h1>
-      <el-input v-model="search" placeholder="请输入手机号或者用户名" clear="search-input"></el-input>
+      <el-input v-model="search" placeholder="请输入用户名" clear="search-input"></el-input>
       <el-button class="search-button" type="primary" @click='searchOrder'>查询</el-button>
       <el-button class="addUser-button" type="warning" @click="addUser">
         <span class="el-icon-plus"> 添加用户</span>
       </el-button>
-<<<<<<< HEAD
-      <table>
-=======
       <table> 
->>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
           <tr class="table-th">
             <td>ID</td>
             <td>用户名</td>
@@ -32,11 +28,12 @@
 
 <script>
 import UserItem from '@/components/UserItem.vue'
+import { Message } from 'element-ui'
 
 export default { 
   name: 'client',
   data(){
-    return {
+    return { 
       isShow:true,
       search:'',
       userList:[],
@@ -71,9 +68,8 @@ export default {
           .post("/back/getUserByNameOrTel",{
             page:this.page,    //当前页
             limit:this.limit ,  //每页显示多少条
-            // name: this.search ,  // 搜索条件 
-            // tel:this.search
-          })
+            name: this.search ,  // 搜索条件 
+          }) 
           .then(res => {
             console.log(res.data);
             if (res.data.state == "200") {
@@ -86,11 +82,11 @@ export default {
                   this.isShow  = true;
                 }
             } else {
-              this.$message({
-                showClose: true,
-                message: '账号已过时，请重新登录',
-                type: 'error'
-              });
+              Message({
+                message: "账号已过时，请重新登录",
+                type: "error",
+                showClose: true
+              })
             }
           })
           .catch(err => {
@@ -142,7 +138,22 @@ export default {
       text-align: center;
     }
     td{
-      padding:0 35px;
+      // padding:0 35px;
+    }
+    td:nth-child(1){
+      min-width: 100px;
+    }
+    td:nth-child(2){
+      min-width:140px ;
+    }
+    td:nth-child(3){
+      min-width: 230px;
+    }
+    td:nth-child(4){
+      min-width: 315px;
+    }
+    td:nth-child(5){
+      min-width:300px ;
     }
     tr{
       height: 50px;

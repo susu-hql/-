@@ -32,6 +32,7 @@ export default {
             type: 'line'
         }]
     }),
+    
     bingCharts.setOption({
       title: {
         text: '注册用户'
