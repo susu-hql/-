@@ -2,9 +2,9 @@
   <div class="box">
     <div class="nav">
       <ul>
-        <li @click="goback">&lt;返回</li>
+        <li>&lt;返回</li>
       </ul>
-      <p>修改手机号</p>
+      <p @click="goback">修改手机号</p>
     </div>
     <hr />
     <form class="login-form">
@@ -42,15 +42,15 @@ export default {
 }
 .nav {
   width: 100%;
-  height: 60px;
+  height: 80px;
   background: #63adde;
-  font-size: 18px;
+  font-size: 36px;
   color: white;
-  line-height: 60px;
+  line-height: 80px;
   text-align: center;
 
   p {
-    transform: translateX(-12px);
+    transform: translateX(-36px);
   }
 }
 ul li {
@@ -77,13 +77,19 @@ hr {
     width: 150px;
     height:52px;
     font-size: 18px;
-    border-radius: 9px
+    border-radius: 9px;
+    background: #63adde;
+    color: white;
+    border: none;
+  }
+  .huoqu:active{
+    box-shadow: 4px 4px gray
   }
   .login-form {
     margin-top: 200px;
 
     .form-group {
-      margin-bottom: 40px;
+      margin-bottom: 50px;
       position: relative;
 
       input[type=text]{

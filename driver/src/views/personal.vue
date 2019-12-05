@@ -2,9 +2,9 @@
     <div class="box">
         <div class="nav">
             <ul>
-                <li @click="goback">&lt;返回</li>
+                <li>&lt;返回</li>
             </ul>
-            <p>个人中心</p>
+            <p @click="goback">个人中心</p>
         </div>
         <hr>
         <div class="change" @click="changephone">
@@ -22,10 +22,10 @@ export default {
             this.$router.push('/changephone')
         },
         quit(){
-            this.$router.replace('/login')
+            this.$router.replace('/')
         },
         goback(){
-            this.$router.replace('/login')
+            this.$router.replace('/')
         }
     }
 }
@@ -38,11 +38,11 @@ export default {
     }
     .nav{
         width: 100%;
-        height: 60px;
+        height: 80px;
         background: #63ADDE;
-        font-size: 18px;
+        font-size: 36px;
         color: white;
-        line-height: 60px;
+        line-height: 80px;
         text-align: center;
 
         p{
@@ -68,7 +68,7 @@ export default {
     }
     .change{
         width: 100%;
-        font-size: 20px;
+        font-size: 40px;
         height: 80px;
         line-height: 80px;
         text-align: left;
@@ -83,7 +83,7 @@ export default {
         border-bottom: 1px solid rgba(121, 121, 121, 1);
         height: 80px;
         line-height: 80px;
-        font-size: 20px;
+        font-size: 40px;
         border-top: 1px solid rgba(121, 121, 121, 1);
     }
 </style>

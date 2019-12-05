@@ -28,7 +28,16 @@
 <script>
 export default {
   name: "home",
-  components: {}
+  components: {},
+  methods:{
+    token(){
+      var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjoie1widXNlcklkXCI6MSxcInVzZXJOYW1lXCI6XCJMV1lcIixcInVzZXJUZWxcIjpcIjEzNTgxNTIzNjUyXCIsXCJ1c2VySWRjYXJkXCI6XCI1MTE1MTUxNTIyMTUxNTQ4XCIsXCJ1c2VyTGFzdExvZ2ludGltZVwiOjE1NzQ5MjkxMjkwMDAsXCJpbnN1cmFuY2VJZFwiOjEsXCJjb21wYW55TmFtZVwiOlwi5Lit5Zu95Lq65a-_XCIsXCJpbnN1cmFuY2VEYXRlXCI6MTU3NTA0MzIwMDAwMCxcImluc3VyYW5jZVBlcnNvblwiOlwi5p2O55m9XCIsXCJ1c2VyTm90ZXNcIjpcIuWCheWkp1wiLFwiaW1nVXJsXCI6XCLlgoXlpKcgXCIsXCJkYXRhc3RhdGVcIjoxfSIsImlzcyI6ImphdmEiLCJleHAiOjE1NzU1MDgyNDEsInVzZXJJZCI6MX0.dsy1Gv-xxgM8kEfQky7tFube4VGvLT6RyXw2nagkYEQ"
+    sessionStorage.getItem("token",token)
+    }
+  },
+  create(){
+    this.tiken()
+  }
 };
 </script>
 <style lang="less" >

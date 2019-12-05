@@ -1,12 +1,12 @@
 <template>
   <div class="client">
       <h1>用户管理</h1>
-      <el-input v-model="search" placeholder="请输入内容" clear="search-input"></el-input>
+      <el-input v-model="search" placeholder="请输入用户名" clear="search-input"></el-input>
       <el-button class="search-button" type="primary" @click='searchOrder'>查询</el-button>
       <el-button class="addUser-button" type="warning" @click="addUser">
         <span class="el-icon-plus"> 添加用户</span>
       </el-button>
-      <table>
+      <table> 
           <tr class="table-th">
             <td>ID</td>
             <td>用户名</td>
@@ -18,22 +18,28 @@
       </table>
       <div class="block">
         <el-pagination
-          layout="prev, pager, next"
-          :total="20" :page-size="5">
+          layout="prev, pager, next" v-if="isShow"
+          :total="total" :page-size="limit" :current-page='page'
+          @prev-click='pre'  @next-click='next'>
         </el-pagination>
-      </div>
+      </div> 
   </div>
 </template>
 
 <script>
 import UserItem from '@/components/UserItem.vue'
+import { Message } from 'element-ui'
 
-export default {
+export default { 
   name: 'client',
   data(){
-    return {
+    return { 
+      isShow:true,
       search:'',
-      userList:[{name:'微微一笑很倾城'},{name:'lucy'},{name:'lucy'},{name:'lucy'},{name:'lucy'}]
+      userList:[],
+      total:1,   // 一共多少条
+      page:1,   //当前第几页
+      limit:5   ,// 每页多少条
     }
   },
   components: {
@@ -41,15 +47,55 @@ export default {
   },
   methods:{
    searchOrder:function(){
+     this.getOrderList1();
      console.log('查询');
    },
    addUser:function(){
      console.log('添加用户');
      location.replace('/adduser');
-   }
+   },
+   pre:function(){  //上一页
+      this.page --;
+      this.getOrderList1();
+   },
+   next:function(){  //上一页
+      this.page ++;
+      this.getOrderList1();
+   },
+    getOrderList1:function(){    // 获取所有的估损预约订单
+     console.log('查询用户',this.search );
+     this.axios  
+          .post("/back/getUserByNameOrTel",{
+            page:this.page,    //当前页
+            limit:this.limit ,  //每页显示多少条
+            name: this.search ,  // 搜索条件 
+          }) 
+          .then(res => {
+            console.log(res.data);
+            if (res.data.state == "200") {
+              this.userList = res.data.data.list;
+              this.total = res.data.data.total;   //总共多少页
+              if(this.userList ==''){
+                  console.log('空');
+                  this.isShow = false;
+                }else{
+                  this.isShow  = true;
+                }
+            } else {
+              Message({
+                message: "账号已过时，请重新登录",
+                type: "error",
+                showClose: true
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+    },
   },
   created(){
-    
+    this.getOrderList1();
   }
 }
 </script> 
@@ -92,7 +138,22 @@ export default {
       text-align: center;
     }
     td{
-      padding:0 35px;
+      // padding:0 35px;
+    }
+    td:nth-child(1){
+      min-width: 100px;
+    }
+    td:nth-child(2){
+      min-width:140px ;
+    }
+    td:nth-child(3){
+      min-width: 230px;
+    }
+    td:nth-child(4){
+      min-width: 315px;
+    }
+    td:nth-child(5){
+      min-width:300px ;
     }
     tr{
       height: 50px;

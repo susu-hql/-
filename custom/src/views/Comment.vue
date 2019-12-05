@@ -11,19 +11,21 @@
     <div class="commentHeader">
       <span>直接预约维修</span>
       <br />
-      <span>司机：王五</span>
     </div>
     <van-divider content-position="left">评价</van-divider>
     <div>
       <van-rate v-model="value" allow-half size="30px" />
     </div>
     <div>
-      <van-checkbox-group v-model="result">
-        <van-checkbox name="a" class="a">驾驶平稳</van-checkbox>
-        <van-checkbox name="b" class="b">工作认真</van-checkbox>
-        <van-checkbox name="c" class="c">活地图认路准</van-checkbox>
-        <van-checkbox name="d" class="d">服务态度好</van-checkbox>
-      </van-checkbox-group>
+      <div class="buju">
+    <label><input @change="get"  v-model="radioVal1" type="checkbox" value="工作认真" >工作认真</label>
+    <label><input @change="get"  v-model="radioVal2" type="checkbox" value="驾驶平稳">驾驶平稳</label>
+    <label><input @change="get"  v-model="radioVal3" type="checkbox" value="活地图认路准" >活地图认路准</label>
+    <label><input @change="get"  v-model="radioVal4" type="checkbox" value="服务态度好">服务态度好</label>
+
+  </div>
+
+   
     </div>
     <br />
     <van-cell-group>
@@ -41,7 +43,7 @@
       <van-checkbox v-model="checked" class="niming">匿名提交</van-checkbox>
       <div>
         <van-tabbar>
-          <van-tabbar-item is-link to="/carlist" @click="addComment()">提交评价</van-tabbar-item>
+          <van-tabbar-item  @click="addComment()">提交评价</van-tabbar-item>
         </van-tabbar>
       </div>
     </div>
@@ -53,15 +55,44 @@ import { Toast } from "vant";
 export default {
   data() {
     return {
-      value: 2.6,
-      result: [],
+      value: 5,
+      radioVal1: '',
+       radioVal2: '',
+        radioVal3: '',
+         radioVal4: '',
+         result0:[],
       message: "",
       checked: ""
     };
   },
   methods: {
     addComment() {
-      Toast("您已成功评价");
+      var result =  this.result0.join(",")
+    console.log(result)
+    this.axios
+        .post("/user/addComment", {
+          orderId: this.$route.query.id,
+          orderType: this.$route.query.type,
+          commStar: this.value,
+          commLabel: result,
+          commRemark: this.message
+        })
+        .then(res => {
+          console.log(res)
+          if (res.data.state == "200") {
+            Toast("您已成功评价");
+          }
+        })
+        .catch(err =>{
+          console.log(err)
+        });
+    },
+    get:function(event){
+      
+       this.a = event.target.value
+       console.log(this.a)
+    this.result0.push(this.a)
+    console.log(this.result0)
     }
   }
 };
@@ -82,15 +113,17 @@ p {
     margin-top: 10px;
   }
 }
-.van-checkbox-group {
+.buju {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  .van-checkbox {
-    width: 38%;
+  label {
+    display: inline-block;
+    width: 40%;
     font-size: 16px;
     margin-top: 30px;
     margin-left: 25px;
+    text-align: left;
   }
 }
 .van-cell-group {

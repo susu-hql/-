@@ -1,16 +1,17 @@
 <template>
   <div class="login">
-      <div class="login-form">
+      <el-form label-width="80px" class="login-form">
         <div class="login-title">登录</div>
         <el-input placeholder="请输入用户名" v-model="username" clearable></el-input>
         <el-input placeholder="请输入密码" v-model="userpass" show-password></el-input>
         <el-checkbox v-model="remeber">记住密码</el-checkbox>
         <el-button type="primary" @click='login'>登录</el-button>
-      </div>
+      </el-form>
   </div>
 </template>
 
 <script>
+import { Message } from 'element-ui'
 
 export default {
   name: 'login',
@@ -25,9 +26,59 @@ export default {
   },
   methods:{
     login:function(){
-      console.log('登录');
-      console.log(this.remeber);
-      location.replace('/home');
+      if(this.username==''){
+        Message({
+          message: "请输入用户名",
+          type: "error",
+          showClose: true
+        })
+      }else if(this.userpass == ''){
+        Message({
+          message: "请输入密码",
+          type: "error",
+          showClose: true
+        })
+      }else{
+        console.log('登录');
+        console.log(this.remeber);
+
+         this.axios
+            .post("/back/login.do", {
+              adminName: this.username,
+              adminPass: this.userpass
+            })
+            .then(res => { 
+              // console.log(res.data);
+              if (res.data.state == "200") {
+                
+                var token = res.data.token;
+                var adminId = res.data.data.adminId;
+                
+                sessionStorage.setItem("token", token);
+                sessionStorage.setItem("adminId", adminId);
+
+                // 获取参数（未登录时想访问的路由）
+                // var url = this.$route.query.redirect;
+                // console.log(url);
+
+                // url = url ? url : "/";
+                // 切换路由
+                this.$router.replace('/home');
+              } else {
+                Message({
+                  message: "账号或密码错误",
+                  type: "error",
+                  showClose: true
+                })
+                console.log("登陆失败");
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
+
+        // location.replace('/home');
+      }
     }
   }
 }

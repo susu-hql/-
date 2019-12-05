@@ -12,13 +12,13 @@
       <h5>未检测到您的车主卡信息</h5>
     </div>
 
-    <div class="cheka">
-      <van-card @click="join(id)">
+    <div class="cheka" v-for="(item, index) in list" :key="index">
+      <van-card @click="join(item.orderId)">
         <div slot="tags">
           <h3>保单</h3>
-          <h4>车牌号码：京N88R88</h4>
-          <p>车主姓名：鲁晋</p>
-          <p>车主卡号：20171607196508</p>
+          <h4>车牌号码：{{item.carNum}}</h4>
+          <p>车主姓名：{{item.name}}</p>
+          <p>车主卡号：{{item.carCardNum}}</p>
         </div>
       </van-card>
     </div>
@@ -27,13 +27,31 @@
 
 <script>
 export default {
+  data(){
+    return{
+      list:''
+    }
+  },
   methods: {
     join(id) {
       this.$router.push({
         path:'/policy',
         query:{id}
       })
+    },
+    getshu(){
+        this.axios.post('/user/getMyInsuranceCards')
+        .then(res =>{
+          console.log(res.data)
+          this.list = res.data.data
+        })
+        .catch(err =>{
+          console.log(err)
+        })
     }
+  },
+  created(){
+    this.getshu()
   }
 };
 </script>
@@ -61,7 +79,7 @@ p {
   h4 {
     margin: 0;
     color: #63adde;
-    text-indent: 2em;
+    text-indent: 1.5em;
     font-size: 14px;
     display: inline-block;
   }

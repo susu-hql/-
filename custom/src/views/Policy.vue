@@ -5,7 +5,7 @@
       left-text="返回"
       left-arrow
       fixed
-      @click-left="$router.push('/home/mydata')"
+      @click-left="$router.push('/mypolicy')"
       class="header"
     />
     <hr>
@@ -13,14 +13,12 @@
       <hr>
       <span>订单信息</span>
       
-      <p>保险公司名称：人寿保险</p>
-      <p>车牌号：京N88R88</p>
-      <p>交强保单号：2017229382392392392</p>
-      <p>交强起始日期：2017.02.19</p>
-      <p>交强终止日期：2017.02.19</p>
-      <p>商业保单号：2017229382392392392</p>
-      <p>商业起始日期：2017.02.19</p>
-      <p>商业终止日期：2017.02.19</p>
+      <p>保险公司名称：{{lists.insuranceCompanyName}}</p>
+      <p>车牌号：{{lists.carCardNum}}</p>
+      <p>交强起始日期：{{lists.compulsoryInsuranceStartTime}}</p>
+      <p>交强终止日期：{{lists.compulsoryInsuranceEndTime}}</p>
+      <p>商业起始日期：{{lists.bussinessInsuranceStartTime}}</p>
+      <p>商业终止日期：{{lists.bussinessInsuranceEndTime}}</p>
     </div>
     <hr />
     <table class="biaoge">
@@ -30,10 +28,10 @@
         <td>保费金额</td>
         <td>含不计免赔</td>
       </tr>
-      <tr>
-        <td>交强险</td>
-        <td>100万</td>
-        <td>2098.45元</td>
+      <tr v-for="(item, index) in list" :key="index">
+        <td>{{item.insuranceName}}</td>
+        <td>{{item.insurancePrice}}</td>
+        <td>{{item.price}}.00元</td>
         <td>含</td>
       </tr>
     </table>
@@ -43,14 +41,40 @@
         投保实收金额：
       </span>
       <span class="allqian">
-        4567.43元
+        {{lists.insuranceAllPrice}}.00元
       </span>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+   data(){
+    return{
+      list:'',
+      lists:''
+    }
+  },
+  methods:{
+    getshu(){
+        this.axios.post('/user/getInsuranceCardDetail',{
+          orderId:this.$route.query.id
+        })
+        .then(res =>{
+          console.log(res.data)
+          console.log(res.data.data.detail)
+          this.lists = res.data.data.detail,
+           this.list = res.data.data.list
+        })
+        .catch(err =>{
+          console.log(err)
+        })
+    }
+  },
+ created(){
+    this.getshu()
+  }
+};
 </script>
 
 <style lang="less" scoped>
@@ -60,6 +84,8 @@ p {
   display: block;
   padding-left: 0;
   text-indent: 2em;
+   text-align: left;
+  font-size: 14px
 }
 .dheader {
   position: relative;

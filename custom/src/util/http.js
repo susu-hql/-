@@ -9,6 +9,7 @@ const http = axios.create({
   timeout: 6000,// 请求超时时间
   withCredentials: true // 是否允许带 cookie
 
+ 
 })
 
 // 请求拦截，统一在请求时带上 token

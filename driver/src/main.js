@@ -1,9 +1,14 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
 import store from './store'
+import router from './router/index'
 import 'amfe-flexible'
 import './assets/js/vant'
+import http from './utils/http'
+import vueAxios from 'vue-axios'
+
+
+Vue.use(vueAxios, http)
 
 Vue.config.productionTip = false
 

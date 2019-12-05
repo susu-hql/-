@@ -13,7 +13,6 @@
           v-model="message"
           rows="5"
           autosize
-           
           type="textarea"
           maxlength="200"
           placeholder="请输入退款理由"
@@ -23,28 +22,38 @@
     </div>
     <div>
       <van-tabbar class="btm">
-        <van-tabbar-item 
-        @click="addReason"
-        style="font-size: 18px;color: rgb(255, 255, 255);">确定</van-tabbar-item>
+        <van-tabbar-item @click="addReason" style="font-size: 18px;color: rgb(255, 255, 255);">确定</van-tabbar-item>
       </van-tabbar>
     </div>
   </div>
 </template>
 
 <script>
-import { Toast } from 'vant';
+import { Toast } from "vant";
 export default {
   data() {
     return {
       message: ""
     };
   },
-  methods:{
-    addReason(){
-      Toast('您已成功申请退款');
-       this.$router.push({
-            path:"/carlist",
-          })
+  methods: {
+    addReason() {
+      this.axios
+        .post("/user/applyForRefund", {
+          orderId: this.$route.query.id,
+          comment: this.message,
+          orderType: this.$route.query.type
+        })
+        .then(res => {
+          console.log(res);
+          Toast("您已成功申请退款");
+          this.$router.push({
+            path: "/carlist"
+          });
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };
@@ -52,12 +61,12 @@ export default {
 
 <style lang="less" scoped>
 @import "../assets/css/base.less";
-.btm{
-  background-color: #63ADDE;
+.btm {
+  background-color: #63adde;
   color: rgb(255, 255, 255);
   font-size: 18px;
 }
-.van-cell{
+.van-cell {
   font-size: 16px;
 }
 </style>>
