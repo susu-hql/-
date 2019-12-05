@@ -344,11 +344,11 @@ export default {
             if (res.data.state == "200") {
                 this.orderStausList = res.data.data
             } else {
-              this.$message({
-                showClose: true,
-                message: '请求出错',
-                type: 'error'
-              });
+              Message({
+                message: "请求出错",
+                type: "error",
+                showClose: true
+              })
             }
           })
           .catch(err => {
@@ -363,11 +363,11 @@ export default {
             if (res.data.state == "200") {
                 this.locationList = res.data.data
             } else {
-              this.$message({
-                showClose: true,
-                message: '请求出错',
-                type: 'error'
-              });
+              Message({
+                message: "请求出错",
+                type: "error",
+                showClose: true
+              })
             }
           })
           .catch(err => {
@@ -385,11 +385,11 @@ export default {
             if (res.data.state == "200") {
                 this.fourDoorList = res.data.data
             } else {
-              this.$message({
-                showClose: true,
-                message: '请求出错',
-                type: 'error'
-              });
+              Message({
+                message: "请求出错",
+                type: "error",
+                showClose: true
+              })
             }
           })
           .catch(err => {
@@ -407,11 +407,11 @@ export default {
             if (res.data.state == "200") {
                 this.DriverList = res.data.data
             } else {
-              this.$message({
-                showClose: true,
-                message: '请求出错',
-                type: 'error'
-              });
+              Message({
+                message: "请求出错",
+                type: "error",
+                showClose: true
+              })
             }
           })
           .catch(err => {
@@ -429,11 +429,11 @@ export default {
             if (res.data.state == "200") {
                 this.DriverList = res.data.data
             } else {
-              this.$message({
-                showClose: true,
-                message: '请求出错',
-                type: 'error'
-              });
+              Message({
+                message: "请求出错",
+                type: "error",
+                showClose: true
+              })
             }
           })
           .catch(err => {

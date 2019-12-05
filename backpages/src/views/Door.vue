@@ -49,43 +49,7 @@ export default {
       page:1,   //当前第几页
       limit:4   ,// 每页多少条
       input:'',
-      tableData:[{
-        id:'1',
-        doorName: '成都晨得保汽车',
-        sortName:'机场燕宝',
-        marjor:'奔驰',
-        sale:'工时0折',
-        adress:'成都市双流区双流机场',
-        state:'已签约',
-        handle:''
-        },{
-          id:'1',
-          doorName: '成都晨得保汽车',
-          sortName:'机场燕宝',
-          marjor:'奔驰',
-          sale:'工时0折',
-          adress:'成都市双流区双流机场',
-          state:'已签约',
-          handle:''
-        },{
-          id:'1',
-          doorName: '成都晨得保汽车',
-          sortName:'机场燕宝',
-          marjor:'奔驰',
-          sale:'工时0折',
-          adress:'成都市双流区双流机场',
-          state:'已签约',
-          handle:''
-        },{
-          id:'1',
-          doorName: '成都晨得保汽车',
-          sortName:'机场燕宝',
-          marjor:'奔驰',
-          sale:'工时0折',
-          adress:'成都市双流区双流机场',
-          state:'已签约',
-          handle:''
-        }]
+      tableData:[]
     }
   },
   methods:{

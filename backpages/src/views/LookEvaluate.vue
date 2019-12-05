@@ -70,7 +70,7 @@ export default {
   name:'lookEvaluate',
   data() {
       return {
-        
+        time:'',
         orderId: '201911281574927145699311',
         name:'覃友宏',
         start:3.4,
