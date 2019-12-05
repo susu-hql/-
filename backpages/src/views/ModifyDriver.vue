@@ -37,9 +37,9 @@
           <tr>
             <td>
                 <!-- 下拉框  -->
-                 <el-form-item label="所在区域:" prop="region">
-                  <el-select v-model="ruleForm.region" placeholder="请选择区域" >
-                    <el-option label="区域一" value="shanghai"></el-option>
+                 <el-form-item label="所在区域:" prop="region"> 
+                   <el-select v-model="ruleForm.region" placeholder="请选择区域"  >
+                     <el-option v-for="(item,index) in locationList" :key = 'index' :label="item.openCity" :value="item.openId"></el-option>
                   </el-select>
                 </el-form-item>
             </td>
@@ -138,6 +138,7 @@ export default {
 
 
       return {
+        locationList:'',
         ruleForm: {
           name: '',
           region: '',
@@ -171,28 +172,46 @@ export default {
       };
   },
   methods:{
-    // 保存
+      // 保存
       submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            Message({
-                message: "添加成功",
-                type: "success",
-                showClose: true
-            })
-            // 对象
-            console.log(this.ruleForm);
-            this.ruleForm = {
-                name: '',
-                region: '',
-                carNumber:'',
-                usertel:'',
-                cardId:'',
-                radio:'1',
-                dialogImageUrl: '',
-                dialogVisible: false
-              }
-              //  ============ 保存--异步：向数据库添加 =======================
+        // 修改司机信息
+          this.$refs[formName].validate((valid) => {
+            if (valid) {
+              this.axios  
+                  .get("/back/city/list1")
+                  .then(res => {
+                    console.log('添加司机',res.data.data);
+                    if (res.data.state == "200") {
+                        Message({
+                            message: "添加成功",
+                            type: "success",
+                            showClose: true
+                        })
+                    } else {
+                      this.$message({
+                        showClose: true,
+                        message: '请求出错',
+                        type: 'error'
+                      });
+                    }
+                  })
+                  .catch(err => {
+                    console.log(err);
+                  });
+            
+            
+            
+            // console.log(this.ruleForm);
+            // this.ruleForm = {
+            //     name: '',
+            //     region: '',
+            //     carNumber:'',
+            //     usertel:'',
+            //     cardId:'',
+            //     radio:'1',
+            //     dialogImageUrl: '',
+            //     dialogVisible: false
+            //   }
           } else {
             
             return false;
@@ -210,12 +229,60 @@ export default {
       handlePictureCardPreview(file) {
         this.ruleForm.dialogImageUrl = file.url;
         this.ruleForm.dialogVisible = true;
-      }
+      },
+      getDriverInfo(){
+        this.axios  
+          .post("/back/getDriverById",{
+            id:this.$route.query.driverid
+          }) 
+          .then(res => {
+            console.log(res.data);
+            if (res.data.state == "200") {
+                this.ruleForm.name = res.data.data.driverName;
+                // this.ruleForm.region= res.data.data.
+                this.ruleForm.carNumber= res.data.data.driverCarNum
+                this.ruleForm.usertel= res.data.data.driverTel;
+                this.ruleForm.cardId= res.data.data.drivePid;
+                this.ruleForm.radio= res.data.data.driverState;
+                this.ruleForm.dialogImageUrl= res.data.data.headUrl;
+            }else{
+              Message({
+                message: "账号已过时，请重新登录",
+                type: "error",
+                showClose: true
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      },
+      getLocation:function(){   // 获取区域
+        this.axios  
+          .get("/back/city/list1")
+          .then(res => {
+            console.log('4s店区域',res.data.data);
+            if (res.data.state == "200") {
+                this.locationList = res.data.data
+            } else {
+              this.$message({
+                showClose: true,
+                message: '请求出错',
+                type: 'error'
+              });
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      },
   
   },
   created(){
+    this.getDriverInfo();
+    this.getLocation();
     // 获取到 了 用户id  ===============================然后渲染   直接给ruleForm赋值
-    console.log(this.$route.query.userid);
+    console.log(this.$route.query.driverid);
   }
 }
 </script>

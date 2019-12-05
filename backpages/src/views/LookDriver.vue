@@ -6,7 +6,7 @@
       <el-form  ref="ruleForm" label-width="100px"
        class="demo-ruleForm" enctype="multipart/form-data">
         <table>
-          <tr> 
+          <tr>  
             <td> 
                 <!-- 输入框  -->
                 <el-form-item label="司机名字：" prop="name">        

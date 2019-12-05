@@ -202,7 +202,7 @@ export default {
             { required: true, message: '请选择保险公司', trigger: 'change' }
           ],
           insuranDate: [
-            { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+            { required: true, message: '请选择日期', trigger: 'change' }
           ],
           desc: [
             { required: false, message: '', trigger: 'blur' }

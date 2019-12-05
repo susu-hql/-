@@ -4,12 +4,12 @@
     >
       <h1>车主卡</h1>
       <el-input v-model="search" placeholder="请输入要查询的用户名姓名" clear="search-input"></el-input>
-      <el-select v-model="searchOderState" placeholder="审核状态" class="search">
+      <!-- <el-select v-model="searchOderState" placeholder="审核状态" class="search">
         <el-option label="全部状态" value=""></el-option>
         <el-option label="待审核"  value="3"> </el-option>
         <el-option label="通过审核"  value="1"> </el-option>
         <el-option label="未通过审核"  value="2"> </el-option>
-      </el-select>
+      </el-select> -->
       
       <el-button class="search-button" type="primary" @click='searchOrder'>查询</el-button>
       
@@ -72,13 +72,14 @@ export default {
      location.assign('/addUserCard');
    },
     getUserCardList(){
+        console.log(this.searchOderState)
         this.axios  
-          // .post("/back/findDriverByNameOrTel",{
           .post("/back/car/selectByNameOrTel",{
+          // .post("/back/findUserCarInfoByCardState",{
             page:this.page,    //当前页
             limit:this.limit ,  //每页显示多少条
             name: this.search ,  // 搜索条件 
-            cardState:this.searchOderState
+            // cardState:this.searchOderState
           }) 
           .then(res => {
             console.log("车主卡列表：",res.data);

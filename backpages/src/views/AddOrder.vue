@@ -282,14 +282,14 @@ export default {
                   returnAddress : this.ruleForm.returnAddrss,
                   substituteTime:this.ruleForm.acceptTime ,      // 接车时间
                   shopId: this.ruleForm.fourDoor , // 4s店名称
-                  substituteDriving:this.ruleForm.substituteDriving,
                   repairMethod:this.ruleForm.repairMethod,
+                  substituteDriving:this.ruleForm.substituteDriving,
                   accidentType:this.ruleForm.accidentType
               }
             console.log(this.obj);
               
               this.axios  
-                .post("/back/order/insert",{
+                .post("/back/order/insert.do",{
                   orderType:this.ruleForm.orderType,   // 订单类型
                   userName: this.ruleForm.username,   // 用户名
                   userTel:this.ruleForm.usertel,   // 联系电话
@@ -300,8 +300,8 @@ export default {
                   returnAddress : this.ruleForm.returnAddrss,
                   substituteTime:this.ruleForm.acceptTime ,      // 接车时间
                   shopId: this.ruleForm.fourDoor , // 4s店名称
-                  substituteDriving:this.ruleForm.substituteDriving,
                   repairMethod:this.ruleForm.repairMethod,
+                  substituteDriving:this.ruleForm.substituteDriving,
                   accidentType:this.ruleForm.accidentType
               })
                 .then(res => {

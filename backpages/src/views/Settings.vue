@@ -33,37 +33,37 @@ export default {
         state: '',
         timeout:  null,
         tableData: [{
-          id: '20161047011',
-          time: '2016-05-04',
-          email: 'fay_chou@163.com',
-          enable: '1',
-          change:''
-        },{
-          id: '20161047011',
-          time: '2016-05-04',
-          email: '1599378@163.com',
-          enable: '1',
-          change:''
-        },{
-          id: '20161047011',
-          time: '2016-05-04',
-          email: '1599378@163.com',
-          enable: '1',
-          change:''
-        },{
-          id: '20161047011',
-          time: '2016-05-04',
-          email: '18782232@163.com',
-          enable: '1',
-          change:''
-        },{
-          id: '20161047011',
-          time: '2016-05-04',
-          email: '297963972@com',
-          enable: '1',
-          change:''
-        }
-      ]
+            id: '20161047011',
+            time: '2016-05-04',
+            email: 'fay_chou@163.com',
+            enable: '1',
+            change:''
+          },{
+            id: '20161047011',
+            time: '2016-05-04',
+            email: '1599378@163.com',
+            enable: '1',
+            change:''
+          },{
+            id: '20161047011',
+            time: '2016-05-04',
+            email: '1599378@163.com',
+            enable: '1',
+            change:''
+          },{
+            id: '20161047011',
+            time: '2016-05-04',
+            email: '18782232@163.com',
+            enable: '1',
+            change:''
+          },{
+            id: '20161047011',
+            time: '2016-05-04',
+            email: '297963972@com',
+            enable: '1',
+            change:''
+          }
+        ]
     }
   },
   methods: {

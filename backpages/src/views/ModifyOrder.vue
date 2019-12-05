@@ -201,7 +201,7 @@ export default {
           returnLocation:'',
           orderStaus:'',
           fourDoorLocation:'',
-          fourDoor:''
+          fourDoor:'' 
         },
         rules: {
           orderType: [  // 订单类型
@@ -333,7 +333,7 @@ export default {
       },
       changState(state ){
        this.axios  
-          .post("/back/assessmentOrder/update",{
+          .post("/back/assessmentOrder/update.do",{
             orderId : this.$route.query.userid,
             handleState : state
           })
