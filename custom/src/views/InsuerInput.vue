@@ -69,7 +69,8 @@
         </li>
         <li>
             <span class="left">身份证号：</span>
-            <span class="right"> <input v-model="idCard" name="idCard" type="text"> </span>
+            <span class="right"> <input pattern="^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$
+" title="请输入正确的身份证号码" v-model="idCard" name="idCard" type="text"> </span>
         </li>
         </ul>
 
@@ -104,8 +105,7 @@
     </div>
 </template>
 <script>
-
-
+import { mapMutations } from "vuex";
 export default {
     name:'insuerInput',
     data() {
@@ -119,13 +119,15 @@ export default {
         select:"",
         carnum:"",
         getalllist:"",
-        idCard:""
+        idCard:"",
+        arrs:[]
      
     }
 
 
   },
    methods: {
+      ...mapMutations(["get"]),  
        getallcard:function(){//获取保险种类
         this.axios
         .get("/user/findCarCardInfo.do")
@@ -145,6 +147,8 @@ export default {
         })
 
     },
+
+
     ShowCard:function(){
         this.axios
         .post("/user/findCarCardSelected.do",{
@@ -166,8 +170,15 @@ export default {
         .catch(err=>{
             console.log(err);
         })
+  
 
+    },
 
+    addarr:function(a){
+        this.arrs.push(a);
+       
+        console.log("Buwenyan",this.arrs);
+           this.gets(this.arrs);
     },
 
     senddata:function(){
@@ -180,7 +191,7 @@ export default {
             carRegistTime:this.getalllist.carRegistTime,//初登记日期
              carBrand:this.getalllist.carBrand,//品牌型号
              tel:this.getalllist.ownerTel,//车主手机号
-            idCard:this.idCard//身份证号
+            idCard:this.idCard,//身份证号
         })
       this.axios
         .post("/user/addSubscribe.do",{
@@ -209,6 +220,17 @@ export default {
         .catch(err=>{
             console.log(err);
         })
+
+  this.addarr(this.getalllist.carNum);
+    this.addarr(this.getalllist.carCardNum);
+    this.addarr(this.getalllist.carCardNum);
+     this.addarr(this.getalllist.carBrand);
+    this.addarr(this.getalllist.carRegistTime);
+     this.addarr(this.idCard);
+    
+   
+      
+
 
     },
 
