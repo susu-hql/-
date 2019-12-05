@@ -1,14 +1,14 @@
 <template>
   <div class="sss">
     <nav class="nav">
-      <router-link to="/" class="ift" id="f">&#xe607;返回</router-link>
+      <!-- <router-link to="/" class="ift" id="f">&#xe607;返回</router-link> -->
       <p class="b">易理赔司机</p>
     </nav>
     <div class="cps">
       <div class="cpsa">
         <div class="tx">
           <img
-            :src="require('../assets/pic/'+img)"
+            src="../assets/pic/blog菜单图片_07.png"
             alt
             :style="{'width':'65px','height':'65px','border-radius':'10px'}"
           />
@@ -60,24 +60,21 @@
 export default {
   data() {
     return {
-      value: 2.5,
-      sy: [],
-      dindan: "222",
-      img: "blog菜单图片_07.png",
-      name: "何志勇"
+      sy: []
     };
   },
   methods: {
     qb(e) {
+      var a = this.$route.query.driverId;
       console.log(e.currentTarget.className);
       if (e.currentTarget.className == "1") {
-        window.location.href = "../src/views/Login.vue";
+        window.location.href = "/salary?driverId=" + a;
       } else if (e.currentTarget.className == "2") {
-        window.location.href = "../src/views/";
+        window.location.href = "/myOrder?driverId=" + a;
       } else if (e.currentTarget.className == "3") {
-        window.location.href = "../src/views/";
+        window.location.href = "/evaluate?driverId=" + a;
       } else if (e.currentTarget.className == "4") {
-        window.location.href = "../src/views/";
+        window.location.href = "/personal?driverId=" + a;
       }
     }
   },
@@ -85,15 +82,15 @@ export default {
     bfb() {
       return this.sy.goodV * 100;
     },
-     fs(){
-      return (5/100)*(this.sy.goodV * 100)
+    fs() {
+      return (5 / 100) * (this.sy.goodV * 100);
+    }
   },
-  },
- 
+
   created() {
     this.axios
-      .post("/driver/personal",{
-        driverId: "1"
+      .post("/driver/personal", {
+        driverId: this.$route.query.driverId
       })
       .then(res => {
         console.log(res);
@@ -167,7 +164,7 @@ body {
   border-radius: 13px;
   width: 130px;
   height: 130px;
-  margin-left: 30px;
+  margin-left: 35px;
 }
 .xm {
   margin-left: 50px;

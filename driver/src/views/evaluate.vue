@@ -1,7 +1,7 @@
 <template>
   <div class=".sss">
     <nav class="nav">
-      <router-link to="/" class="ift" id="f">&#xe607;返回</router-link>
+      <div class="ift" id="f" @click="goback">&#xe607;返回</div>
       <p class="b">我的评价</p>
     </nav>
     <div class="yhpj">
@@ -47,7 +47,6 @@
 
 <script>
 export default {
-  el: ".sss",
   name: "evaluate",
   data() {
     return {
@@ -79,7 +78,11 @@ export default {
       ]
     };
   },
-  methods: {},
+  methods: {
+    goback(){
+      this.$router.go(-1);
+    }
+  },
   mounted() {
     console.log(this.list[this.qqq[1].pi[2]]);
   },

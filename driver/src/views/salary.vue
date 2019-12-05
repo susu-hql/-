@@ -1,7 +1,7 @@
 <template>
   <div id="se">
     <nav class="nav">
-      <router-link to="/" class="ift" id="f">&#xe607;返回</router-link>
+      <div class="ift" id="f" @click="goback">&#xe607;返回</div>
       <p class="b">我的工资</p>
     </nav>
     <div :style="{'width':'100%','height':'20px','border-bottom':'1px #333 solid'}"></div>
@@ -20,6 +20,11 @@ export default {
   return{
     sy:[],
   }
+   },
+   methods:{
+     goback(){
+     this.$router.go(-1);
+     }
    },
     created(){
     this.axios

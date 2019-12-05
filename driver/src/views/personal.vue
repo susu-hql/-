@@ -9,7 +9,7 @@
         <hr>
         <div class="change" @click="changephone">
             <img src="../assets/修改 密码.png" alt="">
-            修改密码
+            修改手机号
         </div>
         <div class="exit" @click="quit">退出账号</div>
     </div>
@@ -19,13 +19,14 @@
 export default {
     methods:{
         changephone(){
-            this.$router.push('/changephone')
+            var a = this.$route.query.driverId
+            this.$router.push('/changephone?driverId='+a)
         },
         quit(){
             this.$router.replace('/')
         },
         goback(){
-            this.$router.replace('/')
+            this.$router.go(-1);
         }
     }
 }

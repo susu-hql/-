@@ -29,11 +29,21 @@ export default {
     },
     methods:{
         goback(){
-            console.log("点击")
-            this.$router.push('/myorder')
+            this.$router.go(-1);
         },
         toorder(i){
-            location.assign('/orderReceiving?orderId='+i)
+            location.assign('/orderReceiving?orderId='+i);
+            this.axios.post("/driver/takeOrders",{
+                orderId:this.$route.query.orderId,
+                driverId:1
+            })
+            .then(res => {
+                // this.orderinfo = res.data.data
+                console.log(res)
+            })
+            .catch(err=> {
+                console.log(err)
+            });
         }
     },
     created(){
@@ -57,17 +67,7 @@ export default {
     //   .catch(err=> {
     //     console.log(err)
     //   });
-      this.axios.post("/driver/takeOrders",{
-        orderId:this.$route.query.orderId,
-        driverId:1
-      })
-      .then(res => {
-        // this.orderinfo = res.data.data
-        console.log(res)
-      })
-      .catch(err=> {
-        console.log(err)
-      });
+      
     }
 }
 </script>
