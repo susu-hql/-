@@ -13,8 +13,8 @@
        <div class="mains">
            <div class="top">
            <ul>
-               <li v-for="(item,index) in bws" :key="index">
-                  <img class="bwimgs" :src="require('../assets/imgs/'+item.img)">
+               <li @click="getBwId" v-for="(item,index) in allbw" :key="index">
+                  <img :id="item.partId" :alt="item.partName" class="bwimgs" :src="require('../assets/imgs/shigu01.jpg')">
                </li>
                 
            </ul>
@@ -22,25 +22,25 @@
        <div class="main">
            <div class="nav"><span>选择维修4s店</span></div>
            <div class="group">
-               <div class="items" v-for="(item,index) in dps" :key="index">
+               <div class="items" @click="getShopid" v-for="(item2,index2) in allshop" :key="index2">
                    <div class="items-left">
-                       <img :src="require('../assets/imgs/'+item.img)">
+                       <img :src="require('../assets/imgs/shigu01.jpg')">
                    </div>
                    <div class="items-mid">
                        <div calss="mid-top">
-                        <p class="top-name">{{item.name}}</p>
-                       <p class="top-adress">地址：{{item.addres}}</p>
+                        <p class="top-name">{{item2.shopName}}</p>
+                       <p class="top-adress">地址：{{item2.shopAddress}}</p>
                        </div>
                        <div class="mid-main">
                         <p><span class="mid-l">
-                            服务客户数：{{item.person}}
+                            服务客户数：{{item2.serviceNumber}}
                             </span><span class="mid-r">
-                                自费价：<s>{{item.zf}}</s>
+                                自费价：<s>{{item2.selfPayPrice}}</s>
                                 </span></p>
                       <p><span class="mid-l">
                           服务星：<van-rate v-model="values" />
                           </span><span class="mid-r">
-                              保险价：<span class="bx">{{item.bx}}</span>
+                              保险价：<span class="bx">{{item2.insurancePrice}}</span>
                               </span></p>
 
                        </div>
@@ -63,95 +63,26 @@ export default {
          values: 3,
          allshop:[],
          allbw:[],
-      bws:[
-          {id:1,
-           state:0,
-           img:"shigu01.jpg",
-          },
-           {id:2,
-           state:0,
-           img:"shigu01.jpg"
-          },
-           {id:3,
-           state:0,
-           img:"shigu01.jpg"
-          },
-           {id:4,
-           state:0,
-           img:"shigu01.jpg"
-          },
-          {id:5,
-           state:0,
-           img:"shigu01.jpg"
-          }
-
-      ],
-      dps:[
-          {
-              id:1,
-              name:"北京正的运城汽车贸易服务有限公司",
-              addres:"成都市高新区惺惺惜惺惺嘻嘻嘻详细嘻嘻嘻",
-             person:500,
-            zf:5000,
-            bx:4000,
-            values: 3,
-            status:0,
-            img:"shigu01.jpg"
-
-          },
-           {
-              id:1,
-              name:"北京正的运城汽车贸易服务有限公司",
-              addres:"成都市高新区惺惺惜惺惺嘻嘻嘻详细嘻嘻嘻",
-             person:500,
-            zf:5000,
-            bx:4000,
-            values: 3,
-            status:0,
-            img:"shigu01.jpg"
-
-          },
-           {
-              id:1,
-              name:"北京正的运城汽车贸易服务有限公司",
-              addres:"成都市高新区惺惺惜惺惺嘻嘻嘻详细嘻嘻嘻",
-             person:500,
-            zf:5000,
-            bx:4000,
-            values: 3,
-            status:0,
-            img:"shigu01.jpg"
-
-          },
-           {
-              id:1,
-              name:"北京正的运城汽车贸易服务有限公司",
-              addres:"成都市高新区惺惺惜惺惺嘻嘻嘻详细嘻嘻嘻",
-             person:500,
-            zf:5000,
-            bx:4000,
-            values: 3,
-            status:0,
-            img:"shigu01.jpg"
-
-          },
-           {
-              id:1,
-              name:"北京正的运城汽车贸易服务有限公司",
-              addres:"成都市高新区惺惺惜惺惺嘻嘻嘻详细嘻嘻嘻",
-             person:500,
-            zf:5000,
-            bx:4000,
-            values: 3,
-            status:0,
-            img:"shigu01.jpg"
-
-          },
-          
-      ]
+         partId:"",
+         partName:""
+     
+     
     }
   },
   methods:{
+      getBwId(e){
+       /*    this.ids=e.target.title; */
+      
+        this.partId=e.target.id;
+        this.partName=e.target.alt;
+      console.log("部位partId", this.partId);
+        console.log("部位partName", this.partName);
+ 
+      },
+      getShopid(e){
+          console.log("店铺id",e.target);
+
+      },
       showMore(){
           this.$router.replace("/moreStore")
       },
@@ -179,9 +110,7 @@ export default {
      },
 showbwdp:function(){
 
- this.axios.post("/user/getQuotePrice",{
-     versionId:2
- })
+ this.axios.post("/back/serviceShop/findAllNoBy")
         .then(res=>{
              console.log("4s店铺",res.data.data);
                  
