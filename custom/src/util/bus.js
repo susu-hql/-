@@ -1,3 +1,4 @@
-import Vue from 'vue';
+import Vue from 'vue'
+var bus = new Vue()
 
-export default new Vue();
+export default bus
