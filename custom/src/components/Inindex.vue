@@ -1,7 +1,6 @@
 <template>
   <div class="inindex" >
  <div class="in-mian">
-     <p class="title">预约估损</p>
      <p class="title2">服务流程</p>
      
      <ul>
@@ -26,9 +25,7 @@
        <li>(7)检验人员在接保险公司内勤通知后1个工作日内完成现场查勘和检验工作(受损标的在外地的检验，可委托当地保险公司在3个工作日内完成)</li>
      </ul>
      </div>     
-<div class="app-bottom">
- <van-button color="linear-gradient(to right, #4bb0ff, #6149f6)" type="primary" to="insuerInput">立即预约</van-button>
-        </div>
+
   </div>
 
 
@@ -57,18 +54,21 @@ export default {
    
 }
 P{  height:40px;
+  margin:0;
+  padding:0;
 
    
 }
-.title{
+.in-title{
     height:40px;
     font-size: 24px;
 }
 .title2{
     width:90%;
     margin-left:30px;
-    font-size:30px;
+    font-size:20px;
     text-align: left;
+    line-height: 40px;
 }
 li{ width:90%;
     margin-left:30px;

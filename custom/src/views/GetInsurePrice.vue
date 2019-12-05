@@ -6,7 +6,7 @@
       left-text="返回"
       left-arrow
       flxed
-      @click-left="$router.push('/mylist')"
+      @click-left="$router.push('/Insuretype')"
       class="header"
     />
         </div>
@@ -15,12 +15,9 @@
  <div class="top">
          <p>已选3种险种</p>
          <ul>
-             <li>司机险</li>
-             <li>司xxx机险</li>
-             <li>司xxxss机险</li>
-              <li>司机险</li>
-             <li>司xxx机险</li>
-             <li>司xxxss机险</li>
+             
+             <li >{{btext}}</li>
+             
          </ul>
         </div>
 
@@ -48,8 +45,8 @@
     </div>
     <div class="footer">
 
-<span><button   @click="changeShow" type="button">核对车辆信息</button></span>
-<span><button type="button">去支付</button></span>
+<span><button class="footerbtn"  @click="changeShow" type="button">核对车辆信息</button></span>
+<span><van-button class="footerbtns" is-Link to="/pay" type="button">去支付</van-button></span>
 </div>
        
   <div v-show="isShow" class="zhezhao">
@@ -59,30 +56,30 @@
             <ul class="mtul">
                 <li> 
             <p>车牌号：</p>
-            <p><input type="text"></p>
+            <p><input type="text" v-model="a1"></p>
                 </li>
                    <li> 
             <p>车架号：</p>
-            <p><input type="text"></p>
+            <p><input type="text" v-model="a2"></p>
                 </li>
-                 <li> 
+                 <li>
             <p>发动机号：</p>
-            <p><input type="text"></p>
+            <p><input type="text" v-model="a3"></p>
                 </li>
                 <li> 
             <p>车牌型号：</p>
-            <p><input type="text"></p>
+            <p><input type="text" v-model="a4"></p>
                 </li>
               <li> 
             <p>初登日期：</p>
-            <p><input type="text"></p>
+            <p><input type="text" v-model="a5"></p>
                 </li>   
                 <li> 
             <p>身份证号：</p>
-            <p><input type="text"></p>
+            <p><input type="text" v-model="a6"></p>
                 </li>  
             </ul>
-           <button class="qd-btn" type="submit">确定</button>
+           <van-button is-Link to="/pay" class="qd-btn" type="submit">确定</van-button>
         </div>
     </div>
 </div> 
@@ -96,15 +93,19 @@
    
 </template>
 <script>
+import bus from '../util/bus'
 export default {
     name:'getprice',
     data(){
         return {
             isShow: false,
+            btext: '1111',
+            page:1,
+            limit:3,
             compalies:[
                 {
                     id:1,
-                    name:"平安保险1",
+                    name:"平安保险",
                     img:"shigu01.jpg",
                     price:"10万",
                     disPrice:"15万",
@@ -113,7 +114,7 @@ export default {
                 },
                  {
                     id:2,
-                    name:"平安保险3",
+                    name:"太平洋保险",
                     img:"shigu01.jpg",
                     price:"10万",
                     disPrice:"15万",
@@ -122,25 +123,25 @@ export default {
                 },
                  {
                     id:3,
-                    name:"平安保险2",
+                    name:"人寿保险",
                     img:"shigu01.jpg",
-                    price:"10万",
+                    price:"19万",
                     disPrice:"15万",
                     ischeck:0
 
                 },
                  {
                     id:4,
-                    name:"平安保险2",
+                    name:"中国安邦",
                     img:"shigu01.jpg",
                     price:"10万",
-                    disPrice:"15万",
+                    disPrice:"18万",
                     ischeck:0
 
                 },
                  {
                     id:5,
-                    name:"平安保险2",
+                    name:"新华保险",
                     img:"shigu01.jpg",
                     price:"10万",
                     disPrice:"15万",
@@ -149,10 +150,10 @@ export default {
                 },
                  {
                     id:6,
-                    name:"平安保险2",
+                    name:"泰康保险公司",
                     img:"shigu01.jpg",
-                    price:"10万",
-                    disPrice:"15万",
+                    price:"23万",
+                    disPrice:"20万",
                     ischeck:0
 
                 },
@@ -163,13 +164,53 @@ export default {
             ]
         }
     },
+
      methods: {
+         getdata:function(){
+             const b=sessionStorage.getItem('a');
+             console.log("111",b);
+         },
+       bbtn:function(){
+            bus.$on("myFun",(message)=>{   //这里最好用箭头函数，不然this指向有问题
+                 this.btext = message ; 
+                 console.log("1111",this.btext);    
+            })
+       },   
     changeShow() {
      this.isShow = !this.isShow;
+    },
+    getall:function(){//获取保险种类
+        this.axios
+       
+        .post("/user/addInfo.do",{
+            infos:["20191128001-0","20191128002-0","20191128004-5w"]
+        })
+        .then(res=>{
+            console.log("保险信息1",res.data.data);
+            if(res.data.state=="200"){
+                this.alltype=res.data.data;
+
+            }else{
+                this.$message({
+                message:'请求出错',
+                type:'error'
+                });
+            }
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+
     }
+
+    },
+    created(){
+        this.getall();
+
+    }
+
   }
 
-}
 </script>
 <style lang="less" scoped>
 @import "../assets/css/base.less";
@@ -226,11 +267,12 @@ van-nav-bar{
 .qd-btn{
     width:140px;
     height:30px;
-    margin-top:30px;
+    margin-top:60px;
     border-radius: 5px;
     font-size:14px;
     background-color: #63ADDE;
     color:white;
+    line-height:30px;
 }
 .mtul li p input{
     width:90%;
@@ -347,5 +389,13 @@ margin-top:30px;
     height:80%;
     
 }
-
+.footerbtn{
+    margin-top:9px;
+  
+}
+.footerbtns{
+    margin-top:35px;
+    line-height: 20px;
+  
+}
 </style>

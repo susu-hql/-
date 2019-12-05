@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="bgc">
     <van-nav-bar title="首页"    class="header" />
     <div class="banner">
-      <van-swipe @change="onChange" :autoplay="3000" indicator-color="blank">
+      <van-swipe @change="onChange" :autoplay="2000" indicator-color="blank">
         <van-swipe-item v-for="(image, index) in images" :key="index">
           <img :src="require('../assets/imgs'+image.address)" alt="">
           <!-- <img :src="[require(toString(image.address))]" alt="123" /> -->
@@ -10,7 +10,10 @@
       </van-swipe>
     </div>
     <div class="yewu">
-      <van-button color="linear-gradient(to right, #4bb0ff, #6149f6)">渐变色按钮</van-button>
+      <van-button color="linear-gradient(to right, #4bb0ff, #63ADDE)" icon="like" is-link to='/insureHome'>保险</van-button>
+      <van-button color="linear-gradient(to right, #4bb0ff, #63ADDE)" icon="coupon"  is-link to='/DirectInput'>预估损维修</van-button>
+      <van-button color="linear-gradient(to right, #4bb0ff, #63ADDE)" icon="wap-home" is-link to='/DirectHome'>直接预约维修</van-button>
+      <van-button color="linear-gradient(to right, #4bb0ff, #63ADDE)" icon="send-gift" > 取车 </van-button>
     </div>
   </div>
 </template>
@@ -38,8 +41,32 @@ export default {
 </script>
 <style lang="less" scoped>
 @import "../assets/css/base.less";
+.bgc{
+
+  height: 700px;
+}
 .banner {
-  margin-top: 30px;
+  margin-top: 50px;
+}
+.yewu{
+  margin-top: 40px;
+  display: flex;
+  justify-content:space-around;
+  flex-wrap: wrap;
+  
+
+  .van-button{
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    margin-left: 8px;
+    margin-top: 20px;
+    border-radius: 8%;
+    line-height: 1;
+  }
+  .van-button__icon {
+    font-size: 60px;
+  }
 }
 </style>>
 

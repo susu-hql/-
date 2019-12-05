@@ -1,25 +1,35 @@
 <template>
     <div class="moreStore">
+        <div class="nav">
+            <van-nav-bar
+      title="所有4s店铺"
+      left-text="返回"
+      left-arrow
+      flxed
+      @click-left="$router.push('/mylist')"
+      class="header"
+    />
+          </div>
   <div class="group">
-               <div class="items" v-for="(item,index) in dps" :key="index">
+               <div class="items" v-for="(item,index) in allshop" :key="index">
                    <div class="items-left">
-                       <img :src="require('../assets/imgs/'+item.img)">
+                       <img :src="require('../assets/imgs/shigu01.jpg')">
                    </div>
                    <div class="items-mid">
                        <div calss="mid-top">
-                        <p>{{item.name}}</p>
-                       <p class="adress">地址：{{item.addres}}</p>
+                        <p class="more-name">{{item.shopName}}</p>
+                       <p class="more-adress">地址：{{item.shopAddress}}</p>
                        </div>
                        <div class="mid-main">
                         <p><span class="mid-l">
-                            服务客户数：{{item.person}}
+                            服务客户数：{{item.serviceNumber}}
                             </span><span class="mid-r">
-                                自费价：<s>{{item.zf}}</s>
+                                自费价：<s>{{item.selfPayPrice}}</s>
                                 </span></p>
                       <p><span class="mid-l">
                           服务星：<van-rate v-model="values" />
                           </span><span class="mid-r">
-                              保险价：<span class="bx">{{item.bx}}</span>
+                              保险价：<span class="bx">{{item.insurancePrice}}</span>
                               </span></p>
 
                        </div>
@@ -36,89 +46,47 @@ export default {
     data(){
         return{
             values:3,
-      dps:[
-          {
-              id:1,
-              name:"北京正的运城汽车贸易服务有限公司",
-              addres:"成都市高新区惺惺惜惺惺嘻嘻嘻详细嘻嘻嘻",
-             person:500,
-            zf:5000,
-            bx:4000,
-            values: 3,
-            status:0,
-            img:"shigu01.jpg"
-
-          },
-           {
-              id:2,
-              name:"北京正的运城汽车贸易服务有限公司",
-              addres:"成都市高新区惺惺惜惺惺嘻嘻嘻详细嘻嘻嘻",
-             person:500,
-            zf:5000,
-            bx:4000,
-            values: 3,
-            status:0,
-            img:"shigu01.jpg"
-
-          },
-           {
-              id:2,
-              name:"北京正的运城汽车贸易服务有限公司",
-              addres:"成都市高新区惺惺惜惺惺嘻嘻嘻详细嘻嘻嘻",
-             person:500,
-            zf:5000,
-            bx:4000,
-            values: 3,
-            status:0,
-            img:"shigu01.jpg"
-
-          },
-           {
-              id:2,
-              name:"北京正的运城汽车贸易服务有限公司",
-              addres:"成都市高新区惺惺惜惺惺嘻嘻嘻详细嘻嘻嘻",
-             person:500,
-            zf:5000,
-            bx:4000,
-            values: 3,
-            status:0,
-            img:"shigu01.jpg"
-
-          },
-           {
-              id:2,
-              name:"北京正的运城汽车贸易服务有限公司",
-              addres:"成都市高新区惺惺惜惺惺嘻嘻嘻详细嘻嘻嘻",
-             person:500,
-            zf:5000,
-            bx:4000,
-            values: 3,
-            status:0,
-            img:"shigu01.jpg"
-
-          },
-           {
-              id:2,
-              name:"北京正的运城汽车贸易服务有限公司",
-              addres:"成都市高新区惺惺惜惺惺嘻嘻嘻详细嘻嘻嘻",
-             person:500,
-            zf:5000,
-            bx:4000,
-            values: 3,
-            status:0,
-            img:"shigu01.jpg"
-
-          }
-
-      ] 
+            allshop:[]
+    
         }
+    },
+    methods:{
+showbwdp:function(){
+
+ this.axios.post("/user/serviceShop/findAllNoBy")
+        .then(res=>{
+             console.log("4s店铺",res.data.data);
+                 
+            if(res.data.state=="200"){
+         this.allshop=res.data.data;
+            }else{
+                this.$message({
+                message:'请求出错',
+                type:'error'
+                });
+            }
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+
+
+         
+     },
+
+
+    },
+    created(){
+           this.showbwdp();
+
     }
      
 
     
 }
 </script>
-<style scoped>
+<style lang="less" scoped>
+@import "../assets/css/base.less";
 .bwimgs{width:80px;
 height:60px;}
 .footer{
@@ -133,6 +101,14 @@ height:60px;}
     color:black;
    
 
+}
+p{
+    padding:0;
+    margin:0;
+}
+.more-name{
+    font-size: 12px;
+    text-align: left;
 }
 
 s{
@@ -149,6 +125,7 @@ s{
     float: left;
     height:16px;
     width:180px;
+    text-align: left;
     
 }
 .mid-r{
@@ -180,9 +157,10 @@ p{
     margin-top:5px;
     border-bottom:1px solid #63ADDE;
 }
-.adress{
+.more-adress{
     width:260px;
     font-size: 10px;
+    text-align: left;
 }
 .items-left{
     width:80px;

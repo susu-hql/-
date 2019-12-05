@@ -6,7 +6,10 @@ import qs from 'qs' // 引入 qs 模块，该模块不需要安装，用来序�
 // 添加一个新的 axios 的实例
 const http = axios.create({
   baseURL: '/api', // 统一设置请求地址前缀
-  timeout: 6000 // 请求超时时间
+  timeout: 6000,// 请求超时时间
+  withCredentials: true // 是否允许带 cookie
+
+ 
 })
 
 // 请求拦截，统一在请求时带上 token
@@ -27,6 +30,7 @@ http.interceptors.request.use(function (config) {
     config.headers['Authorization'] =  token
     // config.headers['Authorization'] = 'Bearer' + token
   }
+  console.log(config);
   return config;
 }, function (error) {
   console.log('请求拦截错误：', error)

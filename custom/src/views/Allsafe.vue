@@ -11,23 +11,27 @@
     <div v-for="item in lists" :key="item.id">
       <van-card
         :desc="'保单'"
-        :title="'订单号：'+item.orderN"
-        :thumb="require('../assets/imgs/'+item.photo) "
-        :thumb-link="'/safeDetails?'+item.id"
+        :title="'订单号：'+item.orderNum"
+        :thumb="require('../assets/imgs/baoxian.jpg') "
+        :thumb-link="'/safeDetails?id='+item.insuranceOrderId"
       >
         <div slot="tags">
-          <p>保费：{{item.driver}}</p>
+          <p>保费：{{item.insurancePrice}}元</p>
         </div>
         <div slot="tags" class="stuta01">
-          <span v-html="getStatu(item.statu)"></span>
+          <span v-html="getStatu(item.orderState)"></span>
         </div>
         <div slot="footer">
-          <div v-show="item.statu==1">
-            <van-button size="small" @click="quxiao(item.id)">取消服务</van-button>
-            <van-button size="small" type="warning" is-link to="idCard">去录入</van-button>
+          <div v-show="item.orderState==0">
+            <van-button size="small" @click="quxiao(item.insuranceOrderId)">取消服务</van-button>
+            <van-button
+              size="small"
+              type="warning"
+              is-link
+              :to="'idCard?id='+item.insuranceOrderId"
+            >去录入</van-button>
           </div>
         </div>
-
       </van-card>
     </div>
   </div>
@@ -39,38 +43,21 @@ import { Toast } from "vant";
 export default {
   data() {
     return {
-      lists: [
-        {
-          id: 1,
-          orderN: "123115456465",
-          type: "1",
-          time: "2019/11/28 11:20:08",
-          driver: "小谢",
-          statu: 1,
-          photo: "baoxian.jpg"
-        },
-        {
-          id: 2,
-          orderN: "123115456465",
-          type: "1",
-          time: "2019/11/28 11:20:08",
-          driver: "小谢",
-          statu: 1,
-          photo: "baoxian.jpg"
-        },
-        {
-          id: 3,
-          orderN: "123115456465",
-          type: "1",
-          time: "2019/11/28 11:20:08",
-          driver: "小谢",
-          statu: 2,
-          photo: "baoxian.jpg"
-        }
-      ]
+      lists: []
     };
   },
   methods: {
+    getshu() {
+      this.axios
+        .get("/user/getMyInsurances")
+        .then(res => {
+          console.log(res.data.data);
+          this.lists = res.data.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     onClickLeft() {
       this.$router.push({
         path: "/mylist",
@@ -85,30 +72,42 @@ export default {
       }
     },
     getStatu(statu) {
-      if (statu == 1) {
+      if (statu == 0) {
         return "待录入";
+      } else if (statu == 1) {
+        return "待审核";
       } else if (statu == 2) {
-        return "审核中";
+        return "通过";
       }
     },
     quxiao(id) {
+      console.log(id);
       Dialog.confirm({
         title: "提示",
         message: "您确定取消本次服务吗"
       })
         .then(() => {
-          var index = this.lists.findIndex(item => {
-            if (item.id == id) {
-              return true;
-            }
-          });
-          this.lists.splice(index, 1);
-          Toast("您已成功取消本次服务");
+          this.axios
+            .post("/user/deleteMyInsuranceOrder", {
+              orderId: id
+            })
+            .then(res => {
+              if (res.data.state == "200") {
+                Toast("您已成功取消本次服务");
+                this.getshu()
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
         })
         .catch(() => {
           // on cancel
         });
-    },
+    }
+  },
+  created() {
+    this.getshu();
   }
 };
 </script>
@@ -126,22 +125,22 @@ export default {
 }
 .stuta01 {
   position: absolute;
-  right: 10px;
+  right: 0px;
   top: 10px;
   color: rgb(230, 30, 30);
-  font-size: 16px;
+  font-size: 13px;
 }
 .van-card__footer {
   position: absolute;
   right: 10px;
   bottom: 12px;
 }
-p{
+p {
   padding-left: 0;
   font-size: 12px;
   margin-top: 2px;
 }
-.van-card__title{
+.van-card__title {
   margin-top: 15px;
 }
 </style>>

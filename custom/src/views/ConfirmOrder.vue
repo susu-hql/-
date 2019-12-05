@@ -14,10 +14,10 @@
         <div class="mian">
             <div class="main-top">
                 <div class="one">
-                    <p class="title">维修信息</p>
-                    <p class="name">维修门店：北京正的运城汽车贸易服务有限公司</p>
-                    <p class="adress">门店地址：笑笑笑啊笑是辽宁省香水可乐早餐吗浪费那算啦</p>
-                     <p class="title">维修部位及金额</p>
+                    <p class="con-title">维修信息</p>
+                    <p class="con-name">维修门店：北京正的运城汽车贸易服务有限公司</p>
+                    <p class="con-adress">门店地址：笑笑笑啊笑是辽宁省香水可乐早餐吗浪费那算啦</p>
+                     <p class="con-title">维修部位及金额</p>
                 </div>
                 <div class="two">
                    
@@ -29,17 +29,17 @@
                         <span class="bwleft">部位1cccccc</span>
                         <span class="bwright">金额:<span class="price-red">100000</span></span>
                     </p>
-                    <p class="hj">合计:<span class="price-red">33330</span></p>
+                    <p class="con-hj">合计:<span class="price-red">33330</span></p>
                 </div>
 
             </div>
             <div class="mian-main">
-                <p class="pstyle">
+                <p class="con-pstyle">
                     <span>维修方式</span>
                     <span><input type="radio" name="xc">自费修车</span>
                      <span><input type="radio" name="xc">保险修车</span>
                 </p>
-                 <p class="pstyle">
+                 <p class="con-pstyle">
                     <span>上门接车</span>
                     <span><input  @click="changeShow"  type="radio" name="jc" value="yes">是</span>
                      <span><input type="radio" name="jc" value="no">否</span>
@@ -94,7 +94,8 @@
             </ul>
           <p class="end">
               <input type="radio" checked="checked">
-              <span>我已经阅读并同意</span>《<a href="javascript:;">使用条约和使用政策</a>》</p>
+              <span>我已经阅读并同意</span>《<a href="javascript:;">使用条约和使用政策</a>》
+              </p>
 
            <button class="qd-btn" @click="changeShows" type="submit">提交</button>
         </div>
@@ -110,7 +111,7 @@
         </span>
     </div>
     <div class="pay-main">
-        <button class="qr" type="reset">确认</button>
+        <button class="qr" type="reset" @click="goplay()">确认</button>
         <button @click="changeShows"   class="qx" type="reset">取消</button>
     </div>
 </div>
@@ -120,6 +121,7 @@
     </div>
 </template>
 <script>
+
 export default {
     name:"ConfirmOrder",
     jc:"",
@@ -141,6 +143,9 @@ export default {
     },
     changeShows(){
      this.shows = !this.shows;   
+    },
+    goplay(){
+        this.$router.replace("pay");
     }
   }
 
@@ -230,7 +235,7 @@ input[type=text]{
  border:0;
  
 }
-.hj{
+.con-hj{
     width:33%;
     height:20px;
     float:right;
@@ -259,10 +264,35 @@ input[type=text]{
 p{  width:90%;
     margin-top:7px;
     font-size:16px;
+    padding-left:5px;
 }
-.title{
+.con-title{
     font-size:18px;
     font-weight: bold;
+    text-align: left;
+    padding:0;
+     padding-left:5px;
+}
+.con-name{
+    font-size:14px;
+    text-align: left;
+    padding-top:6px;
+    margin:0;
+     padding-left:5px;
+}
+.con-adress{
+     font-size:14px;
+    text-align: left;
+     padding-top:6px;
+    margin:0;
+     padding-left:5px;
+}
+.con-title{
+    margin:0;
+
+}
+.con-hj{
+    margin:0;
 }
 .imgs{
     width:100%;
@@ -308,12 +338,12 @@ p{  width:90%;
     color:black;
 }
 
-.pstyle span{
+.con-pstyle span{
     width:33%;
     height:100%;
     float:left;
     display: block;
-    margin-top:5px;
+    margin-top:0;
     font-size: 14px;
     
 }

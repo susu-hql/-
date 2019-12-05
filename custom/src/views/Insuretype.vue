@@ -10,7 +10,7 @@
       class="header"
     />
         </div>
-       
+            
      <ul>
          <li > 
            <p class="p-titles">
@@ -24,6 +24,19 @@
            </p>
              
         </li>
+      <li > 
+           <p class="p-titles">
+               <span class="bt">车船险</span>
+               <span class="lx">
+                     <input type="radio" checked="checked" >
+               </span>
+               </p>
+           <p class="p-content">
+           <span class="span-align">国家规定必须缴纳</span>
+           </p>
+             
+        </li>
+
         
          <li> 
            <p class="p-titles">
@@ -50,7 +63,7 @@
 
 
        
-<li v-for="(item,index) in alltype" :key="index" class="adds"> 
+<li  class="adds"> 
            <p class="p-titles new-titles">
                <span class="bt">第三者责任险</span>
               
@@ -63,15 +76,17 @@
 车主</span> 
 <span class="lx">
     
-<van-dropdown-menu class="toubao">
-  <van-dropdown-item   v-model="value1" :options="option1" />
-</van-dropdown-menu>
+<select class="in-select-style"> 
+  <option >111</option>
+  <option >111</option>  
+
+</select>
 
                </span>
            </p>
              
         </li>
-   <!--  <li class="adds"> 
+    <li class="adds"> 
            <p class="p-titles new-titles">
                <span class="bt">司机责任险</span>
               
@@ -84,9 +99,7 @@
 车主</span> 
 <span class="lx">
     
-<van-dropdown-menu class="toubao">
-  <van-dropdown-item   v-model="value1" :options="option1" />
-</van-dropdown-menu>
+<input type="radio" > 
 
                </span>
            </p>
@@ -105,9 +118,11 @@
 车主</span> 
 <span class="lx">
     
-<van-dropdown-menu class="toubao">
-  <van-dropdown-item   v-model="value1" :options="option1" />
-</van-dropdown-menu>
+<select class="in-select-style"> 
+  <option >111</option>
+  <option >111</option>  
+
+</select>
 
                </span>
            </p>
@@ -126,9 +141,11 @@
 车主</span> 
 <span class="lx">
     
-<van-dropdown-menu class="toubao">
-  <van-dropdown-item   v-model="value1" :options="option1" />
-</van-dropdown-menu>
+<select class="in-select-style"> 
+  <option >111</option>
+  <option >111</option>  
+
+</select>
 
                </span>
            </p>
@@ -147,9 +164,7 @@
 车主</span> 
 <span class="lx">
     
-<van-dropdown-menu class="toubao">
-  <van-dropdown-item   v-model="value1" :options="option1" />
-</van-dropdown-menu>
+<input type="radio" > 
 
                </span>
            </p>
@@ -169,9 +184,7 @@
 车主</span> 
 <span class="lx">
     
-<van-dropdown-menu class="toubao">
-  <van-dropdown-item   v-model="value1" :options="option1" />
-</van-dropdown-menu>
+<input type="radio" > 
 
                </span>
            </p>
@@ -190,9 +203,11 @@
 车主</span> 
 <span class="lx">
     
-<van-dropdown-menu class="toubao">
-  <van-dropdown-item   v-model="value1" :options="option1" />
-</van-dropdown-menu>
+<select class="in-select-style"> 
+  <option >111</option>
+  <option >111</option>  
+
+</select>
 
                </span>
            </p>
@@ -212,9 +227,7 @@
 车主</span> 
 <span class="lx">
     
-<van-dropdown-menu class="toubao">
-  <van-dropdown-item   v-model="value1" :options="option1" />
-</van-dropdown-menu>
+<input type="radio" > 
 
                </span>
            </p>
@@ -234,15 +247,31 @@
 车主</span> 
 <span class="lx">
     
-<van-dropdown-menu class="toubao">
-  <van-dropdown-item   v-model="value1" :options="option1" />
-</van-dropdown-menu>
+<input type="radio" > 
 
                </span>
            </p>
              
         </li>                           
-               -->
+            <li class="adds"> 
+           <p class="p-titles new-titles">
+               <span class="bt">无法找到责任险</span>
+              
+               </p>
+           <p class="p-contents">
+           <span class="span-aligns">
+不计免陪险
+
+适合2年内新手、5年内新手、经常开车、常去异地的
+车主</span> 
+<span class="lx">
+    
+<input type="radio" > 
+
+               </span>
+           </p>
+             
+        </li>      
 
      </ul>
    
@@ -258,16 +287,8 @@ export default {
      data(){
       return{
        show:false,   
-        value1: 0,
-        option1: [
-        { text: '不投保', value: 0 },
-        { text: '两万', value: 1 },
-        { text: '三万', value: 2 }
-        ],
-        alltype:[]
-     
-           
-        
+    
+      
       }
     },
      methods:{

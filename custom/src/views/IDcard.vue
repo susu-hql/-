@@ -20,9 +20,19 @@
           :error-message=" emailInfo  "
           required
         />
+            <van-field
+          v-model="shenfenId"
+          type="email"
+          label="身份证"
+          placeholder="请输入身份证"
+          :error-message=" emailInfo"
+          required
+        />
       </van-cell-group>
+     
+    
     </div>
-    <div class="shangchuan">
+    <!-- <div class="shangchuan">
       <p>上传身份证：（正反照各一张）</p>
       <van-uploader v-model="fileList" multiple :after-read="afterRead" />
     </div>
@@ -30,10 +40,10 @@
       <p>示例：</p>
       <van-image width="100" height="100"  :src="require('../assets/imgs/shenfen01.jpg') " />
       <van-image width="100" height="100"  :src="require('../assets/imgs/shenfen02.jpg')" />
-    </div>
+    </div> -->
      <div>
         <van-tabbar>         
-            <van-tabbar-item  is-link to='/allsafe' @click="addComment()">提交</van-tabbar-item>         
+            <van-tabbar-item   @click="addComment()">提交</van-tabbar-item>         
         </van-tabbar>
       </div>
   </div>
@@ -48,7 +58,9 @@ export default {
       username: "",
       email: "",
       emailInfo: "",
-      fileList: []
+      fileList: [],
+      shenfenId:''
+      
     };
   },
   methods: {
@@ -66,6 +78,19 @@ export default {
       console.log(file);
     },
      addComment() {
+       console.log(this.$route.query.id, this.username,this.email,this.fileList[0].content,this.fileList[1].content)
+       this.axios.post('/user/enteringIdentityInfo',{
+         orderId:this.$route.query.id ,
+         name : this.username,
+         tel : this.email,
+         frontImage:this.fileList[0].content,
+         backImage:this.fileList[1].content
+       })
+       .then(res =>{
+         console.log(res)
+       }).catch(err =>{
+         console.log(err)
+       })
       Toast("您已成功提交");
     }
   }
@@ -78,6 +103,8 @@ p {
   display: block;
   padding-left: 0;
   text-indent: 2em;
+  text-align: left;
+  font-size: 16px
 }
 .shangchuan {
   text-align: left;

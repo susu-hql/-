@@ -2,7 +2,7 @@
   <div>
     <hr />
     <div class="dheader">
-      <p>订单号：</p>
+      <p>订单号：{{lists.insuranceNum}}</p>
       <p>订单时间：</p>
       <span style="color:red" class="statu">待录入</span>
       <van-button size="small">取消服务</van-button>
@@ -10,40 +10,24 @@
     <hr />
     <div class="dmiddle">
       <span>订单信息</span>
-      <p v-html="'姓&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp名：'"></p>
-      <p>联系方式：</p>
-      <p>车牌号码：</p>
+      <p v-html="'姓&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp名：'+lists.name"></p>
+      <p>联系方式：{{lists.tel}}</p>
+      <p>车牌号码：{{lists.carNum}}</p>
     </div>
     <hr />
     <div class="dfooter">
       <span>服务信息</span>
-      <p>保险公司：人寿保险</p>
+      <p>保险公司：{{lists.companyName}}</p>
       <p class="fuwu">险种与费用：</p>
-      <ul>
-        <li>
-          <span class="shu">交强险</span>
-          <span style="color:red" class="dollar">$1000</span>
-        </li>
-        <li>
-          <span class="shu">车船险</span>
-          <span style="color:red" class="dollar">$1000</span>
-        </li>
-        <li>
-          <span class="shu">第三者责任险</span>
-          <span style="color:red" class="dollar">$100000</span>
-        </li>
-        <li>
-          <span class="shu">乘客责任险</span>
-          <span style="color:red" class="dollar">$100000</span>
-        </li>
-        <li>
-          <span class="shu">机动车被盗险</span>
-          <span style="color:red" class="dollar">$100000</span>
+      <ul  >
+        <li v-for="(item, index) in list" :key="index">
+          <span class="shu">{{item.insuranceName}}</span>
+          <span style="color:red" class="dollar">{{item.price}}.00元</span>
         </li>
       </ul>
       <p class="alldollar">
-        维修合计：
-        <span style="color:red">$3000</span>
+        维修折算合计：{{lists.price}}.00元
+        <span style="color:red"></span>
       </p>
     </div>
     <div>
@@ -55,7 +39,29 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data(){
+    return{
+      lists:'',
+      list:''
+    }
+  },
+
+  created(){
+    console.log(this.$route.query.id)
+    this.axios.post('/user/getInsuranceDatail',{
+      orderId:this.$route.query.id
+    })
+    .then(res =>{
+      console.log(res.data.data.insuranceList);
+      this.lists = res.data.data.detail
+      this.list = res.data.data.insuranceList
+    })
+    .catch(err =>{
+      console.log(err)
+    })
+  }
+};
 </script>
 
 <style lang="less" scoped>
@@ -63,6 +69,8 @@ p {
   display: block;
   padding-left: 0;
   text-indent: 2em;
+  font-size: 14px;
+  text-align: left;
 }
 .dheader {
   position: relative;

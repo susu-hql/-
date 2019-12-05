@@ -12,6 +12,11 @@
         <div class="app-main">
  <Inindex></Inindex>
         </div>
+         <div class="footer">
+        <div class="app-bottom">
+ <van-button color="linear-gradient(to right, #4bb0ff, #6149f6)" type="primary" to="insuerInput">立即预约</van-button>
+        </div>
+    </div>
     </div>
 </template>
 <script>
@@ -32,6 +37,10 @@ export default {
 </script>
 <style lang="less" scoped>
 @import "../assets/css/base.less";
+@import "../assets/css/allstyle.less";
+.footer{
+    background-color:white;
+}
  .app-nav span{
     text-align: center;
     color:white;

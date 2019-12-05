@@ -15,6 +15,14 @@ import CarSelect from '../views/CarSelect'
 import MoreStore from '../views/MoreStore'
 import ConfirmOrder from '../views/ConfirmOrder'
 import SafeDetail from '../views/SafeDetail'
+import pay from '../views/pay'
+import paysucess from '../views/paysucess'
+import DirectHome from '../views/DirectHome'
+import DirectInput from '../views/DirectInput' 
+import time from '../views/time' 
+import insuertype from '../views/insuertype' 
+
+
 
 
 Vue.use(VueRouter)
@@ -26,7 +34,42 @@ const routes = [
     component: Login
     
   },
-
+  {
+    path: '/insuertype',
+    name: 'insuertype',
+    component: insuertype
+    
+  },
+  {
+    path: '/time',
+    name: 'time',
+    component: time
+    
+  },
+  {
+    path: '/DirectInput',
+    name: 'DirectInput',
+    component: DirectInput
+    
+  },
+  {
+    path: '/DirectHome',
+    name: 'DirectHome',
+    component: DirectHome
+    
+  },
+  {
+    path: '/paysucess',
+    name: 'paysucess',
+    component:paysucess
+    
+  },
+  {
+    path: '/pay',
+    name: 'pay',
+    component: pay
+    
+  },
   {
     path: '/moreStore',
     name: 'MoreStore',
