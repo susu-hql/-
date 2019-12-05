@@ -14,19 +14,19 @@
           />
         </div>
         <div class="cpsaa">
-          <p class="xm">{{name}}</p>
+          <p class="xm">{{sy.driverName}}</p>
           <van-rate
-            v-model="value"
+            v-model="fs"
             allow-half
             void-icon="star"
             void-color="#eee"
             class="xing"
             readonly
           />
-          <p>{{value}}分</p>
+          <p>{{fs}}分</p>
         </div>
         <div class="dh">
-          <p class="dd">订单数&nbsp;: &nbsp; {{dindan}}单</p>
+          <p class="dd">订单数&nbsp;: &nbsp; {{sy.nums}}单</p>
           <p>好评率&nbsp;:&nbsp;{{bfb}}%</p>
         </div>
       </div>
@@ -58,7 +58,6 @@
 
 <script>
 export default {
-  
   data() {
     return {
       value: 2.5,
@@ -84,19 +83,21 @@ export default {
   },
   computed: {
     bfb() {
-      return (this.value / 5) * 100;
-      
-    }
+      return this.sy.goodV * 100;
+    },
+     fs(){
+      return (5/100)*(this.sy.goodV * 100)
   },
+  },
+ 
   created() {
     this.axios
-      .post("/driver/person",{
-       driverId:"1"
+      .post("/driver/personal",{
+        driverId: "1"
       })
       .then(res => {
-        console.log(res)
+        console.log(res);
         this.sy = res.data.data;
-
       })
       .catch(err => {
         console.log(err);
@@ -116,15 +117,15 @@ body {
 .van-icon-star {
   font-size: 50px;
 }
-.xing{
-  margin-left:-50px; 
+.xing {
+  margin-left: -50px;
 }
 
 //导航栏
 .nav {
   width: 100%;
   height: 80px;
-  background: #63ADDE;
+  background: #63adde;
 }
 .ift {
   color: rgb(255, 235, 235);
