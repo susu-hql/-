@@ -4,14 +4,13 @@
       <router-link to="/" class="ift" id="f">&#xe607;返回</router-link>
       <p class="b">我的评价</p>
     </nav>
-    <div class="yhpj" v-for="(item,index) in qqq" :key="index">
-      <p v-for="(iten,index) in item.pi" :key="index">{{list[iten]}}</p>
+    <div class="yhpj">
       <div class="yxpj">
         <p
           :style="{'text-align':'left','width':'100%','line-height':'40px','font-size':'20px','margin-top':'10px',}"
         >用户评价:</p>
       </div>
-      <div class="pjnr">
+      <div class="pjnr"  v-for="(item,index) in sy" :key="index">
         <ul :style="{'font-size':'12px','min-height':'163px'}">
           <li :style="{'display':'flex','flex-wrap':'nowrap'}">
             <div :style="{'margin-top':'10px','display':'flex','flex-wrap':'nowrap','width':'100%'}">
@@ -22,25 +21,22 @@
                   :style="{'height':'30px','width':'30px','margin-left':'10px','border-radius':'5px'}"
                 />
               </div>
-              <p :style="{'line-height':'34px','margin-left':'10px','width':'40px'}">{{name}}</p>
-              <p :style="{'width':'70%','text-align':'right','margin-top':'10px'}">{{date}}</p>
+              <p :style="{'line-height':'34px','margin-left':'10px','width':'40px'}">{{item.driverName}}</p>
+              <p :style="{'width':'70%','text-align':'right','margin-top':'10px'}">{{item.commTime}}</p>
             </div>
           </li>
           <li>
             <p :style="{'margin-left':'-140px',}">
-              <van-rate v-model="item.n" allow-half void-icon="star" void-color="#eee" readonly />
+              <van-rate v-model="item.commStar" allow-half void-icon="star" void-color="#eee" readonly />
             </p>
           </li>
           <li :style="{'padding-left':'53px'}">
-            <p :style="{'text-align':'left',}">{{wn1}}</p>
-          </li>
-          <li :style="{'padding-left':'53px'}">
-            <p :style="{'text-align':'left',}">{{wn2}}</p>
+            <p :style="{'text-align':'left',}">{{item.commLabel}}</p>
           </li>
           <li :style="{'padding-left':'53px','display':'flex','flex-wrap':'nowrap'}">
             <p :style="{'text-align':'left','width':'30px'}">评论:</p>
             <div class="nr">
-              <p class="t" :style="{'text-align':'left'}">{{pl}}</p>
+              <p class="t" :style="{'text-align':'left'}">{{item.commRemark}}</p>
             </div>
           </li>
         </ul>
@@ -89,7 +85,7 @@ export default {
   },
    created(){
     this.axios
-      .post("/driver/getEvaluate",{
+      .post("/driver/findCommentListByDriverId",{
        driverId:"1"
       })
       .then(res => {
