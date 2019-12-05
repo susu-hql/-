@@ -2,9 +2,9 @@
   <div class="order">
     <div class="nav">
       <ul>
-        <li @click="goback">&lt;返回</li>
+        <li>&lt;返回</li>
       </ul>
-      <p>全部订单</p>
+      <p @click="goback">全部订单</p>
     </div>
     <!-- <div class="tab">
       <ul>
@@ -25,7 +25,7 @@
           <span>接车时间：{{item.substituteTime}}</span>
         </div>
         <div class="accept">
-          <button type="button" @click=getId(myorder[index].orderId)>接单</button>
+          <button type="button" @click=getId(myorder[index].directOrderId)>接单</button>
         </div>
       </div>
     </div>
@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     goback() {
-      this.$router.push("/");
+      this.$router.go(-1);
     },
     getId(i) {
       console.log(i)

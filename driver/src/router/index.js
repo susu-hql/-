@@ -128,22 +128,22 @@ const router = new VueRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-//   // 获取 token，登录的标识
-//   var token = sessionStorage.getItem("token")
+router.beforeEach((to, from, next) => {
+  // 获取 token，登录的标识
+  var token = sessionStorage.getItem("token")
 
-//   if (to.meta.auth) { // 判断是否需要权限
-//     if (token) { // 再次判断是否已经有权限了
-//       next()
-//     } else {
-//       next({ // 没有权限，导向登录页
-//         path: "/login",
-//         query: { redirect: to.fullPath } // 记录原本想访问的路由
-//       })
-//     }
-//   } else {
-//     next() // 想去哪就去哪
-//   }
-// })
+  if (to.meta.auth) { // 判断是否需要权限
+    if (token) { // 再次判断是否已经有权限了
+      next()
+    } else {
+      next({ // 没有权限，导向登录页
+        path: "/login",
+        query: { redirect: to.fullPath } // 记录原本想访问的路由
+      })
+    }
+  } else {
+    next() // 想去哪就去哪
+  }
+})
 
 export default router

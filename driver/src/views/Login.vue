@@ -40,16 +40,17 @@ export default {
         driverPassword: this.driverPassword
       })
       .then((res) => {
+        this.driverInfo = res.data.data
         console.log(res.data)
         if(res.data.state == "200") {
           var token = res.data.token;
           sessionStorage.setItem("token", token)
-
+          var a = res.data.data.driverId
           // 获取参数（未登录时想访问的路由）
           var url = this.$route.query.redirect;
           console.log(url)
 
-          url = url ? url : "/homea"
+          url = url ? url : '/homea?driverId='+a
           // 切换路由
           this.$router.replace(url)
         } else {

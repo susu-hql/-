@@ -4,7 +4,6 @@ import { Step, Steps } from 'vant';
 import { Overlay } from 'vant';
 import { Button } from 'vant';
 import { Uploader } from 'vant';
-
 import { Rate } from 'vant';
 
 Vue.use(Rate);
