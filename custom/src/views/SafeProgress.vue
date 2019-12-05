@@ -3,10 +3,10 @@
     <hr>
     <van-steps direction="vertical" :active="lists.length-1">
 
-        <van-step v-for="item in lists" :key="item.id" >
-          <h3>{{item.statu}}</h3>
-          <h4>{{item.beizhu}}</h4>
-          <p>{{item.time}}</p>
+         <van-step v-for="item in list" :key="item.logId" >
+          <h3>{{item.logTitle}}</h3>
+          <h4>{{item.logInfo}}</h4>
+          <p>{{item.logTime}}</p>
           <div v-show="getstatu(item.statu0)">
                 woshijiahao
           </div>
@@ -50,8 +50,9 @@ export default {
           statu0:3,
           time: "2016-07-11 10:00",
           beizhu: "完成保单"
-        },
-      ]
+        }
+      ],
+      list:''
     };
   },
   methods:{
@@ -60,6 +61,19 @@ export default {
         return true
       }
     }
+  },
+  created(){
+    var a= this.$route.query.id;
+    this.axios.post('/user/getInsuranceOrderLog',{
+      orderId:a
+    })
+    .then(res =>{
+      console.log(res);
+      this.list = res.data.data
+    })
+    .catch(err =>{
+      console.log(err)
+    })
   }
 };
 </script>

@@ -12,18 +12,18 @@
       <h5>未检测到您的车主卡信息</h5>
     </div>
 
-    <div class="cheka">
+    <div class="cheka" v-for="(item, index) in list" :key="index"  >
       <van-card>
         <div slot="tags">
           <h3>车主卡</h3>
-          <i @click="del()">X</i>
-          <h4>车牌号码：京N88R88</h4>
-          <span>(审核中)</span>
+          <i @click="del(item.cardNum)">X</i>
+          <h4>车牌号码：{{item.plateNumber}}</h4>
+          <span v-html="getstatu(item.cardState)">(审核中)</span>
 
-          <p>车主姓名：鲁晋</p>
-          <p>车主卡号：20171607196508</p>
-          <p>交强险到险日期：2017/4/23 - 2017/4/23</p>
-          <p>商业险到险日期：2017/4/23 - 2017/4/23</p>
+          <p>车主姓名：{{item.ownerName}}</p>
+          <p>车主卡号：{{item.cardNum}}</p>
+          <p>交强险到险日期：{{item.compulsoryInsuranceDate}}</p>
+          <p>商业险到险日期：{{item.commercialInsuranceDate}}</p>
         </div>
       </van-card>
     </div>
@@ -38,20 +38,61 @@
 
 <script>
 import { Dialog } from "vant";
+import { Toast } from "vant";
 export default {
+  data(){
+    return{
+        list:''
+    }
+  },
   methods: {
-    del() {
+    del(i) {
       Dialog.confirm({
         title: "提示",
         message: "您确定删除本条车主卡？"
       })
         .then(() => {
-          // on confirm
+          console
+          this.axios.post('/user/deleteCardByNum',{
+          cardNum : i
+        }).then(res => {
+        
+        if (res.data.state == "200") {
+         Toast("您已成功删除车主卡");
+         location.reload()
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+          
         })
         .catch(() => {
           // on cancel
         });
+    },
+    getstatu(i){
+      if(i==0){
+        return '审核中'
+      }else if(i==1){
+        return '已生效'
+      }else if(i==2){
+        return '未通过'
+      }else{
+        return '审核中'
+      }
     }
+  },
+  created(){
+    this.axios.post('/user/findCarCardDetail')
+    .then(res =>{
+      console.log(res.data.data)
+      this.list = res.data.data
+    })
+      .catch(err =>{
+      console.log(err)
+    })
+  
   }
 };
 </script>
