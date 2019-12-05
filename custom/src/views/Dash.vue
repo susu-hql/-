@@ -3,8 +3,9 @@
     <van-nav-bar title="首页"  fixed  class="header" />
     <div class="banner">
       <van-swipe @change="onChange" :autoplay="2000" indicator-color="blank">
-        <van-swipe-item v-for="(image, index) in images" :key="index">
-          <img :src="require('../assets/imgs'+image.address)" alt="">
+        <van-swipe-item v-for="(item,index) in  img" :key="index">
+          <!-- <img src="../assets/imgs/develop1.jpg" alt="图片"> -->
+          <img :src="item.bannerUrl" alt="图片">
           <!-- <img :src="[require(toString(image.address))]" alt="123" /> -->
         </van-swipe-item>
       </van-swipe>
@@ -29,13 +30,27 @@ export default {
         {address:"/develop2.png"},
         {address:"/develop3.png"},
         {address:"/develop4.png"},  
-      ]
+      ],
+      img:''
     };
   },
   methods: {
     onChange(index) {
       this.current = index;
-    },  
+    }, 
+    getshu(){
+      this.axios.get('/back/findBannerAllOnline.do')
+      .then(res =>{
+        console.log(res.data.data)
+        this.img = res.data.data
+      })
+      .catch(err =>{
+        console.log(err)
+      })
+    } 
+  },
+  created(){
+    this.getshu()
   }
 };
 </script>

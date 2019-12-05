@@ -43,7 +43,7 @@
     </div> -->
      <div>
         <van-tabbar>         
-            <van-tabbar-item   @click="addComment()">提交</van-tabbar-item>         
+            <van-tabbar-item is-link to='/allsafe'  @click="addComment()">提交</van-tabbar-item>         
         </van-tabbar>
       </div>
   </div>
@@ -78,13 +78,12 @@ export default {
       console.log(file);
     },
      addComment() {
-       console.log(this.$route.query.id, this.username,this.email,this.fileList[0].content,this.fileList[1].content)
+       console.log(this.$route.query.id, this.username,this.email)
        this.axios.post('/user/enteringIdentityInfo',{
          orderId:this.$route.query.id ,
          name : this.username,
-         tel : this.email,
-         frontImage:this.fileList[0].content,
-         backImage:this.fileList[1].content
+         pid : this.email,
+
        })
        .then(res =>{
          console.log(res)

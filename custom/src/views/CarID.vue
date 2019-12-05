@@ -12,7 +12,7 @@
       <h5>未检测到您的车主卡信息</h5>
     </div>
     <div class="hong"></div>
-    <div class="cheka" v-for="(item, index) in list" :key="index"  >
+    <div class="cheka" v-for="(item, index) in list" :key="index">
       <van-card>
         <div slot="tags">
           <h3>车主卡</h3>
@@ -40,10 +40,10 @@
 import { Dialog } from "vant";
 import { Toast } from "vant";
 export default {
-  data(){
-    return{
-        list:''
-    }
+  data() {
+    return {
+      list: ""
+    };
   },
   methods: {
     del(i) {
@@ -52,60 +52,63 @@ export default {
         message: "您确定删除本条车主卡？"
       })
         .then(() => {
-          console
-          this.axios.post('/user/deleteCardByNum',{
-          cardNum : i
-        }).then(res => {
-        
-        if (res.data.state == "200") {
-         Toast("您已成功删除车主卡");
-         location.reload()
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-          
+          console;
+          this.axios
+            .post("/user/deleteCardByNum", {
+              cardNum: i
+            })
+            .then(res => {
+              if (res.data.state == "200") {
+                Toast("您已成功删除车主卡");
+                this.getshu()
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
         })
         .catch(() => {
           // on cancel
         });
     },
-    getstatu(i){
-      if(i==0){
-        return '审核中'
-      }else if(i==1){
-        return '已生效'
-      }else if(i==2){
-        return '未通过'
-      }else{
-        return '审核中'
+    getstatu(i) {
+      if (i == 0) {
+        return "审核中";
+      } else if (i == 1) {
+        return "已生效";
+      } else if (i == 2) {
+        return "未通过";
+      } else {
+        return "审核中";
       }
+    },
+    getshu() {
+      this.axios
+        .post("/user/findCarCardDetail")
+        .then(res => {
+          console.log(res.data.data);
+          this.list = res.data.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
-  created(){
-    this.axios.post('/user/findCarCardDetail')
-    .then(res =>{
-      console.log(res.data.data)
-      this.list = res.data.data
-    })
-      .catch(err =>{
-      console.log(err)
-    })
-  
+  created() {
+    this.getshu()
   }
 };
 </script>
 
 <style lang="less" scoped>
 @import "../assets/css/base.less";
-.hong{
+.hong {
   margin-top: 50px;
 }
-.cheka{
+.cheka {
   margin-top: 10px;
 }
-.none{
+.none {
   margin-top: 50px;
 }
 p {
