@@ -1,14 +1,105 @@
 <template>
   <div class="addUser">
+    <h1>新增用户</h1>
+    <div class="addUser-body">
 
+      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+        <table> 
+          <tr>
+            <td>
+                <!-- 输入框  --> 
+                <el-form-item label="联系人：" prop="name">        
+                  <el-input v-model="ruleForm.name"></el-input>
+                </el-form-item>
+            </td>
+            <td>
+                <!-- 输入框  -->
+                <el-form-item label="车牌号：" prop="carNumber">        
+                  <el-input v-model="ruleForm.carNumber"></el-input>
+                </el-form-item>
+            </td>
+          </tr>
+          <tr>
+            <td>
+                <!-- 输入框  -->
+                <el-form-item label="联系电话：" prop="usertel">        
+                  <el-input v-model="ruleForm.usertel"></el-input>
+                </el-form-item>
+            </td>
+            <td>
+                <!-- 输入框  -->
+                <el-form-item label="车型：" prop="cartype">        
+                  <el-input v-model="ruleForm.cartype"></el-input>
+                </el-form-item>
+            </td>
+          </tr>
+          <tr>
+            <td>
+                <!-- 输入框  -->
+                <el-form-item label="身份证号：" prop="cardId">        
+                  <el-input v-model="ruleForm.cardId"></el-input>
+                </el-form-item>
+            </td>
+            <td>
+                <!-- 输入框  -->
+                <el-form-item label="发动机号：" prop="engineNumber">        
+                  <el-input v-model="ruleForm.engineNumber"></el-input>
+                </el-form-item>
+            </td>
+          </tr>
+          <tr>
+            <td>
+                <!-- 输入框  -->
+                <el-form-item label="被保险人：" prop="insuranName">        
+                  <el-input v-model="ruleForm.insuranName"></el-input>
+                </el-form-item>
+            </td>
+            <td>
+                <!-- 日期  -->
+                <el-form-item label="投保日期：" required> 
+                    <el-form-item prop="insuranDate">
+                      <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.insuranDate" ></el-date-picker>
+                    </el-form-item>
+                </el-form-item>
+            </td>
+          </tr>
+          <tr>
+            <td>
+                <!-- 下拉框  -->
+                <el-form-item label="保险公司：" prop="insurance">   
+                  <el-select v-model="ruleForm.insurance" placeholder="请选择活动区域">
+                    <el-option label="区域一" value="shanghai"></el-option>
+                    <el-option label="区域二" value="beijing"></el-option>
+                  </el-select>
+                </el-form-item>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+                  <!-- 多行文本 -->
+                  <el-form-item label="备注：" prop="desc">
+                    <el-input type="textarea" v-model="ruleForm.desc"></el-input>
+                  </el-form-item>
+            </td>
+          </tr>
+        </table>
+     
+        <!-- 按钮 -->
+        <el-form-item class="button-group">
+          <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
+          <el-button @click="resetForm('ruleForm')">取消</el-button>
+        </el-form-item>
+      </el-form>
+
+    </div>
   </div>
 </template>
 
 <script>
+import { Message } from 'element-ui'
+
 export default {
-<<<<<<< HEAD
-  name:'adduser'
-=======
   name:'adduser',
   data() {
       // 电话号码验证
@@ -72,6 +163,7 @@ export default {
       };
 
       return {
+        obj:{},
         ruleForm: {
           name: '',
           insurance: '',
@@ -122,25 +214,39 @@ export default {
     // 保存
     submitForm(formName) {
         this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.$message({
-              message: '添加成功',
-              type: 'success'
-            });
-            // 对象
-            console.log(this.ruleForm);
-            this.ruleForm = {
-                name: '',
-                insurance: '',
-                insuranDate: '',
-                desc: '',
-                carNumber:'',
-                usertel:'',
-                cartype:'',
-                cardId:'',
-                engineNumber:'',
-                insuranName:''
+          if (!valid) {
+            Message({
+              message: "添加成功!",
+              type: "success",
+              showClose: true
+            })  
+            this.obj = {
+                   userName: this.ruleForm.name,
+                    userTel:this.ruleForm.usertel,
+                    userIdcard:this.ruleForm.cardId,
+                    insurancePerson:this.ruleForm.insuranName,
+                    companyName: this.ruleForm.insurance,
+                    insuranceDate: this.ruleForm.insuranDate,
+                    userNotes: this.ruleForm.desc,
+                    carNum:this.ruleForm.carNumber,
+                    carStyle:this.ruleForm.cartype,
+                    carEngineNum:this.ruleForm.engineNumber
               }
+              
+            this.addUser(this.obj);
+
+            // this.ruleForm = {
+            //     name: '',
+            //     insurance: '',
+            //     insuranDate: '',
+            //     desc: '',
+            //     carNumber:'',
+            //     usertel:'',
+            //     cartype:'',
+            //     cardId:'',
+            //     engineNumber:'',
+            //     insuranName:''
+            //   }
               //  ============ 保存--异步：向数据库添加 =======================
           } else {
             
@@ -152,12 +258,82 @@ export default {
       resetForm(formName) {
         this.$refs[formName].resetFields();
         location.assign('/client');
+      },
+      addUser(obj){
+        console.log(obj);
+        this.axios  
+            .post("/back/insertUser",{
+                    userName: this.ruleForm.name,
+                    userTel:this.ruleForm.usertel,
+                    userIdcard:this.ruleForm.cardId,
+                    insurancePerson:this.ruleForm.insuranName,
+                    companyName: this.ruleForm.insurance,
+                    insuranceDate: this.ruleForm.insuranDate,
+                    userNotes: this.ruleForm.desc,
+                    carNum:this.ruleForm.carNumber,
+                    carStyle:this.ruleForm.cartype,
+                    carEngineNum:this.ruleForm.engineNumber
+            })
+            .then(res => {
+              console.log('增加用户：',res.data);
+              if (res.data.state == "200") {
+                console.log(obj);
+                Message({
+                  message: "添加成功!",
+                  type: "success",
+                  showClose: true
+                })  
+              } else {
+                Message({
+                  message: "请求出错!",
+                  type: "error",
+                  showClose: true
+                })  
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        
       }
   }
->>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
 }
 </script>
 
 <style lang="less" scoped>
+h1{
+    text-align: left;
+    border-bottom: 1px solid rgb(161, 158, 158);
+  }
+  
+  .el-form{
+    text-align: left;
+    margin-left:80px;
+    margin-top: 30px;
 
+    table{
+
+      td{
+      }
+    }
+
+    .el-input,
+    .el-select,
+    .el-date-editor{
+      width: 200px;
+    }
+    .el-textarea{
+      width: 300px;
+    }
+
+    .button-group{
+      text-align: center;
+    }
+    .el-button{
+      margin-right: 100px;
+      margin-top: 30px;
+    }
+ 
+  }
+  
 </style>

@@ -140,6 +140,7 @@
 </template>
 
 <script>
+import { Message ,MessageBox} from 'element-ui'
 
 export default {
   name:'modifyOrder',
@@ -254,10 +255,11 @@ export default {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.changState(1);
-            this.$message({
-                message: '审核通过',
-                type: 'success'
-            });
+            Message({
+                message: "审核通过",
+                type: "success",
+                showClose: true
+            })
             
           } else {
             return false;
@@ -270,24 +272,27 @@ export default {
         location.assign('/order');
       },
       refuse(){   // 2审核不通过
-          this.$confirm('此操作将拒绝该订单通过审核, 是否继续?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }).then(() => {
+          MessageBox.confirm(
+            "此操作将拒绝该订单通过审核, 是否继续?"
+          )
+          .then(() => {
             this.changState(2);
-            this.$message({
-                message: '审核未通过',
-                type: 'success'
-            });
+            Message({
+              message: "该审核未通过!",
+              type: "success",
+              showClose: true
+            })
           }).then(()=>{
-            // location.assign('/order');
+            location.assign('/order');
           }).catch(() => {
-            this.$message({
-              type: 'info',
-              message: '已取消拒绝该请求'
-            });          
+            Message({
+              message: "已取消拒绝该请求!",
+              type: "info",
+              showClose: true
+            })       
           });
+
+          
       },
       getOrder(){   // 得到订单详情
         this.orderId = this.$route.query.userid;
@@ -315,11 +320,11 @@ export default {
               this.ruleForm.fourDoor = res.data.data.servicshopName   || '无' //4s店名称
               this.handleStateName = res.data.data.handleStateName    //审核状态
             } else {
-              this.$message({
-                showClose: true,
-                message: '账号已过时，请重新登录',
-                type: 'error'
-              });
+              Message({
+                message: "账号已过时，请重新登录",
+                type: "error",
+                showClose: true
+              })
             }
           })
           .catch(err => {
@@ -338,11 +343,11 @@ export default {
               console.log(1)
               location.assign('/order');
             } else {
-              this.$message({
-                showClose: true,
-                message: '操作失败',
-                type: 'error'
-              });
+              Message({
+                message: "操作失败",
+                type: "error",
+                showClose: true
+              })
             }
           })
           .catch(err => {

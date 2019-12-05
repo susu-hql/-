@@ -6,7 +6,7 @@
       <!-- <el-button class="addUserCard-button" type="warning" @click="addDriver">
         <span class="el-icon-plus" > 添加车司机</span>
       </el-button> -->
-      <table> 
+      <table>  
           <tr class="table-th">
             <td>订单编号</td> 
             <td>客户名</td>
@@ -17,30 +17,32 @@
             <td>评论时间</td>
             <td>操作</td>
           </tr>
-          <EvaluateItem v-for="(item,index) in userList" :key="index" :info='item'></EvaluateItem>
+          <EvaluateItem v-for="(item,index) in EvaList" :key="index" :info='item'></EvaluateItem>
       </table>
       <div class="block">
         <el-pagination
-          layout="prev, pager, next"
-          :total="20" :page-size="5">
+          layout="prev, pager, next" v-if="isShow"
+          :total="total" :page-size="limit" :current-page='page'
+          @prev-click='pre'  @next-click='next'>
         </el-pagination>
       </div>
   </div>
 </template>
 
 <script>
+import { Message } from 'element-ui'
 
 import EvaluateItem from '@/components/EvaluateItem.vue'
 export default {
   name: 'evaluate',
  data(){
     return {
+      isShow:true,
+      total:1,   // 一共多少条
+      page:1,   //当前第几页
+      limit:5   ,// 每页多少条
+      EvaList:[],
       search:'',
-      userList:[{userid:'1245757875574',name:'覃友宏' , desc:'体验很好，服务很周到，下次会再次光临',start:3.4},
-      {userid:'2754545457575757',name:'lucy' , desc:'体验很好，服务很周到，下次会再次光临',start:3.4},
-      {userid:'3',name:'lucy' , desc:'体验很好，服务很周到，下次会再次光临',start:3.4},
-      {userid:'4',name:'lucy' , desc:'体验很好，服务很周到，下次会再次光临',start:3.4},
-      {userid:'5',name:'lucy' , desc:'体验很好，服务很周到，下次会再次光临',start:3.4}]
     }
   },
   components: {
@@ -49,14 +51,49 @@ export default {
   methods:{
    searchOrder:function(){
      console.log('查询');
+     this.getEvaList();
    },
-  //  addDriver:function(){
-  //    console.log('添加司机');
-  //    location.assign('/adddriver');
-  //  }
+    getEvaList:function(){
+        this.axios  
+          .post("/back/Comments/list",{
+            page:this.page,    //当前页
+            limit:this.limit ,  //每页显示多少条
+            // name: this.search   // 搜索条件 
+          }) 
+          .then(res => {
+            console.log(res.data);
+            if (res.data.state == "200") {
+              this.EvaList = res.data.data.list;
+              this.total = res.data.data.total;   //总共多少页
+              if(this.EvaList==''){
+                  console.log('空');
+                  this.isShow = false;
+                }else{
+                  this.isShow  = true;
+                }
+            }else{
+              Message({
+                message: "账号已过时，请重新登录",
+                type: "error",
+                showClose: true
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+    },
+    pre:function(){  //上一页
+      this.page --;
+      this.getOrderList1();
+    },
+    next:function(){  //上一页
+        this.page ++;
+        this.getOrderList1();
+    },
   },
   created(){
-    
+    this.getEvaList();
   }
 }
 </script> 
@@ -97,6 +134,30 @@ export default {
     td{
       // padding:0 10px;
     }
+    td:nth-child(1){
+        min-width: 90px;
+      }
+      td:nth-child(2){
+        min-width: 90px;
+      }
+      td:nth-child(3){
+        min-width: 80px;
+      }
+      td:nth-child(4){
+        min-width: 110px;
+      }
+      td:nth-child(5){
+        min-width: 150px;
+      }
+      td:nth-child(6){
+        min-width: 170px;
+      }
+      td:nth-child(7){
+        min-width: 100px;
+      }
+      td:nth-child(8){
+        min-width: 240px;
+      }
     tr{
       height: 50px;
       line-height: 50px;

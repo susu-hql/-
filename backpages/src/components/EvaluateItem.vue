@@ -1,31 +1,33 @@
 <template>
   <!-- <div class="userItem"> -->
     <tr>
-      <td class="userid">{{info.userid}}</td>
-      <td class="username">{{info.name}}</td>
-      <td class="username">张三丰</td>
-      <td class="tel">12547895442</td>
+      <td class="userid">{{info.commId}}</td>
+      <td class="username">{{info.userName}}</td>
+      <td class="username">{{info.driverName}}</td>
+      <td class="tel">{{info.userTel}}</td>
       <td class="carNum">
-        <el-rate
-          v-model="info.start"
+        <el-rate 
+          v-model="info.commStar"
           disabled
           show-score
           text-color="#ff9900">
         </el-rate>
       </td>
       <td >
-        <p class="desc">{{info.desc}}</p>
+        <p class="desc">{{info.commRemark}}</p>
         </td>
-      <td class="lTime">2019-09-1-27</td>
+      <td class="lTime">{{info.commTime}}</td>
       <td class='operate'>  
-          <el-button type="success" icon="el-icon-view" circle @click='look(info.userid)' title="查看详情" ></el-button>
-         <el-button type="danger" icon="el-icon-delete" circle @click='del(info.userid)' title="删除"></el-button>
+          <el-button type="success" icon="el-icon-view" circle @click='look(info.orderId,info.orderType)' title="查看详情" ></el-button>
+         <el-button type="danger" icon="el-icon-delete" circle @click='del(info.commId)' title="删除"></el-button>
       </td>
     </tr>
   <!-- </div> -->
 </template>
 
 <script>
+import { Message,MessageBox } from 'element-ui'
+
 export default {
   name: 'EvaluateItem',
   data (){
@@ -34,28 +36,50 @@ export default {
   },
   props:['info'],
   methods:{
-    look:function(i){
-      location.assign('/lookEvaluate?userid='+i);
+    look:function(i,a){
+      location.assign('/lookEvaluate?orderId='+i+'&&orderType='+a);
       console.log('查看');
     },
     del:function(i){
       console.log('删除'+i);
-      this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-          //  =============== 删除 ===============
-        });
+
+      MessageBox.confirm(
+        "此操作将永久删除该用户, 是否继续?"
+      )
+      .then(() => {
+        
+        this.axios  
+          .post("/back/Comments/delete.do",{
+            commId: i
+          }) 
+          .then(res => {
+            console.log(res.data);
+            if (res.data.state == "200") {
+                Message({
+                  message: "删除成功!",
+                  type: "success",
+                  showClose: true
+                })
+                location.reload();
+            }else{
+              Message({
+                  message: "删除失败!",
+                  type: "erro",
+                  showClose: true
+                })
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
       }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        });          
+        Message({
+          message: "已取消删除!",
+          type: "info",
+          showClose: true
+        })       
       });
+
     },
   },
   mounted(){
@@ -81,6 +105,12 @@ export default {
       td{
         padding:10px 10px;
         border-bottom: 1px solid rgb(187, 181, 181);
+      }
+      td:nth-child(1){
+        min-width: 70px;
+      }
+      td:nth-child(2){
+        min-width: 70px;
       }
       .desc{
         // border:1px solid red;

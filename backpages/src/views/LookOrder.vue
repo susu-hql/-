@@ -169,6 +169,7 @@
 </template>
 
 <script>
+import { Message } from 'element-ui'
 
 export default {
   name:'lookOrder',
@@ -231,11 +232,11 @@ export default {
               this.fourDoorLocation = res.data.data.serviceShopAddr  || '无' //4s店区域
               this.fourDoor = res.data.data.servicshopName   || '无' //4s店名称
             } else {
-              this.$message({ 
-                showClose: true,
-                message: '账号已过时，请重新登录',
-                type: 'error'
-              });
+              Message({
+                message: "账号已过时，请重新登录",
+                type: "error",
+                showClose: true
+              })
             }
           })
           .catch(err => {

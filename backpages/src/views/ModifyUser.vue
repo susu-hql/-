@@ -4,7 +4,7 @@
     <div class="addUser-body">
 
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <table> 
+        <table>  
           <tr>
             <td>
                 <!-- 输入框  --> 
@@ -68,8 +68,7 @@
                 <!-- 下拉框  -->
                 <el-form-item label="保险公司：" prop="insurance">   
                   <el-select v-model="ruleForm.insurance" placeholder="请选择活动区域">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                    <el-option v-for="(item,index) in insuranceList" :key = 'index' :label="item.companyName" :value="item.companyId"></el-option>
                   </el-select>
                 </el-form-item>
             </td>
@@ -97,6 +96,7 @@
 </template>
 
 <script>
+import { Message } from 'element-ui'
 
 export default {
   name:'modifyuser',
@@ -162,6 +162,8 @@ export default {
       };
 
       return {
+        userInfo:{},
+        insuranceList:[],
         ruleForm: {
           name: '',
           insurance: '',
@@ -209,29 +211,62 @@ export default {
       };
   },
   methods:{
-    // 保存
-    submitForm(formName) {
+      // 保存
+      submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             // 对象  ============ 保存--异步：向数据库修改 =======================
             console.log(this.ruleForm);
-            // alert('修改成功');
-              this.ruleForm = {
-                name: '',
-                insurance: '',
-                insuranDate: '',
-                desc: '',
-                carNumber:'',
-                usertel:'',
-                cartype:'',
-                cardId:'', 
-                engineNumber:'',
-                insuranName:''
+            this.axios  
+              .post("/back/updateUser",{
+                    userName: this.ruleForm.name,
+                    userTel:this.ruleForm.usertel,
+                    userIdcard:this.ruleForm.cardId,
+                    insurancePerson:this.ruleForm.insuranName,
+                    companyName: this.ruleForm.insurance,
+                    insuranceDate: this.ruleForm.insuranDate,
+                    userNotes: this.ruleForm.desc,
+                    carNum:this.ruleForm.carNumber,
+                    carStyle:this.ruleForm.cartype,
+                    carEngineNum:this.ruleForm.engineNumber
+            })
+            .then(res => {
+              console.log('4s店',res.data);
+              if (res.data.state == "200") {
+                // console.log(obj);
+                Message({
+                  message: "修改成功",
+                  type: "success",
+                  showClose: true
+                })
+              } else {
+                Message({
+                  message: "请求出错",
+                  type: "error",
+                  showClose: true
+                })
               }
-               this.$message({
-                  message: '修改成功',
-                  type: 'success'
-                });
+            })
+            .catch(err => {
+              console.log(err);
+            });
+              // this.ruleForm = {
+              //   name: '',
+              //   insurance: '',
+              //   insuranDate: '',
+              //   desc: '',
+              //   carNumber:'',
+              //   usertel:'',
+              //   cartype:'',
+              //   cardId:'', 
+              //   engineNumber:'',
+              //   insuranName:''
+              // }
+              Message({
+                  message: "修改成功",
+                  type: "success",
+                  showClose: true
+              })
           } else {
             return false;
           }
@@ -241,12 +276,63 @@ export default {
       resetForm(formName) {
         this.$refs[formName].resetFields();
         location.assign('/client');
+      },
+      getUserInfo(){
+        this.axios  
+          .post("/back/getUserById",{
+              id:this.$route.query.userid
+          }) 
+          .then(res => {
+            console.log(res.data);
+            if (res.data.state == "200") {
+              this.ruleForm.name = res.data.data.userName;
+              this.ruleForm.insurance = res.data.data.userName
+              this.ruleForm.insuranDate= res.data.data.insuranceDate;
+              this.ruleForm.desc= res.data.data.companyName;
+              this.ruleForm.carNumber= res.data.data.carNum;
+              this.ruleForm.usertel= res.data.data.userTel;
+              this.ruleForm.cartype= res.data.data.carStyle;
+              this.ruleForm.cardId= res.data.data.userIdcard;
+              this.ruleForm.engineNumber= res.data.data.carEngineNum;
+              this.ruleForm.insuranName= res.data.data.insurancePerson;
+            }else{
+              Message({
+                message: "账号已过时，请重新登录",
+                type: "error",
+                showClose: true
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      },
+      getinsuranceList(){
+        this.axios  
+          .post("/back/getCompany") 
+          .then(res => {
+            console.log("保险类比：",res.data);
+            if (res.data.state == "200") {
+              this.insuranceList = res.data.data;
+            }else{
+              Message({
+                message: "账号已过时，请重新登录",
+                type: "error",
+                showClose: true
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
       }
-  },
-  created(){
-    // 获取到 了 用户id  ===============================然后渲染   直接给ruleForm赋值
-    console.log(this.$route.query.userid);
-  }
+    },
+    created(){
+      // 获取到 了 用户id  ===============================然后渲染   直接给ruleForm赋值
+      // console.log(this.$route.query.userid);
+      this.getUserInfo();
+      this.getinsuranceList();
+    }
 }
 </script>
 

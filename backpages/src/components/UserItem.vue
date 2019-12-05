@@ -1,21 +1,23 @@
 <template>
   <!-- <div class="userItem"> -->
     <tr>
-      <td class="userid">1</td>
-      <td class="username">{{info.name}}</td>
-      <td class="tel">12547895442</td>
+      <td class="userid">{{info.userId}}</td>
+      <td class="username">{{info.userName}}</td>
+      <td class="tel">{{info.userTel}}</td>
       <td class="time">2019-09-1-27 24：10</td>
       <td class='operate'> 
           <el-button type="primary" icon="el-icon-edit" circle @click='modify' title="修改" :disabled='isdisable'></el-button>
           <el-button type="success" icon="el-icon-view" circle @click='look' title="查看" :disabled='isdisable'></el-button>
           <el-button type="warning" :icon="icons" circle  @click='lock' :title="islock" ></el-button>
-          <el-button type="danger" icon="el-icon-delete" circle @click='del' title="删除" :disabled='isdisable'></el-button>
+          <!-- <el-button type="danger" icon="el-icon-delete" circle @click='del' title="删除" :disabled='isdisable'></el-button> -->
       </td>
     </tr>
   <!-- </div> -->
 </template>
 
 <script>
+import { Message } from 'element-ui'
+
 export default {
   name: 'UserItem',
   data (){
@@ -24,65 +26,39 @@ export default {
       icons:'el-icon-lock',
       isdisable:false
     }
-  },
+  }, 
   props:['info'],
   methods:{
     modify:function(){
      console.log('修改');
+     location.assign('/modifyuser?userid='+ this.info.userId)
     },
     look:function(){
       console.log('查看');
+      location.assign('/lookuser?userid='+ this.info.userId )
     },
     lock:function(){
       if(this.islock == '锁定'){
         this.islock = '解锁';
         this.icons = 'el-icon-lock';
         this.isdisable = true;
-<<<<<<< HEAD
-=======
-        this.$message({
-          message: '已锁定',
-          type: 'success'
-        });
->>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
+        Message({
+          message: "已锁定",
+          type: "success",
+          showClose: true
+        })
       }else{
         this.islock = '锁定';
         this.icons = 'el-icon-unlock';
         this.isdisable = false; 
-<<<<<<< HEAD
+        Message({
+          message: "已解锁",
+          type: "success",
+          showClose: true
+        })
       }
       console.log('锁定');
-    },
-    del:function(){
-      console.log('删除');
-=======
-        this.$message({
-          message: '已解锁',
-          type: 'success'
-        });
-      }
-      console.log('锁定');
-    },
-    del:function(i){
-      console.log('删除'+i);
-      this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-          //  =============== 删除 ===============
-        });
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        });          
-      });
->>>>>>> a56b4bc2869a5d0c925dd9f20340fa52b5ab3891
-    },
+    }
   }
 }
 </script>

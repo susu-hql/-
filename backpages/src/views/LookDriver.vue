@@ -3,7 +3,7 @@
      <h1>查看司机</h1>
     <div class="addUser-body">
 
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px"
+      <el-form  ref="ruleForm" label-width="100px"
        class="demo-ruleForm" enctype="multipart/form-data">
         <table>
           <tr> 
@@ -82,6 +82,7 @@
 </template> 
 
 <script>
+import { Message } from 'element-ui'
 
 export default {
   name:'lookdriver',
@@ -100,13 +101,48 @@ export default {
       };
   },
   methods:{
-     re(){
+    re(){
       location.assign('/driver');
-      }
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePictureCardPreview(file) {
+      this.ruleForm.dialogImageUrl = file.url;
+      this.ruleForm.dialogVisible = true;
+    },
+    getDriverInfo(){
+      this.axios  
+          .post("/back/getDriverById",{
+            id:this.$route.query.driverid
+          }) 
+          .then(res => {
+            console.log(res.data);
+            if (res.data.state == "200") {
+                this.ruleForm.name = res.data.data.driverName;
+                // this.ruleForm.region= res.data.data.
+                this.ruleForm.carNumber= res.data.data.driverCarNum
+                this.ruleForm.usertel= res.data.data.driverTel;
+                this.ruleForm.cardId= res.data.data.drivePid;
+                this.ruleForm.radio= res.data.data.driverState;
+                this.ruleForm.dialogImageUrl= res.data.data.headUrl;
+            }else{
+              Message({
+                message: "账号已过时，请重新登录",
+                type: "error",
+                showClose: true
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+    }
   },
   created(){
+    this.getDriverInfo();
     // 获取到 了 用户id ，然后渲染  直接给ruleForm赋值
-    console.log(this.$route.query.userid);
+    // console.log(this.$route.query.driverid);
   }
 }
 </script>

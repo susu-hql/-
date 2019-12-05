@@ -117,6 +117,7 @@
 </template>
 
 <script>
+import { Message } from 'element-ui'
 
 export default {
   name:'addUserCard',
@@ -223,10 +224,11 @@ export default {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$message({
-              message: '添加成功',
-              type: 'success'
-            });
+            Message({
+              message: "添加成功!",
+              type: "success",
+              showClose: true
+            })  
             // 对象
             console.log(this.ruleForm);
             this.ruleForm = {

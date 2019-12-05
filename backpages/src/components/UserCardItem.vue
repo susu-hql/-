@@ -1,26 +1,29 @@
 <template>
   <!-- <div class="userItem"> -->
     <tr>
-      <td class="userid">{{info.userid}}</td>
-      <td class="username">{{info.name}}</td>
-      <td class="tel">12547895442</td>
-      <td class="carNum">川FS2356</td>
-      <td class="fTime">2019-09-1-27</td>
-      <td class="jTime">2019-09-1-27</td>
-      <td class="sTime">2019-09-1-27</td>
+      <td class="userid">{{info.userId}}</td>
+      <td class="username">{{info.userName}}</td>
+      <td class="tel">{{info.userTel}}</td>
+      <td class="tel">{{info.ownerName}}</td>
+      <td class="carNum">{{info.carNum}}</td>
+      <td class="fTime">{{info.carRegistTime}}</td>
+      <td class="jTime">{{info.compulsoryInsuranceDate}}</td>
+      <td class="sTime">{{info.commercialInsuranceDate}}</td>
       <td class='operate'> 
-          <el-button type="primary" icon="el-icon-edit" circle @click='modify(info.userid)' title="修改" :disabled='isdisable'></el-button>
-          <el-button type="success" icon="el-icon-view" circle @click='look(info.userid)' title="查看" :disabled='isdisable'></el-button>
-         <el-button type="danger" icon="el-icon-delete" circle @click='del(info.userid)' title="删除" :disabled='isdisable'></el-button>
+          <!-- <el-button type="primary" icon="el-icon-edit" circle @click='modify(info.userId)' title="修改" :disabled='isdisable'></el-button> -->
+          <el-button type="success" icon="el-icon-view" circle @click='look(info.carNum)' title="查看" :disabled='isdisable'></el-button>
+         <!-- <el-button type="danger" icon="el-icon-delete" circle @click='del(info.userId)' title="删除" :disabled='isdisable'></el-button> -->
       </td>
-      <td>
-         <el-button :type="color" @click='verify'  >{{isverify}}</el-button>
+      <td> 
+         <el-button :type="color" @click='modify(info.carNum,info.cardId)' >{{info.stateName}}</el-button>
       </td>
     </tr>
   <!-- </div> -->
 </template>
 
 <script>
+import { Message,MessageBox } from 'element-ui'
+
 export default {
   name: 'UserCardItem',
   data (){
@@ -34,71 +37,55 @@ export default {
   },
   props:['info'],
   methods:{
-    modify:function(i){
-      location.assign('/modifyusercard?userid='+i);
+    modify:function(i,a){
+      location.assign('/modifyusercard?carNum='+i+'&&cardId='+a);
       console.log('修改');
     },
-    look:function(i){
-      location.assign('/lookusercard?userid='+i);
+    look:function(i){ 
+      location.assign('/lookusercard?carNum='+i);
       console.log('查看');
     },
-    verify:function(){
-      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-        cancelButtonText: '驳回请求',
-        confirmButtonText: '通过审核',
-        type: 'warning'
-      }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '通过审核!'
-        });
-        this.isverify='审核通过'
-        this.color ='primary'
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已驳回审核请求'
-        }); 
-        this.isverify='审核未通过'    
-        this.color = 'danger'     
-      });
-      console.log('审核');
-    },
     del:function(i){
-      console.log('删除'+i);
-      this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-          //  =============== 删除 ===============
-        });
+
+      MessageBox.confirm(
+        "此操作将永久删除该用户, 是否继续?"
+      )
+      .then(() => {
+        this.axios  
+          .post("/back/updatDateState",{
+            id:i
+          }) 
+          .then(res => {
+            console.log("删除",res.data);
+            if (res.data.state == "200") {
+              Message({
+                  message: "删除成功!",
+                  type: "success",
+                  showClose: true
+              })
+              location.reload();
+            }else{
+              Message({
+                message: "账号已过时，请重新登录",
+                type: "error",
+                showClose: true
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+
       }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        });          
+        Message({
+          message: "已取消删除!",
+          type: "info",
+          showClose: true
+        })       
       });
     },
-  },
-  mounted(){
-
   },
   created(){
-    // 获取审核状态 
-    // this.verifyState = 
-    if( this.verifyState == 0){  // 0 待审核  1 通过审核  2 未通过审核
-      this.isverify = '待审核'
-    }else if( this.verifyState == 1 ){
-      this.isverify = '通过审核'
-      this.color = 'primary'
-    }else {
-      this.isverify = '未通过审核'
-      this.color = 'danger'
-    }
   }
 }
 </script>
@@ -107,7 +94,7 @@ export default {
 <style scoped lang="less">
 
    .operate{
-        min-width: 230px;
+        min-width: 130px;
     }
     tr{
       height: 50px;

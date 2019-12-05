@@ -82,6 +82,22 @@ const routes = [
         }
       },
       {
+        path: '/lookuser',   // 客户管理  查看用户管理
+        name: 'lookuser',
+        component: () => import('../views/lookUser.vue'),
+        meta: {
+          auth: true
+        }
+      },
+      {
+        path: '/modifyuser',   // 客户管理  修改用户管理
+        name: 'modifyuser',
+        component: () => import('../views/ModifyUser.vue'),
+        meta: {
+          auth: true
+        }
+      },
+      {
         path: '/usercard',   // 客户管理   车主卡
         name: 'usercard',
         component: () => import('../views/UserCard.vue'),
@@ -149,6 +165,14 @@ const routes = [
         path: '/contents',   // 内容管理  汽车品牌
         name: 'contents',
         component: () => import('../views/Contents.vue'),
+        meta: {
+          auth: true
+        }
+      },
+      {
+        path: '/addBrand',   // 内容管理  汽车品牌
+        name: 'addBrand',
+        component: () => import('../views/AddBrand.vue'),
         meta: {
           auth: true
         }
