@@ -4,10 +4,11 @@
         <div class="nav">
                <van-nav-bar
       title="订单信息"
-      left-text="返回"
       left-arrow
+      left-text="返回"
+      
       flxed
-      @click-left="$router.push('/mylist')"
+      @click-left="$router.push('/home')"
       class="header"
     />
         </div>

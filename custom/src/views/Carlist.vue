@@ -169,6 +169,9 @@ export default {
   font-size: 18px;
   margin-bottom: 5px;
 }
+.van-card{
+  margin-top: 10px;
+}
 .van-card__content {
   text-align: left;
   position: relative;

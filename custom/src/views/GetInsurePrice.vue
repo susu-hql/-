@@ -93,7 +93,7 @@
    
 </template>
 <script>
-import bus from '../util/bus'
+
 export default {
     name:'getprice',
     data(){
@@ -170,12 +170,7 @@ export default {
              const b=sessionStorage.getItem('a');
              console.log("111",b);
          },
-       bbtn:function(){
-            bus.$on("myFun",(message)=>{   //这里最好用箭头函数，不然this指向有问题
-                 this.btext = message ; 
-                 console.log("1111",this.btext);    
-            })
-       },   
+   
     changeShow() {
      this.isShow = !this.isShow;
     },

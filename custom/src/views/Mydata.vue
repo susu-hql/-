@@ -13,7 +13,7 @@
       <van-cell icon="completed"  title="我的保单" is-link to="/mypolicy" />
       
 
-      <van-cell icon="wap-home-o"  title="退出" is-link to="index" />
+      <van-cell icon="wap-home-o" @click="quit" title="退出"  />
 
     </div>
   </div>
@@ -33,6 +33,12 @@ export default {
         path:"",
         name:"home"
       })
+    },
+     quit() {
+      // 清除 token
+      sessionStorage.removeItem("token")
+
+      this.$router.replace("/login")
     }
   }
 }

@@ -7,6 +7,7 @@
   <van-tabbar-item
     replace
     to="/home"
+    fixed
     icon="home-o"
     class="tab"
   >
