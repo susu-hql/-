@@ -15,21 +15,21 @@
             <div class="main-top">
                 <div class="one">
                     <p class="con-title">维修信息</p>
-                    <p class="con-name">维修门店：北京正的运城汽车贸易服务有限公司</p>
-                    <p class="con-adress">门店地址：笑笑笑啊笑是辽宁省香水可乐早餐吗浪费那算啦</p>
+                    <p class="con-name">维修门店:四川省成都市温江区浩旺路21号</p>
+                    <p class="con-adress">门店地址：成都温江中达丰田汽车销售服务有限公司</p>
                      <p class="con-title">维修部位及金额</p>
                 </div>
-                <div class="two">
+                <div  class="two">
                    
-                    <p class="bwxx">
-                        <span class="bwleft">部位1cccccc</span>
-                        <span class="bwright">金额:<span class="price-red">100000</span></span>
+                    <p v-for="(item,index) in bwtype" :key="index" class="bwxx">
+                        <span class="bwleft">{{item.partName}}</span>
+                        <span class="bwright">金额:<span class="price-red">{{item.insurancePrice}}</span></span>
+                        <!-- <span style="color:blue;" >zong:{{ sum + item.insurancePrice}}</span> -->
                     </p>
-                     <p class="bwxx">
-                        <span class="bwleft">部位1cccccc</span>
-                        <span class="bwright">金额:<span class="price-red">100000</span></span>
-                    </p>
-                    <p class="con-hj">合计:<span class="price-red">33330</span></p>
+                   
+                   <!-- <div v-for="(item,index) in bwtype" :key="index"> -->
+                        <p class="con-hj"></p>
+                   <!-- </div> -->
                 </div>
 
             </div>
@@ -46,7 +46,7 @@
                 </p>
                 <p class="hjs">
                     <span class="hj-L">合计：<span class="price-red">120</span></span>
-                    <span class="hj-r"><a href="javascript:;">确认预约</a></span>
+                    <span class="hj-r"><a href="javascript:;" @click="gopage">确认预约</a></span>
                 </p>
                 
             </div>
@@ -72,10 +72,11 @@
                 </li>
                  <li> 
                 <span>关联车主卡：</span>
-                <span><van-dropdown-menu>
-  <van-dropdown-item v-model="value1" :options="option1" />
-</van-dropdown-menu>
-</span>
+              <select class="selectstyle">
+                  <option>11</option>
+                  <option>22</option>
+                  
+              </select>
                 </li> 
                  <li> 
                 <span>车牌号：</span>
@@ -130,14 +131,41 @@ export default {
             isShow:false,
             shows:false,
           value1: 0,
-        option1: [
-        { text: '车主卡1213', value: 0 },
-        { text: '车主卡23213', value: 1 },
-        { text: '车主卡33214', value: 2 }
-      ],
+          bwtype:[],
+          dptype:{},
+            sum: 0,
+            dps:"",
+            bw:[],
+            xiid:"",
+            hu:''
+       
         }
     },
+     
       methods: {
+        //   sum(arr){
+        //       console.log(arr);
+        //       console.log(this.sum);
+        //   },
+          gopage(){
+              this.$router.replace("allsafe");
+          },
+          getalldata(){
+               this.xiid=this.$store.state.xlId;
+            
+             console.log("xlid",this.xiid);
+           
+               this.bw=this.$store.state.getbwid;
+                 console.log("部位id",this.bw);
+            this.dps=this.$store.state.partId;
+                 console.log("店铺id",this.dps);
+
+                this.hu = this.bw.join(',');
+                console.log("12123234",this.hu);
+
+            
+           
+          },
     changeShow() {
      this.isShow = !this.isShow;
     },
@@ -146,8 +174,84 @@ export default {
     },
     goplay(){
         this.$router.replace("pay");
+    },
+
+    getall:function(){
+        this. getalldata();
+        console.log("jhhkj",this.hu);
+         
+
+       console.log()
+        this.axios
+      
+        .post("/user/getQuotePrice",{
+            /*  versionId:this.xiid,
+              partIdList:this.hu,
+              shopId:this.dps */
+        versionId:this.xiid,
+        partIdList:this.hu,
+        shopId:2
+
+
+
+        })
+        .then(res=>{
+            console.log("系列1",this.xiid);
+            console.log("系列2",this.hu);
+            console.log("系列3",this.dps);
+              console.log("1231224657",res.data.data);
+            console.log("保险信息1",res.data.data.shop);
+            console.log("保险信息2",res.data.data.quote);
+            if(res.data.state=="200"){
+                this.bwtype=res.data.data.quote;
+                this.dptype=res.data.data.shop;
+            }else{
+                this.$message({
+                message:'请求出错',
+                type:'error'
+                });
+            }
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+
+    },
+
+
+     getdp:function(){
+        this.axios
+        .post("/user/serviceShop/findAllNoBy")
+        .then(res=>{
+            console.log("4s店铺",res.data.data);
+            
+            if(res.data.state=="200"){
+                this.dptype=res.data.data;
+            //    return this.dptype;
+            }else{
+                this.$message({
+                message:'请求出错',
+                type:'error'
+                });
+            }
+        })
+        // .then( res => {
+        //      this.sum(1);
+        // })
+        .catch(err=>{
+            console.log(err);
+        })
+
     }
-  }
+
+  },
+   created(){
+        this.getall();
+        this.getdp();
+        this.getalldata();
+       
+
+    }
 
 
     
@@ -163,6 +267,13 @@ export default {
 }
 .pay-main{
     margin-top:-20px;
+}
+.selectstyle{
+    width:180px;
+    height:30px;
+  
+    margin-left:-70px;
+    margin-top:10px;
 }
 .pay-main button{
     color:white;

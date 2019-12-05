@@ -3,10 +3,10 @@
         <div class="nav"></div>
           <van-nav-bar
       title="支付"
-      left-text="返回"
+      left-text="首页"
       left-arrow
       flxed
-      @click-left="$router.push('/mylist')"
+      @click-left="$router.push('/home')"
       class="header"
     />
     <div class="main">

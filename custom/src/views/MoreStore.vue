@@ -10,26 +10,26 @@
       class="header"
     />
           </div>
-  <div class="group">
-               <div class="items" v-for="(item,index) in allshop" :key="index">
+  <div class="group" >
+               <div @click="getShopid" class="items" v-for="(item,index) in allshop" :key="index">
                    <div class="items-left">
-                       <img :src="require('../assets/imgs/shigu01.jpg')">
+                       <img :alt="item.shopId" :src="require('../assets/imgs/shigu01.jpg')">
                    </div>
                    <div class="items-mid">
                        <div calss="mid-top">
-                        <p class="more-name">{{item.shopName}}</p>
-                       <p class="more-adress">地址：{{item.shopAddress}}</p>
+                        <p class="more-name">{{item.servicshopName}}</p>
+                       <p class="more-adress">地址：{{item.address}}</p>
                        </div>
                        <div class="mid-main">
                         <p><span class="mid-l">
                             服务客户数：{{item.serviceNumber}}
                             </span><span class="mid-r">
-                                自费价：<s>{{item.selfPayPrice}}</s>
+                                
                                 </span></p>
                       <p><span class="mid-l">
                           服务星：<van-rate v-model="values" />
                           </span><span class="mid-r">
-                              保险价：<span class="bx">{{item.insurancePrice}}</span>
+                             
                               </span></p>
 
                        </div>
@@ -38,19 +38,58 @@
                   
                </div>
            </div> 
+ <div class="group">
+               <div @click="getShopid" class="items" v-for="(item,index) in allshop" :key="index">
+                   <div class="items-left">
+                       <img :alt="item.shopId" :src="require('../assets/imgs/shigu01.jpg')">
+                   </div>
+                   <div class="items-mid">
+                       <div calss="mid-top">
+                        <p class="more-name">{{item.servicshopName}}</p>
+                       <p class="more-adress">地址：{{item.address}}</p>
+                       </div>
+                       <div class="mid-main">
+                        <p><span class="mid-l">
+                            服务客户数：{{item.state}}
+                            </span><span class="mid-r">
+                                
+                                </span></p>
+                      <p><span class="mid-l">
+                          服务星：<van-rate v-model="values" />
+                          </span><span class="mid-r">
+                             
+                              </span></p>
+
+                       </div>
+                     
+                   </div>
+                  
+               </div>
+           </div>
+
+
     </div>
 </template>
 <script>
+import { mapMutations } from "vuex";
 export default {
     name:"moreStore",
     data(){
         return{
             values:3,
-            allshop:[]
+            allshop:[],
+            shopIds:""
     
         }
     },
     methods:{
+        ...mapMutations(["getdpid"]),
+        getShopid(e){
+         this.dpid=e.target.alt;
+          console.log("店铺id",this.dpid);
+           this.getdpid(this.dpid);
+            this.$router.replace("ConfirmOrder");  
+      },
 showbwdp:function(){
 
  this.axios.post("/user/serviceShop/findAllNoBy")

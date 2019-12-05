@@ -13,10 +13,10 @@
           
     <div class="main">
  <div class="top">
-         <p>已选3种险种</p>
+         <p>已选{{baoxians.length}}种险种</p>
          <ul>
              
-             <li >{{btext}}</li>
+             <li v-for="(item,index) in baoxians" :key="index">{{item}}</li>
              
          </ul>
         </div>
@@ -56,27 +56,27 @@
             <ul class="mtul">
                 <li> 
             <p>车牌号：</p>
-            <p><input type="text" v-model="a1"></p>
+            <p><input type="text" :value="hqdatas[0]" ></p>
                 </li>
                    <li> 
             <p>车架号：</p>
-            <p><input type="text" v-model="a2"></p>
+            <p><input type="text" :value="hqdatas[1]" ></p>
                 </li>
                  <li>
             <p>发动机号：</p>
-            <p><input type="text" v-model="a3"></p>
+            <p><input type="text" :value="hqdatas[2]"></p>
                 </li>
                 <li> 
             <p>车牌型号：</p>
-            <p><input type="text" v-model="a4"></p>
+            <p><input type="text" :value="hqdatas[3]"></p>
                 </li>
               <li> 
             <p>初登日期：</p>
-            <p><input type="text" v-model="a5"></p>
+            <p><input type="text" :value="hqdatas[4]"></p>
                 </li>   
                 <li> 
             <p>身份证号：</p>
-            <p><input type="text" v-model="a6"></p>
+            <p><input type="text" :value="hqdatas[5]"></p>
                 </li>  
             </ul>
            <van-button is-Link to="/pay" class="qd-btn" type="submit">确定</van-button>
@@ -102,11 +102,13 @@ export default {
             btext: '1111',
             page:1,
             limit:3,
+            baoxians:[],
+            hqdatas:[],
             compalies:[
                 {
                     id:1,
                     name:"平安保险",
-                    img:"shigu01.jpg",
+                    img:"bw1.jpg",
                     price:"10万",
                     disPrice:"15万",
                     ischeck:0
@@ -115,7 +117,7 @@ export default {
                  {
                     id:2,
                     name:"太平洋保险",
-                    img:"shigu01.jpg",
+                    img:"bw2.jpg",
                     price:"10万",
                     disPrice:"15万",
                     ischeck:0
@@ -124,7 +126,7 @@ export default {
                  {
                     id:3,
                     name:"人寿保险",
-                    img:"shigu01.jpg",
+                    img:"bw3.jpg",
                     price:"19万",
                     disPrice:"15万",
                     ischeck:0
@@ -133,7 +135,7 @@ export default {
                  {
                     id:4,
                     name:"中国安邦",
-                    img:"shigu01.jpg",
+                    img:"bw4.jpg",
                     price:"10万",
                     disPrice:"18万",
                     ischeck:0
@@ -142,7 +144,7 @@ export default {
                  {
                     id:5,
                     name:"新华保险",
-                    img:"shigu01.jpg",
+                    img:"bw5.jpg",
                     price:"10万",
                     disPrice:"15万",
                     ischeck:0
@@ -151,7 +153,7 @@ export default {
                  {
                     id:6,
                     name:"泰康保险公司",
-                    img:"shigu01.jpg",
+                    img:"bw6.jpg",
                     price:"23万",
                     disPrice:"20万",
                     ischeck:0
@@ -170,6 +172,17 @@ export default {
              const b=sessionStorage.getItem('a');
              console.log("111",b);
          },
+         getdatas:function(){
+              this.baoxians=this.$store.state.lists;
+            
+             console.log("1111111111111111",this.baoxians);
+               this.hqdatas=this.$store.state.list2;
+            
+             console.log("1111111111111111",this.baoxians);
+            console.log("222222",this.hqdatas);
+             
+         },
+      
    
     changeShow() {
      this.isShow = !this.isShow;
@@ -201,6 +214,7 @@ export default {
     },
     created(){
         this.getall();
+        this.getdatas();
 
     }
 

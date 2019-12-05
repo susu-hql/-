@@ -6,7 +6,7 @@
       left-text="返回"
       left-arrow
       flxed
-      @click-left="$router.push('/mylist')"
+      @click-left="$router.push('/carBrand')"
       class="header"
     />
           </div>
@@ -14,7 +14,7 @@
            <div class="top">
            <ul>
                <li @click="getBwId" v-for="(item,index) in allbw" :key="index">
-                  <img :id="item.partId" :alt="item.partName" class="bwimgs" :src="require('../assets/imgs/shigu01.jpg')">
+                  <img :id="item.partId" :alt="item.partName" class="bwimgs" :src="require('../assets/imgs/'+item.partUrl)">
                </li>
                 
            </ul>
@@ -22,25 +22,26 @@
        <div class="main">
            <div class="nav"><span>选择维修4s店</span></div>
            <div class="group">
-               <div class="items" @click="getShopid" v-for="(item2,index2) in allshop" :key="index2">
+               <div class="items" @click="getShopid"  v-for="(item2,index2) in allshop" :key="index2">
                    <div class="items-left">
-                       <img :src="require('../assets/imgs/shigu01.jpg')">
+            
+                       <img :alt="item2.shopId" :src="require('../assets/imgs/shigu01.jpg')">
                    </div>
                    <div class="items-mid">
                        <div calss="mid-top">
-                        <p class="top-name">{{item2.shopName}}</p>
-                       <p class="top-adress">地址：{{item2.shopAddress}}</p>
+                        <p class="top-name">{{item2.servicshopName}}</p>
+                       <p class="top-adress">地址：{{item2.address}}</p>
                        </div>
                        <div class="mid-main">
                         <p><span class="mid-l">
-                            服务客户数：{{item2.serviceNumber}}
+                            服务客户数：{{item2.state}}
                             </span><span class="mid-r">
-                                自费价：<s>{{item2.selfPayPrice}}</s>
+                               
                                 </span></p>
                       <p><span class="mid-l">
                           服务星：<van-rate v-model="values" />
                           </span><span class="mid-r">
-                              保险价：<span class="bx">{{item2.insurancePrice}}</span>
+                             
                               </span></p>
 
                        </div>
@@ -55,7 +56,7 @@
     </div>
 </template>
 <script>
-
+import { mapMutations } from "vuex";
 export default {
     name:"CarSelect",
     data() {
@@ -64,12 +65,12 @@ export default {
          allshop:[],
          allbw:[],
          partId:"",
-         partName:""
-     
-     
+         partName:"",
+         bwarr:[] 
     }
   },
   methods:{
+       ...mapMutations(["getPartId","getbwid"]),
       getBwId(e){
        /*    this.ids=e.target.title; */
       
@@ -77,10 +78,17 @@ export default {
         this.partName=e.target.alt;
       console.log("部位partId", this.partId);
         console.log("部位partName", this.partName);
- 
+      
+       this.bwarr.push(this.partId);
+
+       console.log("部位数值", this.bwarr);
+         this.getbwid(this.bwarr);
       },
       getShopid(e){
-          console.log("店铺id",e.target);
+          this.dpid=e.target.alt;
+          console.log("店铺id",this.dpid);
+           this.getPartId(this.dpid);
+           this.$router.replace("ConfirmOrder"); 
 
       },
       showMore(){
@@ -110,7 +118,7 @@ export default {
      },
 showbwdp:function(){
 
- this.axios.post("/back/serviceShop/findAllNoBy")
+ this.axios.post("/user/serviceShop/findAllNoBy")
         .then(res=>{
              console.log("4s店铺",res.data.data);
                  

@@ -45,10 +45,8 @@
             <span class="left">关联车主卡：</span>
              <span class="right"> 
             <select class="select-style">  
-  <option value ="1">Volvo</option>  
-  <option value ="2">Saab</option>  
-  <option value="3">Opel</option>  
-  <option value="4">Audi</option>  
+  <option v-for="(item,index) in allCard" :key="index" >{{item.carNum}}</option>  
+ 
 </select>   </span>
         </li>
         <li>
@@ -81,7 +79,7 @@
     <div class="footer">
       <p class="d-hjs">
                     <span class="d-hj-L">合计：<span class="price-red">120</span></span>
-                    <span class="d-hj-r"><a href="javascript:;">确认预约</a></span>
+                    <span class="d-hj-r"><a @click="isgo" href="javascript:;">确认预约</a></span>
                 </p>
     </div>
       <div v-show="isShow" class="zhezhao">
@@ -114,7 +112,8 @@ export default {
        isShow:false,     
       columns: ['双车事故', '单车事故', '多车事故'],
       sgtype:"",
-      sgtypess:""
+      sgtypess:"",
+      allCard:[]
     }
  
     },
@@ -122,14 +121,40 @@ export default {
        showPopup() {
       this.show = true;
     },
+    isgo(){
+        this.$router.replace("/allsafe");
+    },
      changeShow() {
      this.isShow = !this.isShow;
      
     },
        onChange(picker, value, index) {
       Toast(`当前值：${value}, 当前索引：${index}`);
-    }
+    },
+       getallcard:function(){//获取保险种类
+        this.axios
+        .get("/user/findCarCardInfo.do")
+        .then(res=>{
+            console.log("保险信息11111",res.data.data);
+            if(res.data.state=="200"){
+                this.allCard=res.data.data;
+            }else{
+                this.$message({
+                message:'请求出错',
+                type:'error'
+                });
+            }
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+
+    },
    
+    },
+    created(){
+        this.getallcard();
+
     }
 
 

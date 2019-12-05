@@ -16,7 +16,7 @@
         </div>
     <div class="footer">
         <div class="app-bottom">
- <van-button color="linear-gradient(to right, #4bb0ff, #6149f6)" type="primary" to="carBrand">立即预约</van-button>
+ <van-button color="linear-gradient(to right, #4bb0ff, #6149f6)" type="primary" to="DirectInput">立即预约</van-button>
         </div>
     </div>
     </div>

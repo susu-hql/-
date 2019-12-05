@@ -13,7 +13,7 @@
     <div class="yewu">
       <van-button color="linear-gradient(to right, #4bb0ff, #63ADDE)" icon="like" is-link to='/insureHome'>保险</van-button>
       <van-button color="linear-gradient(to right, #4bb0ff, #63ADDE)" icon="coupon"  is-link to='/DirectHome'>预估损维修</van-button>
-      <van-button color="linear-gradient(to right, #4bb0ff, #63ADDE)" icon="wap-home" is-link to='/'>直接预约维修</van-button>
+      <van-button color="linear-gradient(to right, #4bb0ff, #63ADDE)" icon="wap-home" is-link to='/zjhome'>直接预约维修</van-button>
       <!-- <van-button color="linear-gradient(to right, #4bb0ff, #63ADDE)" icon="send-gift" > 取车 </van-button> -->
     </div>
   </div>

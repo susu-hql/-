@@ -5,7 +5,7 @@
       left-text="返回"
       left-arrow
       flxed
-      @click-left="$router.push('/mylist')"
+      @click-left="$router.back(-1)"
       class="header"
     />
     <div v-for="item in lists" :key="item.id">
