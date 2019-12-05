@@ -202,25 +202,25 @@ export default {
         orderStausList:[],             // 订单状态类别
 
         ruleForm: {
-          orderType:'',
-          username: '',
-          acceptAddrss:'',
-          returnAddrss:'',
-          desc: '',
-          carNumber:'',
-          usertel:'',
-          engineNumber:'',
-          acceptTime:'',
-          acceptDriver:'',
-          acceptLocation:'',
-          returnDriver:'',
-          returnLocation:'',
+          orderType:'1',
+          username: '22',
+          acceptAddrss:'22',
+          returnAddrss:'22',
+          desc: '2',
+          carNumber:'川KJ3333',
+          usertel:'13048121112',
+          engineNumber:'3',
+          acceptTime:'的',
+          acceptDriver:'3',
+          acceptLocation:'3',
+          returnDriver:'3',
+          returnLocation:'3',
           orderStaus:'待确定',
-          fourDoorLocation:'',
-          fourDoor:'',
-          substituteDriving:'',
-          repairMethod:'',
-          accidentType:''
+          fourDoorLocation:'3',
+          fourDoor:'3',
+          substituteDriving:'3',
+          repairMethod:'1',
+          accidentType:'1'
         },
         rules: {
           orderType: [  // 订单类型

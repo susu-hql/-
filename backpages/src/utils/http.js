@@ -15,6 +15,7 @@ http.interceptors.request.use(function (config) {
   
   if (config.method === "post") { // 这一步主要取决于后端是否可以接受 json
     config.headers = {
+      // 'Content-Type':'application/json;charset=UTF-8'
       'Content-Type':'application/x-www-form-urlencoded'
     }
     // 参数序列化
